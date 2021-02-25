@@ -48,3 +48,8 @@
 To install Django `pip3 install django`
 
 To create project in current directory `django-admin startproject lb-fitness .`
+
+# Technologies Used
+
+Django
+Django-Allauth (for user authentication)
