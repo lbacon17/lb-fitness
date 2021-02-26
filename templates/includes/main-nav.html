@@ -1,0 +1,59 @@
+<div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Subscribe</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="shop-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Shop
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="shop-dropdown">
+                <li><a class="dropdown-item" href="#">Clothing and apparel</a></li>
+                <li><a class="dropdown-item" href="#">Meal prep and supplements</a></li>
+                <li><a class="dropdown-item" href="#">Accessories</a></li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+        </li>
+    </ul>
+    <form action="" method="GET" class="d-flex">
+        <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">
+            <span class="icon">
+                <i class="fas fa-search"></i>
+            </span>
+        </button>
+    </form>
+    <ul class="list-inline list-unstyled text-center text-lg-right my-0">
+        {% if request.user.is_authenticated %}
+            <li class="list-inline-item dropdown">
+                <a href="#" class="nav-link" id="user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="text-center">
+                        <p class="my-0">My Account</p>
+                    </div>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="user-dropdown">
+                    {% if request.user.is_superuser %}
+                        <a href="" class="dropdown-item">Admin Panel</a>
+                    {% endif %}
+                    <a href="" class="dropdown-item">My Profile</a>
+                    <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                </div>
+            </li>
+        {% else %}
+            <li class="list-inline-item">
+                <a href="{% url 'account_login' %}">Login</a>
+            </li>
+            <li class="list-inline-item">
+                <a href="{% url 'account_signup' %}">Register</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
