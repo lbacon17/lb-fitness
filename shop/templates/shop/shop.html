@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <select name="" id="sort-products">
+                <select class="custom-select-sm" id="sort-products">
                     <option value="reset" {% if sort_by == 'None_None' %}selected{% endif %}>
                         Sort by...
                     </option>
@@ -14,6 +14,18 @@
                     </option>
                     <option value="name_desc" {% if sort_by == 'name_desc' %}selected{% endif %}>
                         Name (Z-A)
+                    </option>
+                    <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>
+                        Price (low to high)
+                    </option>
+                    <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>
+                        Price (low to high)
+                    </option>
+                    <option value="rating_asc" {% if sort_by == 'rating_asc' %}selected{% endif %}>
+                        Rating (low to high)
+                    </option>
+                    <option value="rating_desc" {% if sort_by == 'rating_Desc' %}selected{% endif %}>
+                        Price (low to high)
                     </option>
                 </select>
             </div>
@@ -50,4 +62,30 @@
             {% endfor %}
         </div>
     </div>
+{% endblock %}
+
+{% block postloadjs %}
+    <script type="text/javascript">
+        // enables product sorting. Credit to Boutique Ado project for this code
+        $('#sort-products').change(function() {
+            var selector = $(this);
+            var currentUrl = new URL(window.location);
+
+            var selectedVal = selector.val()
+            if (selectedVal != "reset") {
+                var sort = selectedVal.split("_")[0] // "price etc."
+                var direction = selectedVal.split("_")[1]; // "asc" or "desc"
+
+                currentUrl.searchParams.set("sort", sort); // sort=price
+                currentUrl.searchParams.set("direction", direction); //direction=asc
+
+                window.location.replace(currentUrl);
+            } else {
+                currentUrl.searchParams.delete("sort");
+                currentUrl.searchParams.delete("direction");
+
+                window.location.replace(currentUrl);
+            }
+        });
+    </script>
 {% endblock %}

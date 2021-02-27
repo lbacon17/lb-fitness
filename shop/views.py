@@ -31,6 +31,8 @@ def shop_all(request):
                     sortkey = f'-{sortkey}'
             shop_items = shop_items.order_by(sortkey)
 
+        # checks whether category parameter exists and splits categories
+        # into a list and filters each one if it does
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
             shop_items = shop_items.filter(category__name__in=categories)
