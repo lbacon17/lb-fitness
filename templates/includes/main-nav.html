@@ -24,37 +24,37 @@
             <a class="nav-link" href="#">Contact</a>
         </li>
     </ul>
-    <form action="" method="GET" class="d-flex">
-        <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">
-            <span class="icon">
-                <i class="fas fa-search"></i>
-            </span>
-        </button>
-    </form>
-    <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-        {% if request.user.is_authenticated %}
-            <li class="list-inline-item dropdown">
-                <a href="#" class="nav-link" id="user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div class="text-center">
-                        <p class="my-0">My Account</p>
-                    </div>
-                </a>
-                <div class="dropdown-menu bg-warning" aria-labelledby="user-dropdown">
-                    {% if request.user.is_superuser %}
-                        <a href="" class="dropdown-item">Admin Panel</a>
-                    {% endif %}
-                    <a href="" class="dropdown-item">My Profile</a>
-                    <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
-                </div>
-            </li>
-        {% else %}
-            <li class="list-inline-item">
-                <a href="{% url 'account_login' %}">Login</a>
-            </li>
-            <li class="list-inline-item">
-                <a href="{% url 'account_signup' %}">Register</a>
-            </li>
-        {% endif %}
-    </ul>
 </div>
+<form action="" method="GET" class="d-flex">
+    <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">
+        <span class="icon">
+            <i class="fas fa-search"></i>
+        </span>
+    </button>
+</form>
+<ul class="list-inline list-unstyled text-center text-lg-right my-0">
+    {% if request.user.is_authenticated %}
+        <li class="list-inline-item dropdown">
+            <a href="#" class="nav-link" id="user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="text-center">
+                    <p class="my-0">My Account</p>
+                </div>
+            </a>
+            <div class="dropdown-menu bg-warning" aria-labelledby="user-dropdown">
+                {% if request.user.is_superuser %}
+                    <a href="" class="dropdown-item">Admin Panel</a>
+                {% endif %}
+                <a href="" class="dropdown-item">My Profile</a>
+                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+            </div>
+        </li>
+    {% else %}
+        <li class="list-inline-item">
+            <a href="{% url 'account_login' %}">Login</a>
+        </li>
+        <li class="list-inline-item">
+            <a href="{% url 'account_signup' %}">Register</a>
+        </li>
+    {% endif %}
+</ul>
