@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 
 from .models import Product, Category
+from .forms import ProductForm
 
 
 def shop_all(request):
@@ -29,6 +30,11 @@ def shop_all(request):
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
             shop_items = shop_items.order_by(sortkey)
+
+        if 'category' in request.GET:
+            categories = request.GET['category'].split(',')
+            shop_items = shop_items.filter(category__name__in=categories)
+            categories = Category.objects.filter(name__in=categories)
 
         if 'q' in request.GET:
             query = request.GET['q']
