@@ -118,5 +118,65 @@
             "image_url": "https://images.lululemon.com/is/image/lululemon/LW5CT3S_026950_2?size=800,800",
             "image": "yoga_pants_burgundy.png"
         }
+    },
+    {
+        "pk": 9,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "mens_shorts_black",
+            "friendly_name": "Men's Shorts Black",
+            "description": "",
+            "category": 1,
+            "price": 23.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM7AE0S_0001_2?size=800,800",
+            "image": "mens_shorts_black.png"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "mens_shorts_grey",
+            "friendly_name": "Men's Shorts Grey",
+            "description": "",
+            "category": 1,
+            "price": 23.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM7APYS_047780_1?size=800,800",
+            "image": "mens_shorts_grey.png"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "mens_tech_pants_purple",
+            "friendly_name": "Men's Tech Pants Purple",
+            "description": "",
+            "category": 1,
+            "price": 23.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM5AABS_049176_1?size=800,800",
+            "image": "mens_tech_pants_purple.png"
+        }
+    },
+    {
+        "pk": 12,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "mens_tech_pants_grey",
+            "friendly_name": "Men's Tech Pants Grey",
+            "description": "",
+            "category": 1,
+            "price": 23.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM5AABS_049175_1?size=800,800",
+            "image": "mens_tech_pants_grey.png"
+        }
     }
 ]
