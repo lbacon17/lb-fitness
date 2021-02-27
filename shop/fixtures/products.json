@@ -178,5 +178,35 @@
             "image_url": "https://images.lululemon.com/is/image/lululemon/LM5AABS_049175_1?size=800,800",
             "image": "mens_tech_pants_grey.png"
         }
+    },
+    {
+        "pk": 13,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "short_sleeve_trainng_top_blue",
+            "friendly_name": "Short Sleeve Training Top Blue",
+            "description": "",
+            "category": 1,
+            "price": 25.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM3CD6S_045694_1?size=800,800",
+            "image": "short_sleeve_training_top_blue.png"
+        }
+    },
+    {
+        "pk": 14,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "short_sleeve_training_top_pink",
+            "friendly_name": "Short Sleeve Training Top Pink",
+            "description": "",
+            "category": 1,
+            "price": 25.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM3CX3S_045742_1?size=800,800",
+            "image": "short_sleeve_training_top_pink.png"
+        }
     }
 ]
