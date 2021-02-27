@@ -12,9 +12,9 @@
             </a>
             <ul class="dropdown-menu bg-warning" aria-labelledby="shop-dropdown">
                 <li><a class="dropdown-item" href="{% url 'shop' %}">All Products</a></li>
-                <li><a class="dropdown-item" href="#">Clothing and Apparel</a></li>
-                <li><a class="dropdown-item" href="#">Meal Prep and Supplements</a></li>
-                <li><a class="dropdown-item" href="#">Accessories</a></li>
+                <li><a class="dropdown-item" href="{% url 'shop' %}?category=clothing_apparel">Clothing and Apparel</a></li>
+                <li><a class="dropdown-item" href="{% url 'shop' %}?category=meal_prep_supplements">Meal Prep and Supplements</a></li>
+                <li><a class="dropdown-item" href="{% url 'shop' %}?category=accessories">Accessories</a></li>
             </ul>
         </li>
         <li class="nav-item">

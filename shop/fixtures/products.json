@@ -208,5 +208,170 @@
             "image_url": "https://images.lululemon.com/is/image/lululemon/LM3CX3S_045742_1?size=800,800",
             "image": "short_sleeve_training_top_pink.png"
         }
+    },
+    {
+        "pk": 15,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "short_sleeve_training_top_vapour",
+            "friendly_name": "Short Sleeve Training Top Vapour",
+            "description": "",
+            "category": 1,
+            "price": 25.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM3CX3S_049510_1?size=800,800",
+            "image": "short_sleeve_training_top_vapour.png"
+        }
+    },
+    {
+        "pk": 16,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "long_sleeve_training_top_army",
+            "friendly_name": "Long Sleeve Training Top Army",
+            "description": "",
+            "category": 1,
+            "price": 34.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM3CIMS_046903_1?size=800,800",
+            "image": "long_sleeve_training_top_army.png"
+        }
+    },
+    {
+        "pk": 17,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "long_sleeve_training_top_tempest",
+            "friendly_name": "Long Sleeve Training Top Tempest",
+            "description": "",
+            "category": 1,
+            "price": 34.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM3CX4S_041982_1?size=800,800",
+            "image": "long_sleeve_training_top_tempest.png"
+        }
+    },
+    {
+        "pk": 18,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "long_sleeve_training_top_black",
+            "friendly_name": "Long Sleeve Training Top Black",
+            "description": "",
+            "category": 1,
+            "price": 34.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM3CX4S_4780_1?size=800,800",
+            "image": "long_sleeve_training_top_black.png"
+        }
+    },
+    {
+        "pk": 19,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "mens_sleeveless_training_top_black",
+            "friendly_name": "Men's Sleeveless Training Top Black",
+            "description": "",
+            "category": 1,
+            "price": 21.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM3BVXS_4780_1?size=800,800",
+            "image": "mens_sleeveless_training_top_black.png"
+        }
+    },
+    {
+        "pk": 20,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "mens_sleeveless_training_top_blue",
+            "friendly_name": "Men's Sleeveless Training Top Blue",
+            "description": "",
+            "category": 1,
+            "price": 21.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM3BVXS_045704_1?size=800,800",
+            "image": "mens_sleeveless_training_top_blue.png"
+        }
+    },
+    {
+        "pk": 21,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "mens_sleeveless_training_top_smoky",
+            "friendly_name": "Men's Sleeveless Training Top Smoky",
+            "description": "",
+            "category": 1,
+            "price": 21.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LM3BVXS_044814_1?size=800,800",
+            "image": "mens_sleeveless_training_top_smoky.png"
+        }
+    },
+    {
+        "pk": 22,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "womens_sports_bra_coffee",
+            "friendly_name": "Women's Sports Bra Coffee",
+            "description": "",
+            "category": 1,
+            "price": 18.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LW2AV0S_047796_1?size=800,800",
+            "image": "womens_sports_bra_coffee.png"
+        }
+    },
+    {
+        "pk": 23,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "womens_sports_bra_pink",
+            "friendly_name": "Women's Sports Bra Pink",
+            "description": "",
+            "category": 1,
+            "price": 18.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LW2BHSS_047750_1?size=800,800",
+            "image": "womens_sports_bra_pink.png"
+        }
+    },
+    {
+        "pk": 24,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "womens_sports_bra_white",
+            "friendly_name": "Women's Sports Bra White",
+            "description": "",
+            "category": 1,
+            "price": 18.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LW2BHSS_0002_1?size=800,800",
+            "image": "womens_sports_bra_white.png"
+        }
+    },
+    {
+        "pk": 25,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "vegetarian_meal_pot",
+            "friendly_name": "Vegetarian Meal Pot",
+            "description": "",
+            "category": 2,
+            "price": 4.50,
+            "rating": 0.00,
+            "image_url": "https://d3rxe6nylop6k3.cloudfront.net/catalog/product/cache/1/image/530x/9df78eab33525d08d6e5fb8d27136e95/v/e/veggie-veggie-levi-roots-pot-mf_rm203.jpg",
+            "image": "vegetarian_meal_pot.png"
+        }
     }
 ]

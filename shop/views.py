@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
@@ -34,7 +34,7 @@ def shop_all(request):
             query = request.GET['q']
             if not query:
                 messages.error(request, "You didn't enter any search terms!")
-                return redirect(reverse('shop_all'))
+                return redirect(reverse('shop'))
             
             queries = Q(name__icontains=query)
             shop_items = shop_items.filter(queries)
