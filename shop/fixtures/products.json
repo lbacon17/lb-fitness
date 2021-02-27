@@ -1,0 +1,122 @@
+[
+    {
+        "pk": 1,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "high_rise_tight_leggings_pink",
+            "friendly_name": "High Rise Tight Leggings Pink",
+            "description": "",
+            "price": 35.00,
+            "category": 1,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LW5CZUS_045772_1?size=800,800",
+            "image": "high_rise_tight_leggings_pink.png"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "high_rise_tight_leggings_grey",
+            "friendly_name": "High Rise Tight Leggings Grey",
+            "description": "",
+            "category": 1,
+            "price": 35.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LW5CZMS_030210_2?size=800,800",
+            "image": "high_rise_tight_leggings_grey.png"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "high_rise_tight_leggings_black",
+            "friendly_name": "High Rise Tight Leggings Black",
+            "description": "",
+            "category": 1,
+            "price": 35.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LW5CZMS_0001_2?size=800,800",
+            "image": "high_rise_tight_leggings_black.png"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "yoga_pants_sky_blue",
+            "friendly_name": "Yoga Pants Sky Blue",
+            "description": "",
+            "category": 1,
+            "price": 28.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LW5CTHS_047824_2?size=800,800",
+            "image": "yoga_pants_sky_blue.png"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "yoga_pants_pattern",
+            "friendly_name": "Yoga Pants Pattern",
+            "description": "",
+            "category": 1,
+            "price": 32.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LW5BSZS_043785_2?size=800,800",
+            "image": "yoga_pants_pattern.png"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "yoga_pants_camouflage",
+            "friendly_name": "Yoga Pants Camouflage",
+            "description": "",
+            "category": 1,
+            "price": 32.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LW5BUHS_046793_2?size=800,800",
+            "image": "yoga_pants_camouflage.png"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "yoga_pants_olive",
+            "friendly_name": "Yoga Pants Olive",
+            "description": "",
+            "category": 1,
+            "price": 28.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LW5CT3S_026083_2?size=800,800",
+            "image": "yoga_pants_olive.png"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "yoga_pants_burgundy",
+            "friendly_name": "Yoga Pants Burgundy",
+            "description": "",
+            "category": 1,
+            "price": 28.00,
+            "rating": 0.00,
+            "image_url": "https://images.lululemon.com/is/image/lululemon/LW5CT3S_026950_2?size=800,800",
+            "image": "yoga_pants_burgundy.png"
+        }
+    }
+]

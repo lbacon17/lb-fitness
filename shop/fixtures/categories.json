@@ -1,0 +1,26 @@
+[
+    {
+        "pk": 1,
+        "model": "shop.category",
+        "fields": {
+            "name": "clothing",
+            "friendly_name": "Clothing"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "shop.category",
+        "fields": {
+            "name": "meal_prep_supplements",
+            "friendly_name": "Meal Prep & Supplements"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "shop.category",
+        "fields": {
+            "name": "accessories",
+            "friendly_name": "Accessories"
+        }
+    }
+]
