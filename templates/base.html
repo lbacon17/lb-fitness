@@ -58,7 +58,13 @@
         <div class="page-wrap">
             {% if messages %}
             <div class="messages-container">
-                
+                {% for message in messages %}
+                    <div class="row">
+                        <div class="col">
+                            <span>{{ message }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
             {% endif %}
             

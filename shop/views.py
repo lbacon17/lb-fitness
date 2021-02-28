@@ -73,6 +73,7 @@ def item_info(request, item_id):
 
     return render(request, 'shop/item_info.html', context)
 
+
 @login_required
 def add_item(request):
     """This view allows the administrator to add an item to the shop"""
@@ -99,10 +100,41 @@ def add_item(request):
     return render(request, template, context)
 
 
+@login_required
 def edit_item(request, item_id):
+    """This view allows an administrator to edit an item in the shop"""
+    if request.user.is_superuser:
+        item = get_object_or_404(Product, pk=item_id)
+        if request.method == "POST":
+            form = ProductForm(request.POST, request.FILES, instance=item)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Item was successfully updated.')
+                return redirect (reverse('item_info', args=[item.id]))
+            else:
+                messages.error(request, 'There was an issue updating the item. Please make sure the form is valid.')
+        else:
+            form = ProductForm(instance=item)
+    else:
+        messages.error(request, 'Sorry, you do not have permission to access this page.')
+        return redirect(reverse('home'))
+
     template = 'shop/edit_item.html'
-    return render(request, template)
+    context = {
+        'form': form,
+        'item': item,
+    }
+
+    return render(request, template, context)
 
 
+@login_required
 def delete_item(request, item_id):
-    return redirect(reverse('shop'))
+    if request.user.is_superuser:
+        item = get_object_or_404(Product, pk=item_id)
+        item.delete()
+        messages.success(request, 'The product was successfully deleted from the shop.')
+        return redirect(reverse('shop'))
+    else:
+        messages.error(request, 'Sorry, you do not have permission to perform this action.')
+        return redirect(reverse('home'))
