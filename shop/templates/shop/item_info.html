@@ -2,5 +2,24 @@
 {% load static %}
 
 {% block content %}
-    {{ item }}
+    <div class="row">
+        <div class="col">
+            {{ item.friendly_name }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ item.description }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ item.price }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ item.rating }}
+        </div>
+    </div>
 {% endblock %}
