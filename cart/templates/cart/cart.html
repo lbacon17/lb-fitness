@@ -2,5 +2,32 @@
 {% load static %}
 
 {% block content %}
-
+    <div class="container-fluid">
+        {% if items_in_cart %}
+            {% for item in items_in_cart %}
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ item.friendly_name }}        
+                    </div>
+                    <div class="col-md-4">
+                        {{ item.price }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ item.quantity }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="row">
+                <div class="col-12">
+                    <span>You don't have any items in your cart.</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a href="{% url 'shop' %}" class="btn">Continue Shopping</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

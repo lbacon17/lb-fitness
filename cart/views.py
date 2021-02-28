@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from shop.models import Product
 
 
 def load_cart(request):
@@ -6,10 +7,12 @@ def load_cart(request):
     return render(request, 'cart/cart.html')
 
 
-def add_item(request):
+def add_item(request, item_id):
     """This view lets the user add an item to their shopping cart"""
-    template = 'cart/cart.html'
-    return render(request, template)
+    item = get_object_or_404(Product, pk=item_id)
+    cart = request.session.get('cart', {})
+    request.session['cart'] = cart
+    return redirect(reverse('shop'))
 
 
 def update_cart(request):

@@ -66,6 +66,11 @@
                             <a href="{% url 'edit_item' item.id %}" class="btn-lg">Edit Details</a>
                             <a href="{% url 'delete_item' item.id %}" class="btn-lg">Delete Item</a>
                         {% endif %}
+                        <div class="row">
+                            <div class="col">
+                                <a href="{% url 'add_item' item.id %}" class="btn-lg">Add To Cart</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
