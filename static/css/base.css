@@ -2,6 +2,11 @@ html {
     height: 100%;
 }
 
+body {
+    font-family: 'RocknRoll One', sans-serif;
+    background-color: #fafafa;
+}
+
 .page-wrap {
     padding-top: 60px;
 }
@@ -14,4 +19,17 @@ html {
 .navbar-nav .nav-item .nav-link {
     font-family: 'RocknRoll One', sans-serif;
     color: #000000;
+}
+
+.overlay {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: -1;
+}
+
+.sorting-container a {
+    text-decoration: none;
 }

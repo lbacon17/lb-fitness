@@ -10,9 +10,11 @@ def load_cart(request):
 def add_item(request, item_id):
     """This view lets the user add an item to their shopping cart"""
     item = get_object_or_404(Product, pk=item_id)
+    quantity = request.POST.get('quantity')
+    redirect_url = request.POST.get('redirect_url')
     cart = request.session.get('cart', {})
     request.session['cart'] = cart
-    return redirect(reverse('shop'))
+    return redirect(redirect_url)
 
 
 def update_cart(request):

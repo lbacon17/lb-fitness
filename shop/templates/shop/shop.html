@@ -2,10 +2,19 @@
 {% load static %}
 
 {% block content %}
-    <div class="container-fluid">
+    <div class="container-fluid mt-5 text-center">
         <div class="row">
             <div class="col-12">
-                <select class="custom-select-sm" id="sort-products">
+                <h1>
+                    All Products
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid sorting-container">
+        <div class="row mt-3 px-3 text-center text-left-sm">
+            <div class="col-12">
+                <select class="custom-select-sm btn-sm border-black" id="sort-products">
                     <option value="reset" {% if sort_by == 'None_None' %}selected{% endif %}>
                         Sort by...
                     </option>
@@ -28,47 +37,69 @@
                         Rating (high to low)
                     </option>
                 </select>
+                {% if request.user.is_superuser %}
+                    <p class="mt-3 mt-sm-0 d-sm-inline-block">
+                        <a href="{% url 'add_item' %}" class="btn-lg btn-success">
+                            <span>Add Item</span>
+                        </a>
+                    </p>
+                {% endif %}
             </div>
-            {% if request.user.is_superuser %}
-                <div class="col-12">
-                    <a href="{% url 'add_item' %}" class="btn-lg">Add Item</a>
-                </div>
-            {% endif %}
         </div>
+    </div>
+    <div class="container-fluid px-5 my-3">
         <div class="row">
             {% for item in shop_items %}
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                    <div class="card h-100 border-0">
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="h-100 p-2">
                         {% if item.image %}
-                            <img src="{{ item.image.url }}" alt="{{ item.friendly_name }}" class="img-thumbnail">
+                            <a href="{% url 'item_info' item.id %}">
+                                <img src="{{ item.image.url }}" alt="{{ item.friendly_name }}" class="img-thumbnail">
+                            </a>
                         {% else %}
-                            <img src="{{ MEDIA_URL }}noimage.png" alt="{{ item.name }}" class="img-thumbnail">
+                            <a href="{% url 'item_info' item.id %}">
+                                <img src="{{ MEDIA_URL }}noimage.png" alt="{{ item.friendly_name }}" class="img-thumbnail">
+                            </a>
                         {% endif %}
-                        <div class="card-body pb-0">
-                            <p class="mb-0">{{ item.name }}</p>
+                        <div class="pt-3 font-weight-bold">
+                            <p class="mb-0">{{ item.friendly_name }}</p>
                         </div>
-                        <div class="card-footer">
-                            <div class="row">
-                                <div class="col">
-                                    <p class="lead mb-0 text-left font-weight-bold">£{{ item.price }}</p>
+                        <div class="row">
+                            <div class="col">
+                                <p class="lead mb-0 text-left">£{{ item.price }}</p>
+                                <p class="mb-0">Category:
                                     <a href="{% url 'shop' %}?category={{ item.category.name }}">
-                                        {{ item.category.friendly_name }}
+                                        <span>{{ item.category.friendly_name }}</span>
                                     </a>
+                                </p>
+                                <p class="mb-0">Rating: 
                                     {% if item.rating %}
-                                        <small>Rating: {{ item.rating }} / 5</small>
+                                        <small>{{ item.rating }} / 5</small>
                                     {% else %}
                                         <small>No rating yet</small>
                                     {% endif %}
-                                </div>
+                                </p>
                             </div>
                         </div>
                         {% if request.user.is_superuser %}
-                            <a href="{% url 'edit_item' item.id %}" class="btn-lg">Edit Details</a>
-                            <a href="{% url 'delete_item' item.id %}" class="btn-lg">Delete Item</a>
+                            <div class="text-center">
+                                <a href="{% url 'edit_item' item.id %}" class="btn btn-info">
+                                    <span>
+                                        Edit Details
+                                    </span>
+                                </a>
+                                <a href="{% url 'delete_item' item.id %}" class="btn btn-danger">
+                                    <span>Delete Item</span>
+                                </a>
+                            </div>
                         {% endif %}
                         <div class="row">
                             <div class="col">
-                                <a href="{% url 'add_item' item.id %}" class="btn-lg">Add To Cart</a>
+                                <form action="{% url 'add_item' item.id %}" class="form text-center" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" class="btn btn-black" value="Add To Cart">
+                                </form>
+                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             </div>
                         </div>
                     </div>
