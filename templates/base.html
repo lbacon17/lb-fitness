@@ -54,6 +54,11 @@
                     {% include 'includes/main-nav.html' %}
                 </nav>
             </div>
+            <div class="row text-center bg-dark" id="deals-banner">
+                <div class="col-12">
+                    <h3 class="text-white uppercase pt-2" id="deals-heading">2 weeks free trial on any subscription&#33;</h3>
+                </div>
+            </div>
         </header>
         <div class="page-wrap">
             {% if messages %}
@@ -77,7 +82,13 @@
             {% endblock %}
         </div>  
         {% block postloadjs %}
+            <script type="text/javascript">
+                var dealsHeading = document.getElementById('deals-heading');
 
+                dealsHeading.addEventListener('mouseover', function() {
+                    dealsHeading.textContent = `Free delivery on orders over £50!`
+                });
+            </script>
         {% endblock %}
     </body>
 </html>

@@ -51,7 +51,7 @@
         <div class="row">
             {% for item in shop_items %}
                 <div class="col-sm-6 col-lg-4 col-xl-3">
-                    <div class="h-100 p-2">
+                    <div class="h-100 item-specs-container p-2">
                         {% if item.image %}
                             <a href="{% url 'item_info' item.id %}">
                                 <img src="{{ item.image.url }}" alt="{{ item.friendly_name }}" class="img-thumbnail">
@@ -69,7 +69,7 @@
                                 <p class="lead mb-0 text-left">£{{ item.price }}</p>
                                 <p class="mb-0">Category:
                                     <a href="{% url 'shop' %}?category={{ item.category.name }}">
-                                        <span>{{ item.category.friendly_name }}</span>
+                                        <small class="font-weight-bold">{{ item.category.friendly_name }}</small>
                                     </a>
                                 </p>
                                 <p class="mb-0">Rating: 
@@ -82,13 +82,13 @@
                             </div>
                         </div>
                         {% if request.user.is_superuser %}
-                            <div class="text-center">
-                                <a href="{% url 'edit_item' item.id %}" class="btn btn-info">
+                            <div class="text-center py-3">
+                                <a href="{% url 'edit_item' item.id %}" class="btn btn-primary mr-1">
                                     <span>
                                         Edit Details
                                     </span>
                                 </a>
-                                <a href="{% url 'delete_item' item.id %}" class="btn btn-danger">
+                                <a href="{% url 'delete_item' item.id %}" class="btn btn-danger ml-1">
                                     <span>Delete Item</span>
                                 </a>
                             </div>
@@ -97,7 +97,7 @@
                             <div class="col">
                                 <form action="{% url 'add_item' item.id %}" class="form text-center" method="POST">
                                     {% csrf_token %}
-                                    <input type="submit" class="btn btn-black" value="Add To Cart">
+                                    <input type="submit" class="btn btn-dark {% if not request.user.is_superuser %}my-3{% endif %}" value="Add To Cart">
                                 </form>
                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             </div>

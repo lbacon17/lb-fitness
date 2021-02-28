@@ -1,3 +1,5 @@
+/*-- BASE TEMPLATE STYLES --*/
+
 html {
     height: 100%;
 }
@@ -7,18 +9,47 @@ body {
     background-color: #fafafa;
 }
 
+.navbar-nav .nav-item .nav-link {
+    font-family: 'RocknRoll One', sans-serif;
+    color: #000000;
+}
+
+#deals-heading {
+    letter-spacing: 0.2rem;
+    text-shadow: 1px 1px #fafafa;
+    font-family: 'RocknRoll One', sans-serif
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
 .page-wrap {
     padding-top: 60px;
 }
 
 .banner {
+    height: 100vh;
     background: url('/media/site_hero_image.png') no-repeat center center fixed;
     background-size: cover;
 }
 
-.navbar-nav .nav-item .nav-link {
-    font-family: 'RocknRoll One', sans-serif;
-    color: #000000;
+.callout {
+    padding-top: 1.8rem;
+}
+
+.callout-heading {
+    font-size: 5rem;
+    text-shadow: 2px 2px #ffffff;
+    text-decoration: none;
+}
+
+.btn-subscribe {
+    padding: 2.2rem;
+    border-radius: 0.25rem;
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
 }
 
 .overlay {
@@ -30,6 +61,14 @@ body {
     z-index: -1;
 }
 
+/*-- shop page --*/
+
 .sorting-container a {
+    text-decoration: none;
+}
+
+.item-specs-container a,
+.item-specs-container a:hover {
+    color: #000000;
     text-decoration: none;
 }
