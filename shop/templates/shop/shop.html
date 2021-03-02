@@ -39,7 +39,7 @@
                 </select>
                 {% if request.user.is_superuser %}
                     <p class="mt-3 mt-sm-0 d-sm-inline-block">
-                        <a href="{% url 'add_item' %}" class="btn-lg btn-success">
+                        <a href="{% url 'add_item' %}" class="btn-lg btn-success text-dec-none">
                             <span>Add Item</span>
                         </a>
                     </p>
@@ -84,12 +84,12 @@
                         {% if request.user.is_superuser %}
                             <div class="text-center py-3">
                                 <a href="{% url 'edit_item' item.id %}" class="btn btn-primary mr-1">
-                                    <span>
+                                    <span class="text-white">
                                         Edit Details
                                     </span>
                                 </a>
                                 <a href="{% url 'delete_item' item.id %}" class="btn btn-danger ml-1">
-                                    <span>Delete Item</span>
+                                    <span>Delete Item</span>ed
                                 </a>
                             </div>
                         {% endif %}
@@ -97,7 +97,7 @@
                             <div class="col">
                                 <form action="{% url 'add_item' item.id %}" class="form text-center" method="POST">
                                     {% csrf_token %}
-                                    <input type="submit" class="btn btn-dark {% if not request.user.is_superuser %}my-3{% endif %}" value="Add To Cart">
+                                    <input type="submit" class="btn btn-dark text-dec-none {% if not request.user.is_superuser %}my-3{% endif %}" value="Add To Cart">
                                 </form>
                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             </div>

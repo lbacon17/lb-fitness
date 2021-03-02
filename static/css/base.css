@@ -14,10 +14,15 @@ body {
     color: #000000;
 }
 
-#deals-heading {
+.deals-heading {
+    display: none;
     letter-spacing: 0.2rem;
     text-shadow: 1px 1px #fafafa;
     font-family: 'RocknRoll One', sans-serif
+}
+
+.deals-heading.visible {
+    display: block;
 }
 
 .uppercase {
@@ -61,11 +66,13 @@ body {
     z-index: -1;
 }
 
-/*-- shop page --*/
-
-.sorting-container a {
+.text-dec-none {
     text-decoration: none;
 }
+
+/*-- subscribe page --*/
+
+/*-- shop page --*/
 
 .item-specs-container a,
 .item-specs-container a:hover {
