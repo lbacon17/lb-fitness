@@ -2,5 +2,99 @@
 {% load static %}
 
 {% block content %}
-    You are about to purchase {{ package.friendly_name }}
+    <div class="container-fluid mt-5 text-center">
+        <div class="row">
+            <div class="col-12">
+                <h1>
+                    Complete Subscription
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <h2>
+                You are subscribing to the {{ package.friendly_name }} for £{{ package.monthly_rate }} a month after your initial 2-week free trial.
+            </h2>
+        </div>
+    </div>
+    <div class="container-fluid container-sm subscriptions-container">
+        <div class="row mt-3 px-3 text-center text-left-sm">
+            <div class="col-12">
+                <form action="{% url 'get_subscription' package.id %}" method="POST" id="subscription-form" class="p-5 mx-5" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset class="px-3 mb-5">
+                        <legend class="small w-auto">Customer Information</legend>
+                        {{ subscription_form.full_name | as_crispy_field }}
+                        {{ subscription_form.email_address | as_crispy_field }}
+                        {{ subscription_form.phone_number | as_crispy_field }}
+                    </fieldset>
+                    <fieldset class="px-3 mb-5">
+                        <legend class="small w-auto">Billing Address</legend>
+                        {{ subscription_form.full_name | as_crispy_field }}
+                        {{ subscription_form.address_line1 | as_crispy_field }}
+                        {{ subscription_form.address_line2 | as_crispy_field }}
+                        {{ subscription_form.town_or_city | as_crispy_field }}
+                        {{ subscription_form.county_or_region | as_crispy_field }}
+                        {{ subscription_form.postcode | as_crispy_field }}
+                        {{ subscription_form.country | as_crispy_field }}
+                    </fieldset>
+                    <fieldset class="px-3 mb-5">
+                        <legend class="small w-auto">Payment Information</legend>
+                        <!-- Stripe card element-->
+                        <div id="card-element" class="border form-control"></div>
+                        <!-- Form errors -->
+                        <div class="text-danger" id="card-errors" role="alert"></div>
+                        <!-- Passes client secret to the view and gives us the payment intent id -->
+                        <input type="hidden" value="{{ client_secret }}" name="client_secret">
+                    </fieldset>
+                    <div class="row">
+                        <div class="col-sm-6 text-right">
+                            <a href="{% url 'subscribe_page' %}" class="btn btn-light">Back</a>
+                        </div>
+                        <div class="col-sm-6 text-left">
+                            <button type="submit" class="btn btn-success" id="complete-subscription">Complete Subscription</button>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <p class="mb-0">
+                                After your initial free two-week trial, your card will be debited £{{ monthly_rate }} each month for this plan.
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script type="text/javascript">
+        // Script currently here as throwing ReverseNotFound error when linking to separate file
+        var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
+        var clientSecret = $('#id_client_secret').text().slice(1, -1);
+        var stripe = Stripe(stripePublicKey);
+        var elements = stripe.elements();
+        var style = {
+            base: {
+                color: '#303238',
+                fontSize: '16px',
+                fontFamily: '"Open Sans", sans-serif',
+                fontSmoothing: 'antialiased',
+                '::placeholder': {
+                color: '#CFD7DF',
+                },
+            },
+            invalid: {
+                color: '#e5424d',
+                ':focus': {
+                color: '#303238',
+                },
+            },
+        };
+        var card = elements.create('card', {style: style});
+        card.mount('#card-element');
+    </script>
 {% endblock %}
