@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'subscribe/css/subscribe.css' %}">
+{% endblock %}
+
+{% block page_header %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="my-5">Confirmation of subscription to {{ package.friendly_name }}</h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}

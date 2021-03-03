@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 
 
@@ -29,7 +30,8 @@ class Subscription(models.Model):
         verbose_name_plural = 'Subscriptions'
     
     subscription_id = models.CharField(max_length=32, null=False, editable=False)
-    # user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True)
+    date = models.DateField(auto_now_add=True, null=True)
     full_name = models.CharField(max_length=60, null=False, blank=False)
     email_address = models.CharField(max_length=254, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
