@@ -29,3 +29,26 @@ class StripeWH_Handler_Susbcribe:
             settings.DEFAULT_FROM_EMAIL,
             [subscriber_email]
         )
+
+        def handle_unexpected_event(self, event):
+            """Handles an unknown or unexpected webhook event"""
+            return HttpResponse(
+                content=f'Unexpected webhook received: {event["type"]}',
+                status=200)
+
+        def handle_payment_intent_succeeded(self, event):
+            """Handles the payment_intent.succeeded webhook from Stripe"""
+            intent = event.data.object
+            pid = intent.id
+
+            billing_details = intent.charges.data[0].billing_details
+            monthly_fee = round(intent.charges.data[0].amount)
+
+            subscription_exists = False
+            attempt = 1
+            while attempt < 5:
+                try subscription = Subscription.objects.get(
+                    full_name__iexact=
+                )
+
+            self._confirm_subscription_mail()

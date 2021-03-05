@@ -30,6 +30,7 @@ class Subscription(models.Model):
         verbose_name_plural = 'Subscriptions'
     
     subscription_id = models.CharField(max_length=32, null=False, editable=False)
+    package = models.ForeignKey(Package, on_delete=models.SET_NULL, null=True, blank=True)
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True)
     date = models.DateField(auto_now_add=True, null=True)
     full_name = models.CharField(max_length=60, null=False, blank=False)
@@ -55,7 +56,7 @@ class Subscription(models.Model):
         """
         if not self.subscription_id:
             self.subscription_id = self._generate_subscription_id()
-        super.save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.subscription_id
