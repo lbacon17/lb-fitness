@@ -8,7 +8,6 @@ from django.utils import timezone
 
 from .forms import SubscriptionForm
 from .models import Package, Subscription
-from subscribers.models import Subscriber
 
 import stripe
 import json

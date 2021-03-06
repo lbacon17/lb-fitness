@@ -42,13 +42,65 @@ class StripeWH_Handler_Susbcribe:
             pid = intent.id
 
             billing_details = intent.charges.data[0].billing_details
-            monthly_fee = round(intent.charges.data[0].amount)
+            monthly_fee = round(intent.charges.data[0].amount / 100, 2)
 
             subscription_exists = False
             attempt = 1
             while attempt < 5:
-                try subscription = Subscription.objects.get(
-                    full_name__iexact=
-                )
+                try:
+                    subscription = Subscription.objects.get(
+                        full_name__iexact=billing_info.full_name,
+                        email_address__iexact=billing_info.email_address,
+                        phone_number__iexact=billing_info.phone_number,
+                        address_line1__iexact=billing_info.address.address_line1,
+                        address_line2__iexact=billing_info.address.address_line2,
+                        town_or_city__iexact=billing_info.address.town_or_city,
+                        county_or_region__iexact=billing_info.address.county_or_region,
+                        postcode__iexact=billing_info.address.postcode,
+                        country__iexact=billing_info.address.country,
+                        monthly_fee=monthly_fee,
+                        stripe_pid=pid,
+                    )
+                    subscription_exists = True
+                    break
+                except Subscription.DoesNotExist:
+                    attempt += 1
+                    time.sleep(1)
+            if subscription_exists:
+                self._confirm_subscription_mail(subscription)
+                return HttpResponse(
+                    content=(f'Webhook received {event["type"]} | SUCCESS.'),
+                    status=200)
+            else:
+                subscription = None
+                try:
+                    subscription = Subscription.objects.get(
+                        full_name__iexact=billing_info.full_name,
+                        email_address__iexact=billing_info.email_address,
+                        phone_number__iexact=billing_info.phone_number,
+                        address_line1__iexact=billing_info.address.address_line1,
+                        address_line2__iexact=billing_info.address.address_line2,
+                        town_or_city__iexact=billing_info.address.town_or_city,
+                        county_or_region__iexact=billing_info.address.county_or_region,
+                        postcode__iexact=billing_info.address.postcode,
+                        country__iexact=billing_info.address.country,
+                        monthly_fee=monthly_fee,
+                        stripe_pid=pid,
+                    )
+                    subscription.save()
+                except Exception as e:
+                    if subscription:
+                        subscription.delete()
+                    return HttpResponse(
+                        content=(
+                            f'Webhook received: {event["type"]} " ERROR: {e}'
+                        ), status=500)
+            self._confirm_subscription_mail(subscription)
+            return HttpResponse(
+                content=(f'Webhook received: {event["type"]} | SUCCESS'),
+                status=200)
 
-            self._confirm_subscription_mail()
+        def handle_payment_intent_failed(self, event):
+            """Handles the payment_intent.payment_failed webhook"""
+            return HttpResponse(
+                content=f'Payment failed: {event["type"]}', status=200)

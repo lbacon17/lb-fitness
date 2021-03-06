@@ -1,0 +1,16 @@
+[
+    {
+        "pk": 1,
+        "model": "members.member",
+        "fields": {
+            "subscription_package": 1,
+            "default_email_address": "",
+            "default_phone_number": "",
+            "default_address_line1": "",
+            "default_address_line2": "",
+            "default_town_or_city": "",
+            "default_county_or_region": "",
+            "default_postcode": ""
+        }
+    }
+]
