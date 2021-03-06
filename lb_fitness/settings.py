@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'subscribe',
     'shop',
     'about',
+    'contact',
     'cart',
     'members',
 

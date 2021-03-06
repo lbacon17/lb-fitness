@@ -29,7 +29,10 @@ class Subscription(models.Model):
     class Meta:
         verbose_name_plural = 'Subscriptions'
     
+    from members.models import Member
+    
     subscription_id = models.CharField(max_length=32, null=False, editable=False)
+    member = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, blank=True, related_name='subscriptions')
     package = models.ForeignKey(Package, on_delete=models.SET_NULL, null=True, blank=True)
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True)
     date = models.DateField(auto_now_add=True, null=True)

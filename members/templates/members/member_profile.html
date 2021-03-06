@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <h1>Profile {{ user.username }}</h1>
+                <h1>Profile</h1>
             </div>
         </div>
     </div>
@@ -17,7 +17,9 @@
         </div>
         <div class="row">
             <div class="col">
-                {{ package.friendly_name }}
+                {% for subscription in subscriptions %}
+                    <span>{{ subscription.package }}</span>
+                {% endfor %}
             </div>
         </div>
     </div>

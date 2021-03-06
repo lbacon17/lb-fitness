@@ -30,4 +30,4 @@ def add_subscription_to_user_profile(sender, instance, created, **kwargs):
     """to the user's profile"""
     if created:
         Member.objects.create(user=instance)
-    instance.subscriber.save()
+    instance.member.save()

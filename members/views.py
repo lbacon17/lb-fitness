@@ -23,7 +23,6 @@ def member_profile(request):
 @login_required
 def member_subscriptions(request, package_id):
     member = get_object_or_404(Member, user=request.user)
-    packages = Package.objects.all()
     package = get_object_or_404(Package, pk=package_id)
     subscriptions = member.subscriptions.all()
 
@@ -34,12 +33,12 @@ def member_subscriptions(request, package_id):
         else:
             messages.error(request, 'Update failed')
     else:
-        form = MembershipForm(instance=member)
+        membership_form = MembershipForm(instance=member)
 
     template = 'members/member_profile.html'
     context = {
-        'packages': packages,
         'package': package,
+        'subscriptions': subscriptions,
     }
 
     return render(request, template, context)
