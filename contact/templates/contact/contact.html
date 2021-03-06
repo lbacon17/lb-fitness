@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_js %}
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+{% endblock %}
+
 {% block content %}
 <div class="container-fluid">
     <div class="row">
@@ -28,10 +32,20 @@
             <form action="{% url 'contact' %}" method="POST" id="contact-form">
                 {% csrf_token %}
                 {{ contact_form|crispy }}
-                <button type="submit" class="btn-lg btn-success btn">Submit</button>
+                <button type="submit" class="btn-lg btn-success btn g-recaptcha" data-sitekey="6LccnXQaAAAAAEt4E6GKzlCC-h_G9hxGoQKsP187" data-callback="onSubmit" data-action="submit">
+                    Submit
+                </button>
             </form>
         </div>
     </div>
 </div>
+{% endblock %}
 
+{% block postloadjs %}
+    {{ block.super }}
+    <script>
+        function onSubmit(token) {
+            document.getElementById("contact-form").submit();
+        }
+    </script>
 {% endblock %}
