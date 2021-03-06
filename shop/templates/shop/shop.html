@@ -48,6 +48,13 @@
         </div>
     </div>
     <div class="container-fluid px-5 my-3">
+        {% if shop_items|length == 0 %}
+            <div class="row">
+                <div class="col-12">
+                    <h4>No items found for {{ search_term }}</h4>
+                </div>
+            </div>
+        {% endif %}
         <div class="row">
             {% for item in shop_items %}
                 <div class="col-sm-6 col-lg-4 col-xl-3">
