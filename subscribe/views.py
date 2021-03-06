@@ -38,6 +38,17 @@ def subscribe_page(request):
 
 
 @login_required
+def add_package_to_cart(request, package_id):
+    if request.method == 'POST':
+        package = get_object_or_404(Package, pk=package_id)
+        quantity = 1
+        redirect_url = request.POST.get('redirect_url')
+        cart = request.session.get('cart', {})
+        request.session['cart'] = cart
+        return redirect(redirect_url)
+
+
+@login_required
 def get_subscription(request, package_id):
     """This view renders the subscription form for the user to fill out"""
     """before completing payment. Credit to ckz870 / Boutique Ado."""

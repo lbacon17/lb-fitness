@@ -50,7 +50,11 @@
                             </ul>
                         </div>
                         <div class="card-footer py-3">
-                            <a href="{% url 'get_subscription' package.id %}" class="btn-lg btn-success text-dec-none">Get Plan</a>
+                            <form action="{% url 'add_package_to_cart' package.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="submit" class="btn-lg btn-success text-dec-none" value="Get Plan">
+                                <input type="hidden" name="redirect_url" value="{% url 'get_subscription' package.id %}">
+                            </form>
                         </div>
                     </div>
                 </div>
