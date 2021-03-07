@@ -30,7 +30,8 @@ class Subscription(models.Model):
         verbose_name_plural = 'Subscriptions'
     
     from members.models import Member
-    
+
+
     subscription_id = models.CharField(max_length=32, null=False, editable=False)
     member = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, blank=True, related_name='subscriptions')
     package = models.ForeignKey(Package, on_delete=models.SET_NULL, null=True, blank=True)
@@ -46,6 +47,9 @@ class Subscription(models.Model):
     postcode = models.CharField(max_length=10, null=False, blank=False)
     country = CountryField(blank_label='Country *', null=False, blank=False)
     amount_due = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
+    package_in_cart = models.TextField(null=False, blank=False, default='')
+    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
+
 
     def _generate_subscription_id(self):
         """

@@ -8,6 +8,9 @@ from django.utils import timezone
 
 from .forms import SubscriptionForm
 from .models import Package, Subscription
+from .contexts import subscription_cart
+
+from members.models import Member
 
 import stripe
 import json
@@ -44,6 +47,12 @@ def add_package_to_cart(request, package_id):
         quantity = 1
         redirect_url = request.POST.get('redirect_url')
         cart = request.session.get('cart', {})
+
+        if package_id in list(cart.keys()):
+            cart[package_id] += quantity
+        else:
+            cart[package_id] = quantity
+
         request.session['cart'] = cart
         return redirect(redirect_url)
 
@@ -57,6 +66,8 @@ def get_subscription(request, package_id):
 
     package = get_object_or_404(Package, pk=package_id)
     if request.method == "POST":
+        cart = request.session.get('cart', {})
+
         billing_info = {
             'full_name': request.POST['full_name'],
             'email_address': request.POST['email_address'],
@@ -74,22 +85,55 @@ def get_subscription(request, package_id):
             subscription = subscription_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
             subscription.stripe_pid = pid
+            subscription.package_in_cart = json.dumps(cart)
             subscription.save()
+            for package_id, package_data in cart.items():
+                try:
+                    package = Package.objects.get(id=package_id)
+                    if isinstance(package_data, int):
+                        subscription.save()
+                except Package.DoesNotExist:
+                    messages.error(request, 'An error occured.')
+                    subscription.delete()
+                    return redirect(reverse('get_subscription'))
 
             return redirect(reverse('subscription_confirmation',
                                      args=[subscription.subscription_id]))
         else:
             messages.error(request, 'There was an error submitting the form.')
     else:
-        subscription_form = SubscriptionForm()
-    
-        monthly_rate = package.monthly_rate
-        stripe_total = round(monthly_rate * 100)
+        cart = request.session.get('cart', {})
+        if not cart:
+            messages.error(request, "You didn't select a subscription")
+            return redirect(reverse('subscribe_page'))
+
+        current_cart = subscription_cart(request)
+        amount_due = current_cart['amount_due']
+        stripe_total = round(amount_due * 100)
         stripe.api_key = stripe_secret_key
         intent = stripe.PaymentIntent.create(
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
+
+        try:
+            member = Member.objects.get(user=request.user)
+            subscription_form = SubscriptionForm(initial={
+                'full_name': member.user.get_full_name(),
+                'email_address': member.default_email_address,
+                'phone_number': member.default_phone_number,
+                'address_line1': member.default_address_line1,
+                'address_line2': member.default_address_line2,
+                'town_or_city': member.default_town_or_city,
+                'county_or_region': member.default_county_or_region,
+                'postcode': member.default_postcode,
+                'country': member.default_country,
+            })
+        except Member.DoesNotExist:
+            subscription_form = SubscriptionForm()
+
+    if not stripe_public_key:
+        messages.warning(request, 'Stripe Public Key missing')
 
     template = 'subscribe/get_subscription.html'
     context = {

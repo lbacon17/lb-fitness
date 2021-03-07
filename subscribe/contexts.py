@@ -9,17 +9,29 @@ def subscription_cart(request):
     cart_items = []
     total = 0
     count = 0
-    cart = request.session.get('cart'. {})
+    cart = request.session.get('cart', {})
 
-    for item_id in cart.items():
-        package = get_object_or_404(Product, pk=package_id)
-        total += package.monthly_rate
-        count += 1
-        cart_items.append({
-            'item_id': item_id,
-            'quantity': count,
-            'package': package,
-        })
+    for package_id, package_data in cart.items():
+        if isinstance(package_data, int):
+            package = get_object_or_404(Package, pk=package_id)
+            total += package_data * package.monthly_rate
+            count += package_data
+            cart_items.append({
+                'package_id': package_id,
+                'quantity': package_data,
+                'package': package,
+            })
+        else:
+            package = get_object_or_404(Package, pk=package_id)
+            for quantity in package_data.items():
+                total += quantity * package.monthly_rate
+                count += quantity
+                cart_items.append({
+                    'package_id': package_id,
+                    'quantity': quantity,
+                    'package': package,
+                })
+
     amount_due = total
     
     context = {
