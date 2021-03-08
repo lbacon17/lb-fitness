@@ -109,6 +109,17 @@
                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             </div>
                         </div>
+                        {% if user.is_authenticated %}
+                            <div class="row">
+                                <div class="col">
+                                    <form action="{% url 'favourite_item' item.id %}" class="form text-center" method="POST">
+                                        {% csrf_token %}
+                                        <input type="submit" class="btn btn-dark text-dec-none my-2" value="Add as favourite">
+                                    </form>
+                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
