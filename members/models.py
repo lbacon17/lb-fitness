@@ -26,6 +26,14 @@ class Member(models.Model):
         return self.user.username
 
 
+class Subscription(models.Model):
+    member = models.ForeignKey(Member, related_name='subscription', on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.member.user.username
+
+
 @receiver(post_save, sender=User)
 def add_subscription_to_user_profile(sender, instance, created, **kwargs):
     """When a user chooses a subscription, this adds the package"""

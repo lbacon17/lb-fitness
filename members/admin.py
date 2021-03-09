@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Member
+from .models import Member, Subscription
 
 
 class MemberAdmin(admin.ModelAdmin):
@@ -17,4 +17,14 @@ class MemberAdmin(admin.ModelAdmin):
 
     ordering = ('user',)
 
+
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_display = (
+        'member',
+        'active',
+    )
+
+    ordering = ('member',)
+
 admin.site.register(Member, MemberAdmin)
+admin.site.register(Subscription, SubscriptionAdmin)

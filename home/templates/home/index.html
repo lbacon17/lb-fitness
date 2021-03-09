@@ -7,12 +7,18 @@
 
 {% block content %}
     <div class="banner">
-        <div class="container text-center">
+        <div class="container text-center py-5">
             <div class="row">
                 <div class="col-12">
                     <section class="callout">
-                        <h1 class="callout-heading my-5">Personalised training and nutrition plans</h1>
-                        <a href="{% url 'subscribe_page' %}" class="btn-dark btn-subscribe uppercase text-decoration-none">Subscribe now</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'user_dashboard' user.id %}" class="btn-dark uppercase text-dec-none">View Dashboard</a>
+                        {% else %}
+                            <h1 class="callout-heading my-5">Personalised training and nutrition plans</h1>
+                            <a href="{% url 'subscribe_page' %}" class="btn-dark btn-subscribe uppercase text-decoration-none">
+                               Subscribe now
+                            </a>
+                        {% endif %}
                     </section>
                 </div>
             </div>

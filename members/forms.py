@@ -1,5 +1,8 @@
 from django import forms
-from .models import Member
+from django.shortcuts import get_object_or_404
+
+from .models import Member, Subscription
+from subscribe.models import Package
 
 
 class MembershipForm(forms.ModelForm):
@@ -29,3 +32,14 @@ class MembershipForm(forms.ModelForm):
                     placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
                 self.fields[field].label = False
+
+        def save(self, package_id):
+            package = get_object_or_404(Package, pk=package_id)
+            user_membership = Member.objects.create(user=user, package=self.package)
+            user_membership.save()
+            user = super().save(commit=False)
+            user.save()
+            subscription = Subscription()
+            subscription.package = user_membership
+            subscription.save()
+            return user
