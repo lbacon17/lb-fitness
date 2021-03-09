@@ -144,16 +144,6 @@ def delete_item(request, item_id):
 def favourite_item(request, item_id):
     fav_item = get_object_or_404(Product, pk=item_id)
     if request.method == 'POST':
-        redirect_url = request.POST.get('redirect_url')
-        try:
-            if fav_item.favourite:
-                fav_item.favourite = False
-                messages.success(request, 'The product was successfully removed from your favourites.')
-            else:
-                fav_item.favourite = True
-                messages.success(request, 'The product was successfully added to your favourites.')
-            fav_item.save()
-        except Product.DoesNotExist:
-            messages.error(request, 'An error occured.')
-
-        return redirect(redirect_url)
+        fav_item.favourite.add(request.user)
+    template = 'shop/shop.html'
+    return render(request, template)

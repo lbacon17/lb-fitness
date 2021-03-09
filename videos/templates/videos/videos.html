@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid mt-5 py-5 text-center">
+        <div class="row">
+            <div class="col-12">
+                <h1>Videos</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid px-3">
+        <div class="row">
+            {% for video in videos %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <h2 class="font-weight-bold px-2">{{ video.title }}</h2>
+                    <video src="{{ video.video_file.url }}" alt="{{ video.title }}" class="img-thumbnail" controls preload type="video/mp4">
+                    </video>
+                    <p class="mb-0 px-2">
+                        <small class="text-muted">{{ video.length }} Rating: {{ video.rating }}</small>
+                    </p>
+                    <p class="mx-2">{{ video.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
