@@ -49,6 +49,7 @@ class Subscription(models.Model):
     amount_due = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     package_in_cart = models.TextField(null=False, blank=False, default='')
     stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
+    active = models.BooleanField(default=True)
 
 
     def _generate_subscription_id(self):
@@ -66,4 +67,4 @@ class Subscription(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.subscription_id
+        return self.member.user.username

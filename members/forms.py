@@ -1,8 +1,8 @@
 from django import forms
 from django.shortcuts import get_object_or_404
 
-from .models import Member, Subscription
-from subscribe.models import Package
+from .models import Member
+from subscribe.models import Package, Subscription
 
 
 class MembershipForm(forms.ModelForm):

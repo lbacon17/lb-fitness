@@ -149,6 +149,8 @@ def get_subscription(request, package_id):
 def subscription_confirmation(request, subscription_id):
     """Confirms a successful subscription once user has submitted the form"""
     subscription = get_object_or_404(Subscription, subscription_id=subscription_id)
+    member = Member.objects.get(user=request.user)
+    subscription.member = member
     subscription.save()
     
     template = 'subscribe/subscription_confirmation.html'
