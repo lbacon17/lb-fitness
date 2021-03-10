@@ -11,17 +11,23 @@
     </div>
     <div class="container-fluid px-3">
         <div class="row">
-            {% for video in videos %}
-                <div class="col-12 col-md-6 col-lg-4">
-                    <h2 class="font-weight-bold px-2">{{ video.title }}</h2>
-                    <video src="{{ video.video_file.url }}" alt="{{ video.title }}" class="img-thumbnail" controls preload type="video/mp4">
-                    </video>
-                    <p class="mb-0 px-2">
-                        <small class="text-muted">{{ video.length }} Rating: {{ video.rating }}</small>
-                    </p>
-                    <p class="mx-2">{{ video.description }}</p>
+            {% if member.subscription_package %}
+                {% for video in videos %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <h2 class="font-weight-bold px-2">{{ video.title }}</h2>
+                        <video src="{{ video.video_file.url }}" alt="{{ video.title }}" class="img-thumbnail" controls preload type="video/mp4">
+                        </video>
+                        <p class="mb-0 px-2">
+                            <small class="text-muted">{{ video.length }} Rating: {{ video.rating }}</small>
+                        </p>
+                        <p class="mx-2">{{ video.description }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <h5>You are not authorised to view this page.</h5>
                 </div>
-            {% endfor %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -42,19 +42,18 @@ def subscribe_page(request):
 
 @login_required
 def add_package_to_cart(request, package_id):
-    if request.method == 'POST':
-        package = get_object_or_404(Package, pk=package_id)
-        quantity = 1
-        redirect_url = request.POST.get('redirect_url')
-        cart = request.session.get('cart', {})
+    package = get_object_or_404(Package, pk=package_id)
+    quantity = 1
+    redirect_url = request.POST.get('redirect_url')
+    cart = request.session.get('cart', {})
 
-        if package_id in list(cart.keys()):
-            cart[package_id] += quantity
-        else:
-            cart[package_id] = quantity
+    if package_id in list(cart.keys()):
+        cart[package_id] += quantity
+    else:
+        cart[package_id] = quantity
 
-        request.session['cart'] = cart
-        return redirect(redirect_url)
+    request.session['cart'] = cart
+    return redirect(redirect_url)
 
 
 @login_required
