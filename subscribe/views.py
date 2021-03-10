@@ -7,7 +7,7 @@ from django.conf import settings
 from django.utils import timezone
 
 from .forms import SubscriptionForm
-from .models import Package, Subscription
+from .models import Package, Subscription, SubscriptionCount
 from .contexts import subscription_cart
 
 from members.models import Member
@@ -91,12 +91,18 @@ def get_subscription(request, package_id):
                 try:
                     package = Package.objects.get(id=package_id)
                     if isinstance(package_data, int):
-                        subscription.save()
+                        subscription_count = SubscriptionCount(
+                            subscription=subscription,
+                            package=package,
+                            quantity=package_data,
+                        )
+                        subscription_count.save()
                 except Package.DoesNotExist:
                     messages.error(request, 'An error occured.')
                     subscription.delete()
                     return redirect(reverse('get_subscription'))
 
+            request.session['save_member_info'] = 'save-member-info' in request.POST
             return redirect(reverse('subscription_confirmation',
                                      args=[subscription.subscription_id]))
         else:
@@ -148,11 +154,31 @@ def get_subscription(request, package_id):
 @login_required
 def subscription_confirmation(request, subscription_id):
     """Confirms a successful subscription once user has submitted the form"""
+    save_member_info = request.session.get('save_member_info')
     subscription = get_object_or_404(Subscription, subscription_id=subscription_id)
     member = Member.objects.get(user=request.user)
     subscription.member = member
     subscription.save()
-    
+
+    if save_member_info:
+        member_data = {
+            'default_email_address': subscription.email_address,
+            'default_phone_number': subscription.phone_number,
+            'default_address_line1': subscription.address_line1,
+            'default_address_line2': subscription.address_line2,
+            'default_town_or_city': subscription.town_or_city,
+            'default_county_or_region': subscription.county_or_region,
+            'default_postcode': subscription.postcode,
+            'default_country': subscription.country,
+        }
+        membership_form = MembershipForm(member_data, instance=member)
+        if membership_form.is_valid():
+            membership_form.save()
+
+    messages.success(request, f'Your request was processed successfully. \
+        Your subscription ID is {subscription_id}. A confirmation e-mail \
+        will be sent to {subscription.email_address}.')
+
     template = 'subscribe/subscription_confirmation.html'
     context = {
         'subscription': subscription,

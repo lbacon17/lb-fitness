@@ -36,6 +36,10 @@
                         {{ subscription_form.county_or_region | as_crispy_field }}
                         {{ subscription_form.postcode | as_crispy_field }}
                         {{ subscription_form.country | as_crispy_field }}
+                        <label for="id-save-member-info" class="form-check-label">
+                            Save information to profile
+                        </label>
+                        <input type="checkbox" name="save_member_info" id="id-save-member-info" checked>
                     </fieldset>
                     <fieldset class="px-3 mb-5">
                         <legend class="small w-auto">Payment Information</legend>

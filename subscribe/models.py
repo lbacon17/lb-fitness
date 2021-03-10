@@ -11,7 +11,7 @@ class Package(models.Model):
     
     name = models.CharField(max_length=254)
     friendly_name = models.CharField(max_length=254)
-    monthly_rate = models.DecimalField(max_digits=6, decimal_places=2)
+    monthly_rate = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
     videos_available = models.BooleanField(default=False)
     unlimited_training_and_meal_plans = models.BooleanField(default=False)
     chat_support = models.BooleanField(default=False)
@@ -46,7 +46,7 @@ class Subscription(models.Model):
     county_or_region = models.CharField(max_length=50, null=True, blank=True)
     postcode = models.CharField(max_length=10, null=False, blank=False)
     country = CountryField(blank_label='Country *', null=False, blank=False)
-    amount_due = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
+    amount_due = models.DecimalField(max_digits=10, decimal_places=2, null=False, editable=False, default=0)
     package_in_cart = models.TextField(null=False, blank=False, default='')
     stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
     active = models.BooleanField(default=True)
@@ -68,3 +68,17 @@ class Subscription(models.Model):
 
     def __str__(self):
         return self.member.user.username
+
+
+class SubscriptionCount(models.Model):
+    subscription = models.ForeignKey(Subscription, null=False, blank=False, on_delete=models.CASCADE, related_name='subscription_count')
+    package = models.ForeignKey(Package, null=False, blank=False, on_delete=models.CASCADE)
+    quantity = models.IntegerField(null=False, blank=False, default=1)
+    monthly_rate = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
+
+    def save(self, *args, **kwargs):
+        self.monthly_rate = self.package.monthly_rate * self.quantity
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.package.friendly_name
