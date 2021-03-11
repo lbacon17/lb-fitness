@@ -76,16 +76,19 @@ def get_subscription(request, package_id):
             'town_or_city': request.POST['town_or_city'],
             'county_or_region': request.POST['county_or_region'],
             'postcode': request.POST['postcode'],
-            'country': request.POST['country']
+            'country': request.POST['country'],
         }
 
         subscription_form = SubscriptionForm(billing_info)
         if subscription_form.is_valid():
             subscription = subscription_form.save(commit=False)
+            member = Member.objects.get(user=request.user)
             pid = request.POST.get('client_secret').split('_secret')[0]
             subscription.stripe_pid = pid
             subscription.package_in_cart = json.dumps(cart)
             subscription.save()
+            member.subscription_package = package
+            member.save()
             for package_id, package_data in cart.items():
                 try:
                     package = Package.objects.get(id=package_id)
@@ -161,6 +164,7 @@ def subscription_confirmation(request, subscription_id):
 
     if save_member_info:
         member_data = {
+            'subscription_package': subscription.subscription_package,
             'default_email_address': subscription.email_address,
             'default_phone_number': subscription.phone_number,
             'default_address_line1': subscription.address_line1,
@@ -181,6 +185,7 @@ def subscription_confirmation(request, subscription_id):
     template = 'subscribe/subscription_confirmation.html'
     context = {
         'subscription': subscription,
+        'member': member,
     }
 
     return render(request, template, context)
