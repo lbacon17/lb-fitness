@@ -23,9 +23,9 @@
     <div class="row">
         <div class="col">
             {% if request.user.member.subscription_package.id == 3 %}
-                <strike>{{ item.price }}</strike> {{ discount_price }}
+                <strike>£{{ item.price }}</strike> £{{ item.set_discount_price|floatformat:2 }}
             {% else %}
-                {{ item.price }}
+                £{{ item.price }}
             {% endif %}
         </div>
     </div>
@@ -44,7 +44,7 @@
         </div>
     </div>
     {% endif %}
-    <form action="{% url 'add_item' item.id %}" method="POST">
+    <form action="{% url 'add_item_to_cart' item.id %}" method="POST">
         {% csrf_token %}
         <div class="row">
             <div class="col-12">

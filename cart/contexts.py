@@ -12,14 +12,24 @@ def cart_contents(request):
     cart = request.session.get('cart', {})
 
     for item_id, item_data in cart.items():
-        item = get_object_or_404(Product, pk=item_id)
-        total += item_data * item.price
-        count += item_data
-        items_in_cart.append({
-            'item_id': item_id,
-            'quantity': item_data,
-            'item': item,
-        })
+        if isinstance(item_data, int):
+            item = get_object_or_404(Product, pk=item_id)
+            total += item_data * item.price
+            count += item_data
+            items_in_cart.append({
+                'item_id': item_id,
+                'quantity': item_data,
+                'item': item,
+            })
+        else:
+            item = get_object_or_404(Product, pk=item_id)
+            total += quantity * item.price
+            count += quantity
+            items_in_cart.append({
+                'item_id': item_id,
+                'quantity': quantity,
+                'item': item,
+            })
     
     context = {
         'items_in_cart': items_in_cart,

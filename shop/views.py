@@ -85,11 +85,9 @@ def shop_all(request):
 
 def item_info(request, item_id):
     item = get_object_or_404(Product, pk=item_id)
-    discount_price = item.price / 2
 
     context = {
         'item': item,
-        'discount_price': discount_price,
     }
 
     return render(request, 'shop/item_info.html', context)
