@@ -1,11 +1,28 @@
+from django import template
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.db import models
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.db.models.functions import Lower
 
 from .models import Product, Category
 from .forms import ProductForm
+
+from members.models import Member
+register = template.Library()
+
+
+@register.filter
+def div(dividend, divisor):
+    try:
+        dividend = int(dividend)
+        divisor = int(divisor)
+        if divisor:
+            return dividend / divisor
+    except: 
+        pass
+    return ''    
 
 
 def shop_all(request):
@@ -16,7 +33,7 @@ def shop_all(request):
     category = None
     sort = None
     direction = None
-
+    
     if request.GET:
         # checks whether a sort parameter exists and orders by selected
         # criteria if so
@@ -66,9 +83,11 @@ def shop_all(request):
 
 def item_info(request, item_id):
     item = get_object_or_404(Product, pk=item_id)
+    discount_price = item.price / 2
 
     context = {
         'item': item,
+        'discount_price': discount_price,
     }
 
     return render(request, 'shop/item_info.html', context)

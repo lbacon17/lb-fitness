@@ -2,6 +2,14 @@
 {% load static %}
 
 {% block content %}
+<div class="container-fluid mt-5 py-3 text-center">
+    <div class="row">
+        <div class="col-12">
+            <h1>Viewing {{ item.friendly_name }}</h1>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
     <div class="row">
         <div class="col">
             {{ item.friendly_name }}
@@ -14,7 +22,11 @@
     </div>
     <div class="row">
         <div class="col">
-            {{ item.price }}
+            {% if request.user.member.subscription_package.id == 3 %}
+                <strike>{{ item.price }}</strike> {{ discount_price }}
+            {% else %}
+                {{ item.price }}
+            {% endif %}
         </div>
     </div>
     <div class="row">
@@ -23,14 +35,14 @@
         </div>
     </div>
     {% if request.user.is_superuser %}
-        <div class="row">
-            <div class="col">
-                <a href="{% url 'edit_item' item.id %}" class="btn">Update Details</a>
-            </div>
-            <div class="col">
-                <a href="{% url 'delete_item' item.id %}" class="btn">Delete</a>
-            </div>
+    <div class="row">
+        <div class="col">
+            <a href="{% url 'edit_item' item.id %}" class="btn">Update Details</a>
         </div>
+        <div class="col">
+            <a href="{% url 'delete_item' item.id %}" class="btn">Delete</a>
+        </div>
+    </div>
     {% endif %}
     <form action="{% url 'add_item' item.id %}" method="POST">
         {% csrf_token %}
@@ -58,4 +70,5 @@
         </div>
     </form>
     <input type="hidden" name="redirect_url" value="{{ request.path }}">
-{% endblock %}
+</div>
+    {% endblock %}
