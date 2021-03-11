@@ -10,6 +10,7 @@ class ProductAdmin(admin.ModelAdmin):
         'friendly_name',
         'description',
         'price',
+        'vip_discount_percentage',
         'rating',
         'image',
     )
