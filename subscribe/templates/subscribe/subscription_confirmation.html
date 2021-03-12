@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <h2 class="my-5">Confirmation of subscription to {{ subscription.package.friendly_name }}</h2>
+                <h2 class="my-5">Confirmation of subscription to {{ request.user.member.subscription_package.friendly_name }}</h2>
             </div>
         </div>
         <div class="row">

@@ -24,6 +24,7 @@ class Product(models.Model):
     name = models.CharField(max_length=254)
     friendly_name = models.CharField(max_length=254, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
+    has_sizes = models.BooleanField(default=False, null=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     vip_discount_percentage = models.IntegerField(default=50)
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00, null=True, blank=True)

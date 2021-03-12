@@ -1,6 +1,4 @@
 from django import template
-from decimal import Decimal
-from django.conf import settings
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db import models
@@ -12,19 +10,6 @@ from .models import Product, Category
 from .forms import ProductForm
 
 from members.models import Member
-register = template.Library()
-
-
-@register.filter
-def div(dividend, divisor):
-    try:
-        dividend = int(dividend)
-        divisor = int(divisor)
-        if divisor:
-            return dividend / divisor
-    except: 
-        pass
-    return ''    
 
 
 def shop_all(request):

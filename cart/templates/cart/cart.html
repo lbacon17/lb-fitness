@@ -21,7 +21,26 @@
                         {{ item.item.quantity }}
                     </div>
                 </div>
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <a href="{% url 'remove_item_from_cart' item.item_id %}" class="remove-item btn-lg bg-danger text-white">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+                </div>
             {% endfor %}
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h6>Total: £{{ total|floatformat:2 }}</h6>
+                    <h6>Delivery £{{ delivery|floatformat:2 }}</h6>
+                    <h4>Total amount due: £{{ grand_total|floatformat:2 }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h6>Spend £{{ free_delivery_gap }} more for free delivery.</h5>
+                </div>
+            </div>
         {% else %}
             <div class="row">
                 <div class="col-12">
