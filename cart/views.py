@@ -45,8 +45,9 @@ def add_item_to_cart(request, item_id):
     return redirect(redirect_url)
 
 
-def update_cart(request):
+def update_cart(request, item_id):
     """This view lets the user update their shopping cart"""
+    item = get_object_or_404(Product, pk=item_id)
     template = 'cart/cart.html'
     return render(request, template)
 

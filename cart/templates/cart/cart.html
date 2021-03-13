@@ -22,7 +22,20 @@
                     </div>
                 </div>
                 <div class="row pt-2">
-                    <div class="col-12">
+                    <div class="col-12 col-md-6">
+                        <form class="quantity-form" action="{% url 'update_cart' item.item_id %}">
+                            {% csrf_token %}
+                            <button class="decrease-qty btn rounded-0" data-item_id="{{ item.item_id }}" id="decrease-qty_{{ item.item_id }}">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" class="form-control qty_input" name="quantity" value="{{ item.quantity }}" min="1" max="99" data-item_id="{{ item.item_id }}" id="id_qty_{{ item.item_id }}">
+                            <button class="increase-qty btn rounded-0" data-item_id="{{ item.item_id }}" id="increase-qty_{{ item.item_id }}">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </form>
+                        <a class="update-quantity btn-dark text-white">Update Qty</a>
+                    </div>
+                    <div class="col-12 col-md-6>
                         <a id="remove_{{ item.item_id }}" class="remove-item btn-lg bg-danger text-white" href="{% url 'remove_item_from_cart' item.item_id %}">
                             <i class="fas fa-times"></i>
                         </a>
@@ -71,6 +84,12 @@
 {% block postloadjs %}
 {{ block.super }}
     <script type="text/javascript">
+        // Updates item quantity
+        $('.update-quantity').click(function(e) {
+            var quantity_form = $(this).prev('.quantity-form');
+            form.submit();
+        })
+
         // Removes item from cart and reloads page
         $('.remove-item').click(function(e) {
             var csrfToken = '{{ csrf_token }}';
