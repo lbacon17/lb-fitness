@@ -23,7 +23,7 @@
                 </div>
                 <div class="row pt-2">
                     <div class="col-12">
-                        <a href="{% url 'remove_item_from_cart' item.item_id %}" class="remove-item btn-lg bg-danger text-white">
+                        <a id="remove_{{ item.item_id }}" class="remove-item btn-lg bg-danger text-white" href="{% url 'remove_item_from_cart' item.item_id %}">
                             <i class="fas fa-times"></i>
                         </a>
                     </div>
@@ -36,11 +36,13 @@
                     <h4>Total amount due: £{{ grand_total|floatformat:2 }}</h4>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <h6>Spend £{{ free_delivery_gap }} more for free delivery.</h5>
+            {% if free_delivery_gap > 0 %}
+                <div class="row">
+                    <div class="col-12">
+                        <h6>Spend £{{ free_delivery_gap }} more for free delivery.</h5>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         {% else %}
             <div class="row">
                 <div class="col-12">
@@ -53,5 +55,33 @@
                 </div>
             </div>
         {% endif %}
+        {% if items_in_cart %}
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <a href="{% url 'shop' %}" class="btn-lg bg-light text-dec-none text-dark float-right">Continue Shopping</a>
+                </div>
+                <div class="col-md-6">
+                    <a class="btn-lg btn-success text-dec-none float-left">Checkout</a>
+                </div>
+            </div>
+        {% endif %}
     </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+    <script type="text/javascript">
+        // Removes item from cart and reloads page
+        $('.remove-item').click(function(e) {
+            var csrfToken = '{{ csrf_token }}';
+            var itemId = $(this).attr('id').split('remove_')[1];
+            var url = `/cart/remove_item/${itemId}/`;
+            var data = {'csrfmiddlewaretoken': csrfToken};
+
+            $.post(url, data)
+             .done(function() {
+                 location.reload();
+             });
+        })
+    </script>
 {% endblock %}

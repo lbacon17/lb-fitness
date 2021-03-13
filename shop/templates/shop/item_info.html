@@ -56,13 +56,13 @@
                                 <div class="input group">
                                     <div class="input-group-prepend">
                                         <button class="decrease-qty btn" data-item_id="{{ item.id }}" id="decrease-qty_{{ item.id }}">
-                                            <span>-</span>
+                                            <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
                                     <input type="number" class="form-control qty_input" name="quantity" value="1" min="1" max="100" data-item_id="{{ item.id }}" id="id_qty_{{ item.id }}">
                                     <div class="input-group-append">
                                         <button class="increase-qty btn" data-item_id="{{ item.id }}" id="increase-qty_{{ item.id }}">
-                                            <span>+</span>
+                                            <i class="fas fa-plus"></i>
                                         </button>
                                     </div>
                                 </div>

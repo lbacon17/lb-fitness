@@ -119,14 +119,28 @@
                             <div class="col">
                                 <form action="{% url 'add_item_to_cart' item.id %}" class="form text-center" method="POST">
                                     {% csrf_token %}
-                                    <input type="submit" class="btn btn-dark text-dec-none {% if not request.user.is_superuser %}my-3{% endif %}" value="Add To Cart">
-                                    <button class="decrease-qty btn rounded-0" data-item_id="{{ item.id }}" id="decrease-qty_{{ item.id }}">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <input type="number" class="form-control qty_input" name="quantity" value="1" min="1" max="100" data-item_id="{{ item.id }}" id="id_qty_{{ item.id }}">
-                                    <button class="increase-qty btn rounded-0" data-item_id="{{ item.id }}" id="increase-qty_{{ item.id }}">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
+                                    <div class="row">
+                                        <div class="col-md-6 float-right">
+                                            <input type="submit" class="btn btn-dark text-dec-none {% if not request.user.is_superuser %}my-3{% endif %}" value="Add To Cart">
+                                        </div>
+                                        <div class="col-md-6 float-left">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button class="decrease-qty btn rounded-0" data-item_id="{{ item.id }}" id="decrease-qty_{{ item.id }}">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="number" class="form-control qty_input" name="quantity" value="1" min="1" max="100" data-item_id="{{ item.id }}" id="id_qty_{{ item.id }}">
+                                                </div>
+                                                <div class="col">
+                                                    <button class="increase-qty btn rounded-0" data-item_id="{{ item.id }}" id="increase-qty_{{ item.id }}">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                                 </form>
                             </div>
