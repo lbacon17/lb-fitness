@@ -48,8 +48,19 @@ def add_item_to_cart(request, item_id):
 def update_cart(request, item_id):
     """This view lets the user update their shopping cart"""
     item = get_object_or_404(Product, pk=item_id)
-    template = 'cart/cart.html'
-    return render(request, template)
+    quantity = int(request.POST.get('quantity'))
+    cart = request.session.get('cart', {})
+    if quantity > 99:
+        messages.error(request, ('You cannot add this many units of a product.' \
+            'The maximum possible quantity is 99. Please enter a quantity' \
+            'within the accepted range.'))
+    elif quantity > 0:
+        cart[item_id] = quantity
+    else:
+        cart.pop[item_id]
+
+    request.session['cart'] = cart
+    return redirect(reverse('load_cart'))
 
 
 def remove_item_from_cart(request, item_id):
@@ -60,7 +71,7 @@ def remove_item_from_cart(request, item_id):
         cart.pop(item_id)
         messages.success(request, f'{item.name} was deleted from your cart.')
         request.session['cart'] = cart
-        return render(request, 'cart/cart.html')
+        return redirect(reverse('load_cart'))
 
     except Exception as e:
         messages.error(request, f'There was a a problem removing item. {e}')

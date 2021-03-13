@@ -53,7 +53,7 @@
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-12">
-                                <div class="input group">
+                                <div class="input-group">
                                     <div class="input-group-prepend">
                                         <button class="decrease-qty btn" data-item_id="{{ item.id }}" id="decrease-qty_{{ item.id }}">
                                             <i class="fas fa-minus"></i>
@@ -90,4 +90,9 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{% include 'shop/includes/adjust_quantity_script.html' %}
 {% endblock %}

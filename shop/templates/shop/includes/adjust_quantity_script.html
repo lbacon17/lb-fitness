@@ -1,0 +1,19 @@
+<script type="text/javascript">
+    // Increases quantity
+    $('.increase-qty').click(function(e) {
+        e.preventDefault();
+        var closestInputElement = $(this).closest('.input-group');
+        var currentQuantity = parseInt($(closestInputElement).val());
+        $(closestInputElement).val(currentQuantity + 1);
+        var itemId = $(this).data('item_id');
+    });
+
+    // Decreases quantity
+    $('.decrease-qty').click(function(e) {
+        e.preventDefault();
+        var closestInputElement = $(this).closest('.input-group');
+        var currentQuantity = parseInt($(closestInputElement).val());
+        $(closestInputElement).val(currentQuantity - 1);
+        var itemId = $(this).data('item_id');
+    });
+</script>

@@ -124,19 +124,23 @@
                                             <input type="submit" class="btn btn-dark text-dec-none {% if not request.user.is_superuser %}my-3{% endif %}" value="Add To Cart">
                                         </div>
                                         <div class="col-md-6 float-left">
-                                            <div class="row">
+                                            <div class="row input-group">
                                                 <div class="col">
-                                                    <button class="decrease-qty btn rounded-0" data-item_id="{{ item.id }}" id="decrease-qty_{{ item.id }}">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
+                                                    <div class="input-group-prepend">
+                                                        <button class="decrease-qty btn rounded-0" data-item_id="{{ item.id }}" id="decrease-qty_{{ item.id }}">
+                                                            <i class="fas fa-minus"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                                 <div class="col">
                                                     <input type="number" class="form-control qty_input" name="quantity" value="1" min="1" max="100" data-item_id="{{ item.id }}" id="id_qty_{{ item.id }}">
                                                 </div>
                                                 <div class="col">
-                                                    <button class="increase-qty btn rounded-0" data-item_id="{{ item.id }}" id="increase-qty_{{ item.id }}">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
+                                                    <div class="input-group-append">
+                                                        <button class="increase-qty btn rounded-0" data-item_id="{{ item.id }}" id="increase-qty_{{ item.id }}">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -162,6 +166,8 @@
 {% endblock %}
 
 {% block postloadjs %}
+{{ block.super }}
+{% include 'shop/includes/adjust_quantity_script.html' %}
     <script type="text/javascript">
         // enables product sorting. Credit to Boutique Ado project for this code
         $('#sort-products').change(function() {
