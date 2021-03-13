@@ -16,4 +16,25 @@
         $(closestInputElement).val(currentQuantity - 1);
         var itemId = $(this).data('item_id');
     });
+
+    // Disables +/- buttons outside the min-max range
+    function disableQuantityInput(itemId) {
+        var currentQuantity = parseInt($(`#id_qty_${itemId}`).val());
+        var disableDecrease = currentQuantity < 2;
+        var disableIncrease = currentQuantity > 98;
+        $(`#decrease-qty_${itemId}`).prop('disabled', disableDecrease);
+        $(`#increase-qty_${itemId}`).prop('disabled', disableIncrease);
+    }
+
+    var allQtyInputs = $('.qty_input');
+    for (var i = 0; i < allQtyInputs.length; i++) {
+        var itemId = $(allQtyInputs[i]).data('item_id');
+        disableQuantityInput(itemId);
+    }
+
+    // Checks in real time if button should be disabled whenever user changes input
+    $('qty_input').change(function() {
+        var itemId = $(this).data('item_id');
+        disableQuantityInput(itemId);
+    });
 </script>
