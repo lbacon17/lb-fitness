@@ -8,6 +8,7 @@ from django.db.models.functions import Lower
 
 from .models import Product, Category
 from .forms import ProductForm
+from .contexts import favourites
 
 from members.models import Member
 
@@ -144,10 +145,14 @@ def delete_item(request, item_id):
         return redirect(reverse('home'))
 
 
-@login_required
 def favourite_item(request, item_id):
-    fav_item = get_object_or_404(Product, pk=item_id)
-    if request.method == 'POST':
-        fav_item.favourite.add(request.user)
-    template = 'shop/shop.html'
-    return render(request, template)
+    item = get_object_or_404(Product, pk=item_id)
+    redirect_url = request.POST.get('redirect_url')
+    favourites = request.session.get('favourites', [])
+    if not item_id in favourites:
+        favourites.append(item_id)
+        messages.success(request, f'Added {item.item_id} to favourites.')
+
+    request.session['favourites'] = favourites
+
+    return redirect(redirect_url)

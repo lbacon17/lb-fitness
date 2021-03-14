@@ -2,6 +2,7 @@ from decimal import Decimal
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from django_countries.fields import CountryField
 
 
 class Category(models.Model):
@@ -41,3 +42,10 @@ class Product(models.Model):
     def set_discount_price(self):
         discount_price = (float(self.price) * (self.vip_discount_percentage / 100))
         return discount_price
+
+
+class Favourite(models.Model):
+    user = models.ForeignKey(User, verbose_name='User', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username

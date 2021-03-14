@@ -63,15 +63,11 @@
         </header>
         <div class="page-wrap">
             {% if messages %}
-            <div class="messages-container mt-5 p-5">
-                {% for message in messages %}
-                    <div class="row">
-                        <div class="col">
-                            <span>{{ message }}</span>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+                <div class="messages-container mt-5 p-5">
+                    {% for message in messages %}
+                        {% include 'includes/toasts/toast_error.html' %}
+                    {% endfor %}
+                </div>
             {% endif %}
             
             {% block page_header %}
@@ -84,11 +80,14 @@
         </div>  
         {% block postloadjs %}
             <script type="text/javascript">
-                // switches between each deal banner every 1 second
+                // Cwitches between each deal banner every 1 second
                 setInterval(toggle, 1000);
                 function toggle() {
                     $('.deals-heading').toggleClass('visible');
-                } 
+                }
+
+                // Displays toast snippets if the user has a message
+                $('.toast').toast('show');
             </script>
         {% endblock %}
     </body>

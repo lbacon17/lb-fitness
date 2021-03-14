@@ -12,13 +12,11 @@
         </div>
     </div>
     <div class="container-fluid">
-        {% for item in favourite_items %}
-            <div class="row">
-                <div class="col-12">
-                    <p class="font-weight-bold">{{ item.friendly_name }}</p>
-                </div>
-            </div>
-        {% endfor %}
+           <div class="row">
+               <div class="col-12">
+                   <h1>Favourites: {% for favourite in favourites %}{{ favourite }}{% endfor %}</h1>
+               </div>
+           </div>
     </div>
     <div class="container-fluid sorting-container">
         <div class="row mt-3 px-3 text-center text-left-sm">
@@ -152,9 +150,13 @@
                         {% if user.is_authenticated %}
                             <div class="row">
                                 <div class="col">
-                                    <a href="{% url 'favourite_item' item.id %}" class="btn">
-                                        <i class="far fa-heart"></i>
-                                    </a>
+                                    <form action="{% url 'favourite_item' item.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="favourite-item">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                    </form>
                                 </div>
                             </div>
                         {% endif %}
