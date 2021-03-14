@@ -70,7 +70,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <input type="submit" class="btn-lg" value="Add To Cart">
+                                <input type="submit" class="btn-lg btn-dark text-dec-none" value="Add To Cart">
                             </div>
                         </div>
                         <input type="hidden" name="redirect_url" value="{{ request.path }}">
@@ -94,5 +94,44 @@
 
 {% block postloadjs %}
 {{ block.super }}
-{% include 'shop/includes/adjust_quantity_script.html' %}
+<script type="text/javascript">
+    // Increases quantity
+    $('.increase-qty').click(function(e) {
+        e.preventDefault();
+        var closestInputElement = $(this).closest('.input-group');
+        var currentQuantity = parseInt($(closestInputElement).val());
+        $(closestInputElement).val(currentQuantity + 1);
+        var itemId = $(this).data('item_id');
+    });
+
+    // Decreases quantity
+    $('.decrease-qty').click(function(e) {
+        e.preventDefault();
+        var closestInputElement = $(this).closest('.input-group');
+        var currentQuantity = parseInt($(closestInputElement).val());
+        $(closestInputElement).val(currentQuantity - 1);
+        var itemId = $(this).data('item_id');
+    });
+
+    // Disables +/- buttons outside the min-max range
+    function disableQuantityInput(itemId) {
+        var currentQuantity = parseInt($(`#id_qty_${itemId}`).val());
+        var disableDecrease = currentQuantity < 2;
+        var disableIncrease = currentQuantity > 98;
+        $(`#decrease-qty_${itemId}`).prop('disabled', disableDecrease);
+        $(`#increase-qty_${itemId}`).prop('disabled', disableIncrease);
+    }
+
+    var allQtyInputs = $('.qty_input');
+    for (var i = 0; i < allQtyInputs.length; i++) {
+        var itemId = $(allQtyInputs[i]).data('item_id');
+        disableQuantityInput(itemId);
+    }
+
+    // Checks in real time if button should be disabled whenever user changes input
+    $('qty_input').change(function() {
+        var itemId = $(this).data('item_id');
+        disableQuantityInput(itemId);
+    });
+</script>
 {% endblock %}

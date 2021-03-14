@@ -56,6 +56,8 @@ def update_cart(request, item_id):
             'within the accepted range.'))
     elif quantity > 0:
         cart[item_id] = quantity
+        messages.success(request, f'Successfully updated quantity of' \
+            f'{item.friendly_name} to {cart[item_id]}.')
     else:
         cart.pop[item_id]
 
@@ -69,9 +71,9 @@ def remove_item_from_cart(request, item_id):
         item = get_object_or_404(Product, pk=item_id)
         cart = request.session.get('cart', {})
         cart.pop(item_id)
-        messages.success(request, f'{item.name} was deleted from your cart.')
+        messages.success(request, f'{item.friendly_name} was deleted from your cart.')
         request.session['cart'] = cart
-        return redirect(reverse('load_cart'))
+        return render(request, 'cart/cart.html')
 
     except Exception as e:
         messages.error(request, f'There was a a problem removing item. {e}')

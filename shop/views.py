@@ -1,7 +1,5 @@
-from django import template
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
-from django.db import models
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Sum
 from django.db.models.functions import Lower
@@ -9,8 +7,6 @@ from django.db.models.functions import Lower
 from .models import Product, Category
 from .forms import ProductForm
 from .contexts import favourites
-
-from members.models import Member
 
 
 def shop_all(request):
@@ -53,8 +49,8 @@ def shop_all(request):
             if not query:
                 messages.error(request, "You didn't enter any search terms!")
                 return redirect(reverse('shop'))
-            
-            queries = Q(name__icontains=query)
+
+            queries = Q(name__icontains=query) | Q(description__icontains=query)
             shop_items = shop_items.filter(queries)
 
     sort_by = f'{sort}_{direction}'

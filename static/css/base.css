@@ -79,3 +79,12 @@ body {
     color: #000000;
     text-decoration: none;
 }
+
+/*-- BOOTSTRAP TOASTS --*/
+
+.messages-container {
+    position: fixed;
+    top: 100px;
+    z-index: 99999;
+    overflow: visible;
+}
