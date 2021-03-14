@@ -1,0 +1,41 @@
+{% for item in items_in_cart %}
+    <a href="{% url 'load_cart' %}" class="dropdown-item">
+        <div class="row">
+            <div class="col-3 my-1">
+                {% if item.item.image %}
+                    <img class="w-100" src="{{ item.item.image.url }}" alt="{{ item.item.friendly_name }}">
+                {% else %}
+                    <img class="w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.item.friendly_name }}">
+                {% endif %}
+            </div>
+            <div class="col-9">
+                <p class="my-0"><small class="font-size-xs">{{ item.item.friendly_name }}</small></p>
+                <p class="my-0 small"><small class="font-size-xs">Size: {% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</small></p>
+                <p class="my-0 small text-muted"><small class="font-size-xs">Qty: {{ item.quantity }}</small></p>
+            </div>
+        </div>
+        <hr>
+    </a>
+{% endfor %}
+<div class="row">
+    <div class="col">
+        {% if free_delivery_gap <= 0 %}
+            <h6 class="mt-1 pl-3 font-weight-bold">
+                Grand Total: £{{ grand_total }}
+            </h6>
+        {% else %}
+            <p class="mt-1 font-weight-bold">
+                Total: {{ total|floatformat:2 }}
+            </p>
+            <p class="mt-1"><small>Delivery: {{ delivery|floatformat:2 }}</small></p>
+            <h6 class="mt-1 font-weight-bold">
+                Grand Total: {{ grand_total }}
+            </h6>
+        {% endif %}
+    </div>
+</div>
+<div class="row text-center mt-2">
+    <div class="col">
+        <a class="btn btn-success text-white text-dec-none">Checkout</a> 
+    </div>
+</div>

@@ -35,7 +35,7 @@ def add_item_to_cart(request, item_id):
     else:
         if item_id in list(cart.keys()):
             cart[item_id] += quantity
-            messages.success(request, (f'Added {cart[item_id]}x '\
+            messages.success(request, (f'Added {quantity}x '\
                               f'{item.friendly_name} to your cart. You now '\
                               f'have {cart[item_id]} of {item.friendly_name} '\
                               f'in your cart'))
@@ -53,12 +53,12 @@ def update_cart(request, item_id):
     quantity = int(request.POST.get('quantity'))
     cart = request.session.get('cart', {})
     if quantity > 99:
-        messages.error(request, ('You cannot add this many units of a product.' \
-            'The maximum possible quantity is 99. Please enter a quantity' \
+        messages.error(request, ('You cannot add this many units of a product. '\
+            'The maximum possible quantity is 99. Please enter a quantity '\
             'within the accepted range.'))
     elif quantity > 0:
         cart[item_id] = quantity
-        messages.success(request, f'Successfully updated quantity of' \
+        messages.success(request, f'Successfully updated quantity of '\
             f'{item.friendly_name} to {cart[item_id]}.')
     else:
         cart.pop(item_id)
