@@ -30,4 +30,5 @@ urlpatterns = [
     path('cart/', include('cart.urls')),
     path('members/', include('members.urls')),
     path('videos/', include('videos.urls')),
+    path('checkout/', include('checkout.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

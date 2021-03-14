@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_header %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h1>Checkout</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h4>Order: {{ count }} items in cart</h4>
+            </div>
+        </div>
+        {% for item in items_in_cart %}
+            <div class="row">
+                <div class="col-2 mb-1">
+                    <a href="{% url 'item_info' item.item.id %}">
+                        {% if item.item.image %}
+                            <img src="{{ item.item.image.url }}" alt="{{ item.friendly_name }}" class="w-100">
+                        {% else %}
+                            <img src="{{ MEDIA_URL }}noimage.png" alt="{{ item.friendly_name }}" class="w-100">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="col-7">
+                    <p class="mb-1">{{ item.item.friendly_name }}</p>
+                    <p class="mb-1">Quantity: {{ item.quantity }}</p>
+                </div>
+                <div class="col-3 text-right">
+                    <p><small>£{{ item.item.price | calc_subtotal:item.quantity }}</small></p>
+                </div>
+            </div>
+            <div class="row text-right">
+                <div class="col-6">
+                    <p>Total:</p>
+                    <p>Delivery:</p>
+                    <p>Grand Total:</p>
+                </div>
+                <div class="col-6">
+                    <p>£{{ total|floatformat:2 }}</p>
+                    <p>£{{ delivery|floatformat:2 }}</p>
+                    <p>£{{ grand_total|floatformat:2 }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
