@@ -35,8 +35,10 @@ def add_item_to_cart(request, item_id):
     else:
         if item_id in list(cart.keys()):
             cart[item_id] += quantity
-            messages.success(request, (f'You now have {cart[item_id]} of' \
-                              f'{item.friendly_name} in your cart'))
+            messages.success(request, (f'Added {cart[item_id]}x '\
+                              f'{item.friendly_name} to your cart. You now '\
+                              f'have {cart[item_id]} of {item.friendly_name} '\
+                              f'in your cart'))
         else:
             cart[item_id] = quantity
             messages.success(request, (f'{cart[item_id]}x {item.friendly_name}' \
@@ -46,7 +48,7 @@ def add_item_to_cart(request, item_id):
 
 
 def update_cart(request, item_id):
-    """This view lets the user update their shopping cart"""
+    """This view lets the user update the quantity of an item in their cart"""
     item = get_object_or_404(Product, pk=item_id)
     quantity = int(request.POST.get('quantity'))
     cart = request.session.get('cart', {})
@@ -59,7 +61,8 @@ def update_cart(request, item_id):
         messages.success(request, f'Successfully updated quantity of' \
             f'{item.friendly_name} to {cart[item_id]}.')
     else:
-        cart.pop[item_id]
+        cart.pop(item_id)
+        messages.success(request, f'{item.friendly_name} was removed from your cart.')
 
     request.session['cart'] = cart
     return redirect(reverse('load_cart'))
@@ -69,11 +72,14 @@ def remove_item_from_cart(request, item_id):
     """This view lets the user delete an item from their shopping cart"""
     try:
         item = get_object_or_404(Product, pk=item_id)
+        size = None
         cart = request.session.get('cart', {})
-        cart.pop(item_id)
-        messages.success(request, f'{item.friendly_name} was deleted from your cart.')
+        if not size:
+            cart.pop(item_id)
+            messages.success(request, f'{item.friendly_name} was deleted from your cart.')
+
         request.session['cart'] = cart
-        return render(request, 'cart/cart.html')
+        return redirect(reverse('load_cart'))
 
     except Exception as e:
         messages.error(request, f'There was a a problem removing item. {e}')
