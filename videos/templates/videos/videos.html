@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'videos/css/videos.css' %}">
+{% endblock %}
+
 {% block content %}
     <div class="container-fluid mt-5 py-5 text-center">
         <div class="row">
@@ -18,7 +22,7 @@
                         <video src="{{ video.video_file.url }}" alt="{{ video.title }}" class="img-thumbnail" controls preload type="video/mp4">
                         </video>
                         <p class="mb-0 px-2">
-                            <small class="text-muted">{{ video.length }} Rating: {{ video.rating }}</small>
+                            <small class="text-muted">{{ video.length }} Rating: {% include 'videos/includes/video_rating.html' %}</small>
                         </p>
                         <p class="mx-2">{{ video.description }}</p>
                     </div>

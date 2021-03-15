@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .models import StoreUser
+
+
+def user_profile(request):
+    profile = get_object_or_404(StoreUser, user=request.user)
+    template = 'user_profiles/profile.html'
+    return render(request, template)

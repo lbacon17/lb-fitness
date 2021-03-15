@@ -2,6 +2,7 @@ from django.shortcuts import (
     render, redirect, reverse, get_object_or_404, HttpResponse)
 from django.contrib import messages
 from shop.models import Product
+from members.models import Member
 
 
 def load_cart(request):

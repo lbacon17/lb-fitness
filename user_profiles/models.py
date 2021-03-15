@@ -23,6 +23,6 @@ class StoreUser(models.Model):
 
 @receiver(post_save, sender=User)
 def create_or_update_store_user_profile(sender, instance, created, **kwargs):
-    if created:
-        StoreUser.objects.create(user=instance)
-    instance.storeuser.save()
+    # if created:
+    StoreUser.objects.create(user=instance)
+    # instance.storeuser.save()

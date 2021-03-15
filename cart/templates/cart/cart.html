@@ -51,7 +51,7 @@
             <div class="row mt-4">
                 <div class="col-12">
                     <h6>Total: £{{ total|floatformat:2 }}</h6>
-                    <h6>Delivery £{{ delivery|floatformat:2 }}</h6>
+                    <h6>Delivery: £{% if request.user.member.subscription_package.id == 3 %}0.00{% else %}{{ delivery|floatformat:2 }}{% endif %}</h6>
                     <h4>Total amount due: £{{ grand_total|floatformat:2 }}</h4>
                 </div>
             </div>

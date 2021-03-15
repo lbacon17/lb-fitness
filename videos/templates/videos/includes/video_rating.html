@@ -1,0 +1,28 @@
+<small class="text-muted">Rating: 
+    {% if video.rating >= 0.50 %}
+        <i class="fas fa-star rating-star"></i>
+    {% else %}
+        <i class="far fa-star"></i>
+    {% endif %}
+    {% if video.rating >= 1.50 %}
+        <i class="fas fa-star rating-star"></i>
+    {% else %}
+        <i class="far fa-star"></i>
+    {% endif %}
+    {% if video.rating >= 2.50 %}
+        <i class="fas fa-star rating-star"></i>
+    {% else %}
+        <i class="far fa-star"></i>
+    {% endif %}
+    {% if video.rating >= 3.50 %}
+        <i class="fas fa-star rating-star"></i>
+    {% else %}
+        <i class="far fa-star"></i>
+    {% endif %}
+    {% if video.rating >= 4.50 %}
+        <i class="fas fa-star rating-star"></i>
+    {% else %}
+        <i class="far fa-star"></i>
+    {% endif %}
+    {{ video.rating }}
+</small>

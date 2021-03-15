@@ -19,19 +19,19 @@
 {% endfor %}
 <div class="row">
     <div class="col">
-        {% if free_delivery_gap <= 0 %}
-            <h6 class="mt-1 pl-3 font-weight-bold">
-                Grand Total: £{{ grand_total }}
-            </h6>
-        {% else %}
+        <div class="pl-3">
             <p class="mt-1 font-weight-bold">
-                Total: {{ total|floatformat:2 }}
+                Total: £{{ total|floatformat:2 }}
             </p>
-            <p class="mt-1"><small>Delivery: {{ delivery|floatformat:2 }}</small></p>
+            <p class="mt-1">
+                <small>
+                    Delivery: £{% if request.user.member.subscription_package.id == 3 %}0.00{% else %}{{ delivery|floatformat:2 }}{% endif %}
+                </small>
+            </p>
             <h6 class="mt-1 font-weight-bold">
-                Grand Total: {{ grand_total }}
+                Grand Total: £{{ grand_total|floatformat:2 }}
             </h6>
-        {% endif %}
+        </div>
     </div>
 </div>
 <div class="row text-center mt-2">
