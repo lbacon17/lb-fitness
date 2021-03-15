@@ -48,23 +48,32 @@
     </button>
 </form>
 <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-    <li class="nav-item {% if grand_total %}dropdown{% endif %}">
-        <a href="#" {% if grand_total %}class="nav-link text-dark dropdown-toggle" id="cart-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"{% else %}class="nav-link text-dark"{% endif %}>
-            <i class="fas fa-shopping-cart fa-lg"></i>
-            <small>
-                {% if grand_total %}
-                    £{{ grand_total|floatformat:2 }}
-                {% else %}
-                    £0.00
-                {% endif %}
-            </small>
-        </a>
-        {% if grand_total %}
-        <ul class="dropdown-menu cart-preview" aria-labelledby="cart-dropdown">
-            <li>
-                {% include 'includes/cart_preview.html' %}
-            </li>
-        </ul>
-        {% endif %}
-    </li>
+    {% if request.user.is_authenticated %}
+        <li class="nav-item {% if grand_total %}dropdown{% endif %}">
+            <a href="#" {% if grand_total %}class="nav-link text-dark dropdown-toggle" id="cart-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"{% else %}class="nav-link text-dark"{% endif %}>
+                <i class="fas fa-shopping-cart fa-lg"></i>
+                <small>
+                    {% if total > 0 %}
+                        £{{ total|floatformat:2 }}
+                    {% else %}
+                        £0.00
+                    {% endif %}
+                </small>
+            </a>
+            {% if grand_total %}
+            <ul class="dropdown-menu cart-preview" aria-labelledby="cart-dropdown">
+                <li>
+                    {% include 'includes/cart_preview.html' %}
+                </li>
+            </ul>
+            {% endif %}
+        </li>
+    {% else %}
+        <li class="list-inline-item">
+            <a href="{% url 'account_login' %}" class="nav-link">Login</a>
+        </li>
+        <li class="list-inline-item">
+            <a href="{% url 'account_signup' %}" class="nav-link">Register</a>
+        </li>
+    {% endif %}
 </ul>

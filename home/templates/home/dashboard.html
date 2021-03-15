@@ -23,6 +23,28 @@
                     <a href="{% url 'training_videos' user.id %}" class="btn-lg btn-dark text-dec-none">View Training Videos</a>
                 </div>
             </div>
+            {% if member.subscription_package.id != 1 %}
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="my-5">
+                            <a href="" class="btn-lg btn-primary text-dec-none">Get Support</a>
+                        </p>
+                    </div>
+                </div>
+                {% if member.subscription_package.id == 3 %}
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="my-3">
+                                As a VIP, you get 50% off all items in our store!
+                            </p>
+                            <hr>
+                            <a href="{% url 'shop' %}" class="btn-lg btn-success text-dec-none">Go To Shop</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
         {% else %}
             <div class="row">
                 <div class="col-12">
