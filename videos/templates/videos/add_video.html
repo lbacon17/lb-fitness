@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h1>Add New Video</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="col-12">
+                <form action="{% url 'add_video' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="row">
+                        <div class="col-md-6 text-right">
+                            <a href="{% url 'training_videos' user.id %}" class="btn-primary btn-lg text-dec-none">Cancel</a>
+                        </div>
+                        <div class="col-md-6 text-left">
+                            <button class="btn-success btn-lg text-dec-none">Upload Video</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

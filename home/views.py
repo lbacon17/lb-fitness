@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from members.models import Member
 from videos.models import Video
 
@@ -8,6 +9,7 @@ def home(request):
     return render(request, 'home/index.html')
 
 
+@login_required
 def user_dashboard(request, user):
     """This view renders the individual user's dashboard when logged in"""
     member = get_object_or_404(Member, user=user)

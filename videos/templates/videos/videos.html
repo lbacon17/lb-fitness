@@ -17,7 +17,7 @@
         {% if request.user.is_superuser %}
             <div class="row py-3">
                 <div class="col-12">
-                    <a href="" class="btn-lg btn-success text-dec-none">Add Video</a>
+                    <a href="{% url 'add_video' %}" class="btn-lg btn-success text-dec-none">Add Video</a>
                 </div>
             </div>
         {% endif %}
@@ -32,6 +32,16 @@
                             <small class="text-muted">{{ video.length }} Rating: {% include 'videos/includes/video_rating.html' %}</small>
                         </p>
                         <p class="mx-2">{{ video.description }}</p>
+                        {% if request.user.is_superuser %}
+                            <div class="row">
+                                <div class="col-md-6 text-right">
+                                    <a href="{% url 'edit_video' video.id %}" class="btn-primary btn-lg text-dec-none">Edit</a>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <a href="{% url 'delete_video' video.id %}" class="btn-danger btn-lg text-dec-none">Delete</a>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 {% endfor %}
             {% else %}
