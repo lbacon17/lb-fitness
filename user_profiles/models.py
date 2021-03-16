@@ -21,8 +21,8 @@ class StoreUser(models.Model):
         return self.user.username
 
 
-@receiver(post_save, sender=User)
-def create_or_update_store_user_profile(sender, instance, created, **kwargs):
-    # if created:
-    StoreUser.objects.create(user=instance)
-    # instance.storeuser.save()
+# @receiver(post_save, sender=User)
+# def create_or_update_store_user_profile(sender, instance, created, **kwargs):
+#     # if created:
+#     StoreUser.objects.create(user=instance)
+#     # instance.storeuser.save()
