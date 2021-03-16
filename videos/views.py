@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Video
 from .forms import VideoForm
 from members.models import Member
+from django.db.models.functions import Lower
 
 
 @login_required
@@ -11,9 +12,29 @@ def training_videos(request, user):
     """This view renders the videos available to paid subscribers"""
     videos = Video.objects.all()
     member = get_object_or_404(Member, user=user)
+    query = None
+    sort = None
+    direction = None
+
+    if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'title':
+                sortkey == 'lower_title'
+                videos = videos.annotate(lower_title=Lower('title'))
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            videos = videos.order_by(sortkey)
+
+    sort_by = f'{sort}_{direction}'
+
     context = {
         'videos': videos,
         'member': member,
+        'sort_by': sort_by,
     }
     return render(request, 'videos/videos.html', context)
 

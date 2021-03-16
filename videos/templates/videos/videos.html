@@ -13,6 +13,35 @@
             </div>
         </div>
     </div>
+    <div class="container-fluid sorting-container">
+        <div class="row mt-3 px-3 text-center text-left-sm">
+            <div class="col-12">
+                <select class="custom-select-sm btn-sm border-black" id="sort-videos">
+                    <option value="reset" {% if sort_by == 'None_None' %}selected{% endif %}>
+                        Sort by...
+                    </option>
+                    <option value="title_asc" {% if sort_by == 'title_asc' %}selected{% endif %}>
+                        Title (A-Z)
+                    </option>
+                    <option value="title_desc" {% if sort_by == 'title_desc' %}selected{% endif %}>
+                        Title (Z-A)
+                    </option>
+                    <option value="rating_asc" {% if sort_by == 'rating_asc' %}selected{% endif %}>
+                        Rating (low to high)
+                    </option>
+                    <option value="rating_desc" {% if sort_by == 'rating_Desc' %}selected{% endif %}>
+                        Rating (high to low)
+                    </option>
+                    <option value="length_asc" {% if sort_by == 'length_asc' %}selected{% endif %}>
+                        Length (short to long)
+                    </option>
+                    <option value="length_desc" {% if sort_by == 'length_desc' %}selected{% endif %}>
+                        Length (long to short)
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid px-3">
         {% if request.user.is_superuser %}
             <div class="row py-3">
@@ -51,4 +80,31 @@
             {% endif %}
         </div>
     </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+    <script type="text/javascript">
+        // enables video sorting. Credit to Boutique Ado project that provides the basis for this logic
+        $('#sort-videos').change(function() {
+            var selector = $(this);
+            var currentUrl = new URL(window.location);
+
+            var selectedVal = selector.val()
+            if (selectedVal != "reset") {
+                var sort = selectedVal.split("_")[0] // "price etc."
+                var direction = selectedVal.split("_")[1]; // "asc" or "desc"
+
+                currentUrl.searchParams.set("sort", sort); // sort=price
+                currentUrl.searchParams.set("direction", direction); //direction=asc
+
+                window.location.replace(currentUrl);
+            } else {
+                currentUrl.searchParams.delete("sort");
+                currentUrl.searchParams.delete("direction");
+
+                window.location.replace(currentUrl);
+            }
+        });
+    </script>
 {% endblock %}
