@@ -1,0 +1,41 @@
+<p class="font-weight-bold">Fill out the form below to complete your order.</p>
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <form action="{% url 'load_checkout' %}" method="POST" id="payment-form">
+            {% csrf_token %}
+            <fieldset class="px-3 mb-5">
+                <legend class="small w-auto">Delivery Information</legend>
+                {{ shop_order_form | crispy }}
+                <div class="save-info-check float-right">
+                    {% if user.is_authenticated %}
+                    <label for="id-save-user-info">Save delivery information to profile</label>
+                    <input type="checkbox" id="id-save-user-info" name="save-user-info" checked>
+                    {% else %}
+                    <label for="id-save-user-info">
+                        <a href="{% url 'account_login' %}" class="text-dark">Login</a> or <a href="{% url 'account_signup' %}" class="text-dark">create an account</a> to save this information for future checkouts.
+                    </label>
+                    {% endif %}
+                </div>
+            </fieldset>
+            <fieldset class="px-3 mb-5">
+                <legend class="small w-auto">Payment Information</legend>
+                <!-- Stripe card element-->
+                <div id="card-element" class="border form-control w-auto"></div>
+                <!-- Form errors -->
+                <div class="text-danger" id="card-errors" role="alert"></div>
+                <!-- Passes client secret to the view and gives us the payment intent id -->
+                <input type="hidden" value="{{ client_secret }}" name="client_secret">
+            </fieldset>
+            <div class="row">
+                <div class="col-md-6 text-right">
+                    <a href="{% url 'load_cart' %}" class="btn-lg btn-dark text-dec-none">Back To Cart</a>
+                </div>
+                <div class="col-md-6 text-left">
+                    <button id="complete-order" class="btn-lg btn-success text-dec-none">Complete Order</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-3"></div>
+</div>

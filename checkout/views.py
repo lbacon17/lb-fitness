@@ -80,13 +80,13 @@ def load_checkout(request):
                 store_user_profile = StoreUser.objects.get(user=request.user)
                 shop_order_form = ShopOrderForm(initial={
                     'full_name': store_user_profile.user.get_full_name(),
-                    'email_address': store_user_profile.user.email_address,
+                    'email_address': store_user_profile.user.email,
                     'phone_number': store_user_profile.default_phone_number,
                     'address_line1': store_user_profile.default_address_line1,
                     'address_line2': store_user_profile.default_address_line2,
                     'town_or_city': store_user_profile.default_town_or_city,
                     'county_or_region': store_user_profile.default_county_or_region,
-                    'postcode': store_user_profile.default_postc0de,
+                    'postcode': store_user_profile.default_postcode,
                     'country': store_user_profile.default_country,
                 })
             except StoreUser.DoesNotExist:
