@@ -2,10 +2,24 @@
 {% load static %}
 
 {% block content %}
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-5 text-center">
         <div class="row">
             <div class="col-12">
-                <h1>{{ request.user }} Profile</h1>
+                <h1>{{ request.user }}'s Profile</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mt-5 text-center">
+        <div class="row my-3 py-3">
+            <div class="col-12">
+                <p class="mb-2 pb-2">Username: {{ request.user.username }}</p>
+                <p class="mb-2 pb-2">E-mail address: {{ request.user.email }}</p>
+                <a href="{% url 'update_profile' %}" class="btn-lg btn-primary text-dec-none">Update Details</a>
+            </div>
+        </div>
+        <div class="row my-3 py-3">
+            <div class="col-12">
+                <a href="{% url 'delete_account' user.id %}" class="btn-lg btn-danger text-dec-none">Delete Account</a>
             </div>
         </div>
     </div>

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid mt-5 text-center">
+        <div class="row">
+            <div class="col-12">
+                <h1>Update Profile Information for {{ request.user }}</h1>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <form action="{% url 'update_profile' %}" method="POST" id="update-user-information-form">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn-lg btn-primary text-dec-none">Update Details</button>
+                </form>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+{% endblock %}
