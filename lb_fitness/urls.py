@@ -32,4 +32,5 @@ urlpatterns = [
     path('videos/', include('videos.urls')),
     path('checkout/', include('checkout.urls')),
     path('user_profiles/', include('user_profiles.urls')),
+    path('admin_panel/', include('admin_panel.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

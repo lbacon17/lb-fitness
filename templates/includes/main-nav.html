@@ -30,7 +30,7 @@
                 </a>
                 <ul class="dropdown-menu bg-warning" aria-labelledby="user-dropdown">
                     {% if request.user.is_superuser %}
-                        <li><a href="" class="dropdown-item">Admin Panel</a></li>
+                        <li><a href="{% url 'admin_panel' %}" class="dropdown-item">Admin Panel</a></li>
                     {% endif %}
                     <li><a href="{% url 'member_profile' %}" class="dropdown-item">My Profile</a></li>
                     <li><a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a></li>

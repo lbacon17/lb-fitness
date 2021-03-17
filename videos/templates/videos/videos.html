@@ -42,11 +42,34 @@
             </div>
         </div>
     </div>
+    <div class="container-fluid search-container">
+        <div class="row mt-3 px-3 text-center text-left-sm">
+            <div class="col-12">
+                <form action="{% url 'training_videos' user.id %}" method="GET" class="d-flex">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Search videos" aria-label="Search" class="validate" required>
+                    <button class="btn btn-outline-success" type="submit">
+                        <span class="icon">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid px-3">
         {% if request.user.is_superuser %}
             <div class="row py-3">
                 <div class="col-12">
                     <a href="{% url 'add_video' %}" class="btn-lg btn-success text-dec-none">Add Video</a>
+                </div>
+            </div>
+        {% endif %}
+        {% if videos|length == 0 %}
+            <div class="row">
+                <div class="col-12">
+                    <h4>No videos found containing "{{ search_term }}"</h4>
+                    <hr>
+                    <a href="{% url 'training_videos' user.id %}" class="btn-lg btn-primary text-dec-none">View All Videos</a>
                 </div>
             </div>
         {% endif %}

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'videos',
     'user_profiles',
     'checkout',
+    'admin_panel',
 
     # Other
     'crispy_forms',

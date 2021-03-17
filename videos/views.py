@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.db.models.functions import Lower
+
 from .models import Video
 from .forms import VideoForm
 from members.models import Member
-from django.db.models.functions import Lower
 
 
 @login_required
@@ -29,11 +31,22 @@ def training_videos(request, user):
                     sortkey = f'-{sortkey}'
             videos = videos.order_by(sortkey)
 
+        if 'q' in request.GET:
+            query = request.GET['q']
+            user = request.user
+            if not query:
+                messages.error(request, "You didn't enter any search terms")
+                return redirect(reverse('training_videos', args=[user.id]))
+
+            queries = Q(title__icontains=query) | Q(name__icontains=query) | Q(description__icontains=query)
+            videos = videos.filter(queries)
+
     sort_by = f'{sort}_{direction}'
 
     context = {
         'videos': videos,
         'member': member,
+        'search_term': query,
         'sort_by': sort_by,
     }
     return render(request, 'videos/videos.html', context)
