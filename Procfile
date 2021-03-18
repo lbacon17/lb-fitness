@@ -1,1 +1,1 @@
-web: unicorn lb_fitness.wsgi:application
+web: gunicorn lb_fitness.wsgi:application
