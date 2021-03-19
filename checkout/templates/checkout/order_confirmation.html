@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid mt-5 text-center">
+        <div class="row">
+            <div class="col-12">
+                <h1>Thank You For Your Order</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <p class="small text-muted">Thank you for ordering from LB Fitness. A confirmation e-mail will shortly be sent to {{ shop_order.email_address }}.</p>
+                <p class="small"><small>Please find a summary of your order below:</small></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

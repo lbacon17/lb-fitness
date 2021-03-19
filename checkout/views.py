@@ -3,10 +3,11 @@ from django.contrib import messages
 from django.conf import settings
 
 from .forms import ShopOrderForm
-from .models import ShopOrder
+from .models import ShopOrder, OrderLineItem
 
 from shop.models import Product
 from user_profiles.models import StoreUser
+from user_profiles.forms import StoreUserForm
 from cart.contexts import cart_contents
 
 import stripe
@@ -44,7 +45,6 @@ def load_checkout(request):
                         order_line_item = OrderLineItem(
                             shop_order=shop_order,
                             item=item,
-                            quantity=item_data,
                         )
                         order_line_item.save()
                 except Product.DoesNotExist:
@@ -53,7 +53,7 @@ def load_checkout(request):
                         'Please call our customer services team on 01234.'))
                     shop_order.delete()
                     return redirect(reverse('load_cart'))
-            request.session['save_info'] = 'save-info' in request.POST
+            request.session['save_user_info'] = 'save-user-info' in request.POST
             return redirect(reverse('order_confirmation',
                                      args=[shop_order.order_number]))
         else:
@@ -103,6 +103,46 @@ def load_checkout(request):
         'shop_order_form': shop_order_form,
         'stripe_public_key': stripe_public_key,
         'client_secret': intent.client_secret,
+    }
+
+    return render(request, template, context)
+
+
+def order_confirmation(request, order_number):
+    save_user_info = request.session.get('save_user_info')
+    shop_order = get_object_or_404(ShopOrder, order_number=order_number)
+
+    if request.user.is_authenticated:
+        user_profile = StoreUser.objects.get(user=request.user)
+        shop_order.store_user = user_profile
+        shop_order.save()
+
+        if save_user_info:
+            user_profile_data = {
+                'default_email_address': shop_order.email_address,
+                'default_phone_number': shop_order.phone_number,
+                'default_address_line1': shop_order.address_line1,
+                'default_address_line2': shop_order.address_line2,
+                'default_town_or_city': shop_order.town_or_city,
+                'default_county_or_region': shop_order.county_or_region,
+                'default_postcode': shop_order.postcode,
+                'default_country': shop_order.country,
+            }
+            store_user_form = StoreUserForm(user_profile_data,
+                                              instance=user_profile)
+            if store_user_form.is_valid():
+                store_user_form.save()
+
+    messages.success(request, f'Your order has been processed. Your order '\
+        f'number is {order_number}. We will send a confirmation e-mail to '\
+        f'{shop_order.email_address}.')
+    
+    if 'cart' in request.session:
+        del request.session['cart']
+    
+    template = 'checkout/order_confirmation.html'
+    context = {
+        'shop_order': shop_order,
     }
 
     return render(request, template, context)

@@ -59,7 +59,7 @@ class OrderLineItem(models.Model):
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
 
     def save(self, *args, **kwargs):
-        self.lineitem_total = self.itme.price * self.quanitty
+        self.lineitem_total = self.item.price * self.quanitty
 
     def __str__(self):
         return f'{self.item.name} on order {self.order.order_number}'
