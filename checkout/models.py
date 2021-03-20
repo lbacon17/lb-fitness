@@ -32,11 +32,14 @@ class ShopOrder(models.Model):
         return uuid.uuid4().hex.upper()
 
     def update_cart_total(self):
-        self.order_total = self.lineitem.aggregate(
-            Sum('lineitem_total'))['lineitem_total_sum'] or 0
+        self.order_total = self.lineitems.aggregate(
+            Sum('lineitem_total'))['lineitem_total__sum'] or 0
         if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
-            standard_delivery = settings.STANDARD_DELIVERY_CHARGE
-            self.delivery_charge = self.order_total + standard_delivery
+            if self.order_total == 0:
+                self.delivery_charge = 0
+            else:
+                standard_delivery = settings.STANDARD_DELIVERY_CHARGE
+                self.delivery_charge = self.order_total + standard_delivery
         else:
             self.delivery_charge = 0
         self.grand_total = self.order_total + self.delivery_charge
@@ -55,11 +58,12 @@ class OrderLineItem(models.Model):
     shop_order = models.ForeignKey(ShopOrder, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
     item = models.ForeignKey(Product, null=False, blank=False, on_delete = models.CASCADE)
     item_size = models.CharField(max_length=2, null=True, blank=True)
-    quanitty = models.IntegerField(null=False, blank=False, default=0)
+    quantity = models.IntegerField(null=False, blank=False, default=0)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
 
     def save(self, *args, **kwargs):
-        self.lineitem_total = self.item.price * self.quanitty
+        self.lineitem_total = self.item.price * self.quantity
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.item.name} on order {self.order.order_number}'
+        return f'{self.item.name} on order {self.shop_order.order_number}'

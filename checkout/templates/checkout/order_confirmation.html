@@ -17,5 +17,45 @@
                 <p class="small"><small>Please find a summary of your order below:</small></p>
             </div>
         </div>
+        <div class="row py-2">
+            <div class="col-12">
+                <strong>Order Details</strong>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <p class="font-weight-bold text-right">Order #:</p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <p class="text-left">{{ shop_order.order_number }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <p class="font-weight-bold text-right">Date:</p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <p class="text-left">{{ shop_order.date }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <p class="font-weight-bold text-right">
+                            Contents:
+                        </p>
+                    </div>
+                </div>
+                {% for item in shop_order.lineitems.all %}
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <p class="font-weight-bold text-right">
+                                {{ item.item.friendly_name }}{% if item.item.has_sizes %} - Size {{ item.item.size|upper }}{% endif %}
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p class="text-left">{{ item.quantity }} £{{ item.item.price }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}

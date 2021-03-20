@@ -117,6 +117,20 @@
                             <div class="col">
                                 <form action="{% url 'add_item_to_cart' item.id %}" class="form text-center" method="POST">
                                     {% csrf_token %}
+                                    {% if item.has_sizes %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <strong>Select Size:</strong>
+                                                <select name="item_size" id="id_item_size" class="w-50">
+                                                    <option value="xs">XS</option>
+                                                    <option value="s">S</option>
+                                                    <option value="m" selected>M</option>
+                                                    <option value="l">L</option>
+                                                    <option value="xl">XL</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                {% endif %}
                                     <div class="row">
                                         <div class="col-md-6 float-right">
                                             <input type="submit" class="btn btn-dark text-dec-none {% if not request.user.is_superuser %}my-3{% endif %}" value="Add To Cart">
@@ -191,6 +205,46 @@
 
                 window.location.replace(currentUrl);
             }
+        });
+    </script>
+    <script type="text/javascript">
+        // Increases quantity
+        $('.increase-qty').click(function(e) {
+            e.preventDefault();
+            var closestInputElement = $(this).closest('.input-group').find('.qty_input')[0];
+            var currentQuantity = parseInt($(closestInputElement).val());
+            $(closestInputElement).val(currentQuantity + 1);
+            var itemId = $(this).data('item_id');
+        });
+
+        // Decreases quantity
+        $('.decrease-qty').click(function(e) {
+            e.preventDefault();
+            var closestInputElement = $(this).closest('.input-group').find('.qty_input')[0];
+            var currentQuantity = parseInt($(closestInputElement).val());
+            $(closestInputElement).val(currentQuantity - 1);
+            var itemId = $(this).data('item_id');
+        });
+
+        // Disables +/- buttons outside the min-max range
+        function disableQuantityInput(itemId) {
+            var currentQuantity = parseInt($(`#id_qty_${itemId}`).val());
+            var disableDecrease = currentQuantity < 2;
+            var disableIncrease = currentQuantity > 98;
+            $(`#decrease-qty_${itemId}`).prop('disabled', disableDecrease);
+            $(`#increase-qty_${itemId}`).prop('disabled', disableIncrease);
+        }
+
+        var allQtyInputs = $('.qty_input');
+        for (var i = 0; i < allQtyInputs.length; i++) {
+            var itemId = $(allQtyInputs[i]).data('item_id');
+            disableQuantityInput(itemId);
+        }
+
+        // Checks in real time if button should be disabled whenever user changes input
+        $('qty_input').change(function() {
+            var itemId = $(this).data('item_id');
+            disableQuantityInput(itemId);
         });
     </script>
 {% endblock %}
