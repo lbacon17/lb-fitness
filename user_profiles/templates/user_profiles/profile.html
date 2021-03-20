@@ -19,6 +19,43 @@
         </div>
         <div class="row my-3 py-3">
             <div class="col-12">
+                <h4>Store Order History</h4>
+                <div class="table-responsive">
+                    <table class="table-sm">
+                        <thead>
+                            <tr>
+                                <th>Order Number</th>
+                                <th>Date</th>
+                                <th>Contents</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in order_history %}
+                                <tr>
+                                    <td>
+                                        <p>{{ order.order_number }}</p>
+                                    </td>
+                                    <td>{{ order.date }}</td>
+                                    <td>
+                                        <ul>
+                                            {% for item in shop_order.lineitems.all %}
+                                                <li class="small">
+                                                    {{ item.item.friendly_name }} x{{ item.quantity }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                    <td>{{ order.grand_total }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row my-3 py-3">
+            <div class="col-12">
                 <a href="{% url 'delete_account' user.id %}" class="btn-lg btn-danger text-dec-none">Delete Account</a>
             </div>
         </div>

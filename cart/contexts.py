@@ -21,6 +21,17 @@ def cart_contents(request):
                 'quantity': item_data,
                 'item': item,
             })
+        else:
+            item = get_object_or_404(Product, pk=item_id)
+            for size, quantity in item_data['items_by_size'].items():
+                total += quantity * item.price
+                count += quantity
+                items_in_cart.append({
+                    'item_id': item_id,
+                    'quantity': quantity,
+                    'item': item,
+                    'size': size,
+                })
 
     if total < settings.FREE_DELIVERY_THRESHOLD:
         # if request.user.member.subscription_package.id == 3:

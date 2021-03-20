@@ -52,8 +52,20 @@
                     <form action="{% url 'add_item_to_cart' item.id %}" method="POST">
                         {% csrf_token %}
                         <div class="row">
+                            {% if item.has_sizes %}
+                                <div class="col-12">
+                                    <strong>Select Size:</strong>
+                                    <select name="item_size" id="id_item_size" class="w-50">
+                                        <option value="xs">XS</option>
+                                        <option value="s">S</option>
+                                        <option value="m" selected>M</option>
+                                        <option value="l">L</option>
+                                        <option value="xl">XL</option>
+                                    </select>
+                                </div>
+                            {% endif %}
                             <div class="col-12">
-                                <div class="input-group">
+                                <div class="input-group p-3">
                                     <div class="input-group-prepend">
                                         <button class="decrease-qty btn" data-item_id="{{ item.id }}" id="decrease-qty_{{ item.id }}">
                                             <i class="fas fa-minus"></i>
@@ -68,7 +80,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row text-center py-2">
                             <div class="col-12">
                                 <input type="submit" class="btn-lg btn-dark text-dec-none" value="Add To Cart">
                             </div>
@@ -78,12 +90,12 @@
                 </div>
             </div>
             {% if request.user.is_superuser %}
-                <div class="row">
-                    <div class="col">
-                        <a href="{% url 'edit_item' item.id %}" class="btn">Update Details</a>
+                <div class="row py-3">
+                    <div class="col-md-6 text-right">
+                        <a href="{% url 'edit_item' item.id %}" class="btn-lg btn-primary text-dec-none">Update Details</a>
                     </div>
-                    <div class="col">
-                        <a href="{% url 'delete_item' item.id %}" class="btn">Delete</a>
+                    <div class="col-md-6 text-left">
+                        <a href="{% url 'delete_item' item.id %}" class="btn-lg btn-danger text-dec-none">Delete</a>
                     </div>
                 </div>
             {% endif %}

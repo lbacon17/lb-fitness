@@ -12,7 +12,8 @@
             {% for item in items_in_cart %}
                 <div class="row">
                     <div class="col-md-4">
-                        {{ item.item.friendly_name }}        
+                        <p class="mb-1">{{ item.item.friendly_name }}</p>
+                        <p>{% if item.item.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
                     </div>
                     <div class="col-md-4">
                         {{ item.item.price }}
@@ -89,6 +90,7 @@
 
 {% block postloadjs %}
 {{ block.super }}
+    {% include 'shop/includes/adjust_quantity_script.html' %}
     <script type="text/javascript">
         // Updates item quantity
         $('.update-quantity').click(function(e) {
@@ -100,6 +102,7 @@
         $('.remove-item').click(function(e) {
             var csrfToken = '{{ csrf_token }}';
             var itemId = $(this).attr('id').split('remove_')[1];
+            var size = $(this).data('item_size');
             var url = `/cart/remove_item/${itemId}/`;
             var data = {'csrfmiddlewaretoken': csrfToken};
 

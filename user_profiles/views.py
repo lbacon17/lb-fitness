@@ -1,17 +1,20 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
 from .models import StoreUser
 from .forms import StoreUserForm
+from checkout.models import ShopOrder, OrderLineItem
 
 
 def user_profile(request):
     """This view renders the user's profile on their profile page"""
     profile = get_object_or_404(StoreUser, user=request.user)
-    """Combine shopuser model with orders to render user order history here"""
+    order_history = profile.shop_orders.all()
     template = 'user_profiles/profile.html'
-    return render(request, template)
+    context = {
+        'order_history': order_history,
+    }
+    return render(request, template, context)
 
 
 @login_required
@@ -49,3 +52,12 @@ def delete_account(request, user):
         messages.success(request, 'Your profile was delete. You will now be '\
             'logged out and redirected to the homepage.')
         return redirect(reverse('home'))
+
+
+def user_order_history(request, order_number):
+    shop_order = get_object_or_404(ShopOrder, order_number=order_number)
+    template = 'user_profiles/profile.html'
+    context = {
+        'shop_order': shop_order,
+    }
+    return render(request, template, context)

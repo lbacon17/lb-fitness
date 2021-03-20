@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-9">
                     <p class="my-0"><small class="font-size-xs">{{ item.item.friendly_name }}</small></p>
-                    <p class="my-0 small"><small class="font-size-xs">Size: {% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</small></p>
+                    <p class="my-0 small"><small class="font-size-xs">Size: {% if item.item.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</small></p>
                     <p class="my-0 small text-muted"><small class="font-size-xs">Qty: {{ item.quantity }}</small></p>
                 </div>
             </div>

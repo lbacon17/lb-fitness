@@ -16,8 +16,8 @@ def add_item_to_cart(request, item_id):
     quantity = int(request.POST.get('quantity'))
     redirect_url = request.POST.get('redirect_url')
     size = None
-    if 'product_size' in request.POST:
-        size = request.POST['size']
+    if 'item_size' in request.POST:
+        size = request.POST['item_size']
     cart = request.session.get('cart', {})
 
     if size:
@@ -52,18 +52,38 @@ def update_cart(request, item_id):
     """This view lets the user update the quantity of an item in their cart"""
     item = get_object_or_404(Product, pk=item_id)
     quantity = int(request.POST.get('quantity'))
+    size = None
+    if 'item_size' in request.POST:
+        size = request.POST['item_size']
     cart = request.session.get('cart', {})
-    if quantity > 99:
-        messages.error(request, ('You cannot add this many units of a product. '\
-            'The maximum possible quantity is 99. Please enter a quantity '\
-            'within the accepted range.'))
-    elif quantity > 0:
-        cart[item_id] = quantity
-        messages.success(request, f'Successfully updated quantity of '\
-            f'{item.friendly_name} to {cart[item_id]}.')
+
+    if size:
+        if quantity > 99:
+            messages.error(request, ('You cannot add this many units of a product. '\
+                'The maximum possible quantity is 99. Please enter a quantity '\
+                'within the accepted range.'))
+        elif quantity > 0:
+            cart[item_id] = quantity
+            messages.success(request, f'Updated {item.name} from size {size.upper()}' \
+                f'to size {cart[item_id]["items_by_size"][size]}.')
+        else:
+            del cart[item_id]['items_by_size'][size]
+            if not cart[item_id]['items_by_size']:
+                cart.pop(item_id)
+            messages.success(request, f'Removed {item.name} in size {size.upper()}' \
+                f'from your cart.')
     else:
-        cart.pop(item_id)
-        messages.success(request, f'{item.friendly_name} was removed from your cart.')
+        if quantity > 99:
+            messages.error(request, ('You cannot add this many units of a product. '\
+                'The maximum possible quantity is 99. Please enter a quantity '\
+                'within the accepted range.'))
+        elif quantity > 0:
+            cart[item_id] = quantity
+            messages.success(request, f'Successfully updated quantity of '\
+                f'{item.friendly_name} to {cart[item_id]}.')
+        else:
+            cart.pop(item_id)
+            messages.success(request, f'{item.friendly_name} was removed from your cart.')
 
     request.session['cart'] = cart
     return redirect(reverse('load_cart'))
@@ -74,8 +94,17 @@ def remove_item_from_cart(request, item_id):
     try:
         item = get_object_or_404(Product, pk=item_id)
         size = None
+        if 'item_size' in request.POST:
+            size = request.POST['item_size']
         cart = request.session.get('cart', {})
-        if not size:
+
+        if size:
+            del cart[item_id]['items_by_size'][size]
+            if not cart[item_id]['items_by_size']:
+                cart.pop(item_id)
+            messages.success(request, f'Removed {item.name} in size {size.upper()}' \
+                'from your cart.')
+        else:
             cart.pop(item_id)
             messages.success(request, f'{item.friendly_name} was deleted from your cart.')
 
