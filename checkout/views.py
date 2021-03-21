@@ -48,6 +48,15 @@ def load_checkout(request):
                             quantity=item_data,
                         )
                         order_line_item.save()
+                    else:
+                        for size, quantity in item_data['items_by_size'].items():
+                            order_line_item = OrderLineItem(
+                                shop_order=shop_order,
+                                item=item,
+                                quantity=quantity,
+                                item_size=size,
+                            )
+                            order_line_item.save()
                 except Product.DoesNotExist:
                     messages.error(request, ('We were unable to locate one '\
                         'of the items in your cart in our database. '\

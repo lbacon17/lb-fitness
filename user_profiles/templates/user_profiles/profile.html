@@ -28,6 +28,7 @@
                                 <th>Date</th>
                                 <th>Contents</th>
                                 <th>Total</th>
+                                <th>Delivering To</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,6 +48,21 @@
                                         </ul>
                                     </td>
                                     <td>{{ order.grand_total }}</td>
+                                    <td>
+                                        <ul class="list-inline list-unstyled text-left pl-3">
+                                            <li class="small list-inline-item">{{ order.full_name }}</li>
+                                            <li class="small list-inline-item">{{ order.address_line1 }}</li>
+                                            {% if order.address_line2 %}
+                                                <li class="small list-inline-item">{{ order.address_line2 }}</li>
+                                            {% endif %}
+                                            <li class="small list-inline-item">{{ order.town_or_city }}</li>
+                                            {% if order.county_or_region %}
+                                                <li class="small list-inline-item">{{ order.county_or_region }}</li>
+                                            {% endif %}
+                                            <li class="small list-inline-item">{{ order.postcode }}</li>
+                                            <li class="small list-inline-item">{{ order.country }}</li>
+                                        </ul>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>

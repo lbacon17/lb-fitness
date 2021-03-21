@@ -30,12 +30,15 @@
                         {% endif %}
                     </a>
                 </div>
-                <div class="col-7">
+                <div class="col-4">
                     <p class="mb-1">{{ item.item.friendly_name }}</p>
                     <p class="mb-1">Quantity: {{ item.quantity }}</p>
                 </div>
                 <div class="col-3 text-right">
-                    <p class="my-0"><small>£{{ item.item.price }}</small></p>
+                    <p class="my-0">Unit Price: <small>£{{ item.item.price }}</small></p>
+                </div>
+                <div class="col-3">
+                    <p class="mb-1">Subtotal: £{{ subtotal }}</p>
                 </div>
             </div>
         {% endfor %}

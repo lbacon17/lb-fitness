@@ -24,4 +24,17 @@ class ShopOrderAdmin(admin.ModelAdmin):
     ordering = ('order_number',)
 
 
+class OrderLineItemAdmin(admin.ModelAdmin):
+    list_display = (
+        'shop_order',
+        'item',
+        'item_size',
+        'quantity',
+        'lineitem_total',
+    )
+
+    ordering = ('shop_order',)
+
+
 admin.site.register(ShopOrder, ShopOrderAdmin)
+admin.site.register(OrderLineItem, OrderLineItemAdmin)
