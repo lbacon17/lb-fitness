@@ -129,15 +129,14 @@
             }
         });
 
-        // Autocomplete using jQuery
+        // Offers autocomplete suggestions for search bar on input of first 2 chars
         $(function() {
             $('#shop-search').autocomplete({
                 source: "{% url 'shop_autocomplete' %}",
-                minLength: 3,
+                minLength: 2,
             });
         });
     </script>
     {% endblock %}
 </body>
-
 </html>

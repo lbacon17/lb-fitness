@@ -95,7 +95,7 @@
                         <a href="{% url 'edit_item' item.id %}" class="btn-lg btn-primary text-dec-none">Update Details</a>
                     </div>
                     <div class="col-md-6 text-left">
-                        <a href="{% url 'delete_item' item.id %}" class="btn-lg btn-danger text-dec-none">Delete</a>
+                        {% include 'shop/includes/delete_item_modal_popup.html' %}
                     </div>
                 </div>
             {% endif %}
@@ -106,6 +106,7 @@
 
 {% block postloadjs %}
 {{ block.super }}
+{% include 'shop/includes/delete_confirmation_script.html' %}
 <script type="text/javascript">
     // Increases quantity
     $('.increase-qty').click(function(e) {

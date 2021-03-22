@@ -11,19 +11,6 @@ from haystack.query import SearchQuerySet
 import json
 
 
-def shop_autocomplete(request):
-    if request.is_ajax():
-        query = request.GET.get('term', '')
-        shop_items = Product.objects.filter(friendly_name__icontains=query)
-        search_suggestions = []
-        for item in shop_items:
-            place_json = item.friendly_name
-            search_suggestions.append(place_json)
-        data = json.dumps(search_suggestions)
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
-
-
 def shop_all(request):
     """This view renders all items on the main shop page"""
     shop_items = Product.objects.all()
@@ -167,3 +154,16 @@ def favourite_item(request, item_id):
     request.session['favourites'] = favourites
 
     return redirect(redirect_url)
+
+
+def shop_autocomplete(request):
+    if request.is_ajax():
+        query = request.GET.get('term', '')
+        shop_items = Product.objects.filter(friendly_name__icontains=query)
+        search_suggestions = []
+        for item in shop_items:
+            place_json = item.friendly_name
+            search_suggestions.append(place_json)
+        data = json.dumps(search_suggestions)
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)

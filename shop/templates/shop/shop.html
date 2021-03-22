@@ -108,9 +108,7 @@
                                         Edit Details
                                     </span>
                                 </a>
-                                <a href="{% url 'delete_item' item.id %}" class="btn btn-danger ml-1">
-                                    <span class="text-white">Delete Item</span>
-                                </a>
+                                {% include 'shop/includes/delete_item_modal_popup.html' %}
                             </div>
                         {% endif %}
                         <div class="row">
@@ -184,6 +182,9 @@
 {% block postloadjs %}
 {{ block.super }}
 {% include 'shop/includes/adjust_quantity_script.html' %}
+{% for item in shop_items %}
+    {% include 'shop/includes/delete_confirmation_script.html' %}
+{% endfor %}
     <script type="text/javascript">
         // enables product sorting. Credit to Boutique Ado project for this code
         $('#sort-products').change(function() {

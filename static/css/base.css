@@ -92,6 +92,16 @@ body {
     text-decoration: none;
 }
 
+.modal {
+    position: fixed;
+    width: 50%;
+    height: 40%;
+    top: 50%;
+    left: 25%;
+    background-color: #fafafa;
+    border: 2px solid #676767;
+}
+
 /*-- BOOTSTRAP TOASTS --*/
 
 .messages-container {
