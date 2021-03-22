@@ -49,6 +49,8 @@ def load_checkout(request):
                         )
                         order_line_item.save()
                     else:
+                        # renders items with sizes in user's order history and
+                        # confirmation
                         for size, quantity in item_data['items_by_size'].items():
                             order_line_item = OrderLineItem(
                                 shop_order=shop_order,

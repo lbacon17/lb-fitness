@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid mt-5 text-center">
+        <div class="row">
+            <div class="col-12">
+                <h1>Your Order (order no. {{ shop_order.order_number }})</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row py-2">
+            <div class="col-12">
+                <strong>Order Details</strong>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <p class="font-weight-bold text-right">Order #:</p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <p class="text-left">{{ shop_order.order_number }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <p class="font-weight-bold text-right">Date:</p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <p class="text-left">{{ shop_order.date }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <p class="font-weight-bold text-right">
+                            Contents:
+                        </p>
+                    </div>
+                </div>
+                {% for item in shop_order.lineitems.all %}
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <p class="font-weight-bold text-right">
+                                {{ item.item.friendly_name }}{% if item.item.has_sizes %} - Size {{ item.item_size|upper }}{% endif %}
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p class="text-left">{{ item.quantity }} £{{ item.item.price }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <p class="font-weight-bold text-right">
+                            Subtotal:
+                        </p>
+                        <p class="font-weight-bold text-right">
+                            Delivery:
+                        </p>
+                        <p class="font-weight-bold text-right">
+                            Grand Total:
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <p class="text-left">£{{ order.order_total }}</p>
+                        <p class="text-left">£{{ order.delivery_charge }}</p>
+                        <p class="text-left">£{{ order.grand_total }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <p class="font-weight-bold text-right">Customer Details:</p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                         <ul class="list-inline list-unstyled text-left pl-3">
+                            <li class="small list-inline-item">{{ shop_order.full_name }}</li>
+                            <li class="small list-inline-item">{{ shop_order.address_line1 }}</li>
+                            {% if order.address_line2 %}
+                                <li class="small list-inline-item">{{ shop_order.address_line2 }}</li>
+                            {% endif %}
+                            <li class="small list-inline-item">{{ shop_order.town_or_city }}</li>
+                            {% if order.county_or_region %}
+                                <li class="small list-inline-item">{{ shop_order.county_or_region }}</li>
+                            {% endif %}
+                            <li class="small list-inline-item">{{ shop_order.postcode }}</li>
+                            <li class="small list-inline-item">{{ shop_order.country }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

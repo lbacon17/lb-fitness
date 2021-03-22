@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     # Other
     'crispy_forms',
     'fav',
+    'haystack',
     'storages'
 ]
 
@@ -123,6 +124,15 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'lb_fitness.wsgi.application'
+
+
+# Autocomplete
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
 
 
 # Database

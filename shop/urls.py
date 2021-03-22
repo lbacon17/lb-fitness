@@ -9,4 +9,5 @@ urlpatterns = [
     path('edit_item/<item_id>/', views.edit_item, name='edit_item'),
     path('delete_item/<item_id>/', views.delete_item, name='delete_item'),
     path('<item_id>/favourite/', views.favourite_item, name='favourite_item'),
+    path('shop_autocomplete', views.shop_autocomplete, name='shop_autocomplete'),
 ]

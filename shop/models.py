@@ -3,6 +3,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
+from haystack import indexes
 
 
 class Category(models.Model):

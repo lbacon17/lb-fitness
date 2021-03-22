@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Sum
@@ -7,6 +7,21 @@ from django.db.models.functions import Lower
 from .models import Product, Category
 from .forms import ProductForm
 from .contexts import favourites
+from haystack.query import SearchQuerySet
+import json
+
+
+def shop_autocomplete(request):
+    if request.is_ajax():
+        query = request.GET.get('term', '')
+        shop_items = Product.objects.filter(friendly_name__icontains=query)
+        search_suggestions = []
+        for item in shop_items:
+            place_json = item.friendly_name
+            search_suggestions.append(place_json)
+        data = json.dumps(search_suggestions)
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
 
 def shop_all(request):
