@@ -1,0 +1,31 @@
+<button type="button" id="modal-trigger-{{ video.id }}" class="btn-lg btn-danger text-dec-none" data-bs-toggle="modal" data-bs-target="#{{ video.id }}">
+    Delete
+</button>
+<div class="modal" id="{{ video.id }}" tabindex="-1" aria-labelledby="{{ video.id }}Label">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{ item.id }}Label">
+                    Delete Video "{{ video.title }}"
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-2">
+                    Are you sure you want to delete this video: {{ video.title }}? 
+                </p>
+                <p class="mb-0">
+                    <strong class="text-danger uppercase">You will not be able to reverse this action.</strong>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'training_videos' user.id %}" class="btn-lg btn-light text-dec-none cancel">
+                    Cancel
+                </a>
+                <a href="{% url 'delete_video' video.id %}" class="btn-lg btn-danger text-dec-none confrm-delete">
+                    Delete
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

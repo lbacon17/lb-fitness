@@ -90,7 +90,7 @@
                                     <a href="{% url 'edit_video' video.id %}" class="btn-primary btn-lg text-dec-none">Edit</a>
                                 </div>
                                 <div class="col-md-6 text-left">
-                                    <a href="{% url 'delete_video' video.id %}" class="btn-danger btn-lg text-dec-none">Delete</a>
+                                    {% include 'videos/includes/delete_video_modal_popup.html' %}
                                 </div>
                             </div>
                         {% endif %}
@@ -107,6 +107,9 @@
 
 {% block postloadjs %}
 {{ block.super }}
+{% for video in videos %}
+    {% include 'videos/includes/delete_confirmation_script.html' %}
+{% endfor %}
     <script type="text/javascript">
         // enables video sorting. Credit to Boutique Ado project that provides the basis for this logic
         $('#sort-videos').change(function() {
