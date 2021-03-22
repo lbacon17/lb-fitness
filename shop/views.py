@@ -65,7 +65,7 @@ def shop_all(request):
                 messages.error(request, "You didn't enter any search terms!")
                 return redirect(reverse('shop'))
 
-            queries = Q(name__icontains=query) | Q(description__icontains=query)
+            queries = Q(friendly_name__icontains=query) | Q(description__icontains=query)
             shop_items = shop_items.filter(queries)
 
     sort_by = f'{sort}_{direction}'
