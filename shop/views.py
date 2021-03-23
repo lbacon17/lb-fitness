@@ -7,7 +7,6 @@ from django.db.models.functions import Lower
 from .models import Product, Category
 from .forms import ProductForm
 from .contexts import favourites
-from haystack.query import SearchQuerySet
 import json
 
 

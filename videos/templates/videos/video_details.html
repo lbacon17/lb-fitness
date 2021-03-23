@@ -37,9 +37,14 @@
                     <div class="row">
                         <div class="col-12">
                             {% for comment in comments %}
-                                <p>{{ comment.user }}</p>
-                                <p>{{ comment.created_on }}</p>
-                                <p>{{ comment.content }}</p>
+                                <div class="card">
+                                    <p class="small mt-2 ml-2">By {{ comment.user }} on {{ comment.created_on }}</p>
+                                    <p class="mt-0 ml-2">{{ comment.content }}</p>
+                                    {% if request.user.is_superuser %}
+                                        <a href="" class="btn-danger text-dec-none">Remove Comment</a>
+                                        <a href="" class="btn-success text-dec-none">Approve</a>
+                                    {% endif %}
+                                </div>
                             {% endfor %}
                         </div>
                     </div>

@@ -199,3 +199,10 @@ def rate_video(request):
         video.save()
         return JsonResponse({'success': 'true', 'rating': value}, safe=False)
     return JsonResponse({'success': 'false'})
+
+
+def approve_comment(request, comment_id):
+    if request.user.is_superuser:
+        comment = get_object_or_404(Comment, pk=comment_id)
+        comment.update(approved=True)
+        comment.save()
