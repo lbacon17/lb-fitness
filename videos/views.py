@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Avg, Count
 from django.db.models.functions import Lower
 from django.http import JsonResponse
 
@@ -81,7 +81,9 @@ def add_video(request):
 
 @login_required
 def video_details(request, video_id):
-    video = get_object_or_404(Video, pk=video_id)
+    video = get_object_or_404(
+        Video.objects.annotate(average_rating=Avg('rating')), pk=video_id)
+    # Video.objects.aggregate(aggregate_rating=Avg('rating'))['aggregate_rating']
     template = 'videos/video_details.html'
     context = {
         'video': video,

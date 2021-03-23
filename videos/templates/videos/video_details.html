@@ -23,6 +23,9 @@
                     <p class="mb-0 px-2">
                         <small class="text-muted">{{ video.length }} Rating: {% include 'videos/includes/video_rating.html' %}</small>
                     </p>
+                    <p>
+                        {{ video.average_rating|floatformat:2 }}
+                    </p>
                     <p class="mx-2">{{ video.description }}</p>
                     {% if request.user.is_superuser %}
                         <div class="row">

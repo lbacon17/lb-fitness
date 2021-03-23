@@ -73,12 +73,10 @@ if (one) {
 
     ratingStars.forEach(item=> item.addEventListener('mouseover', (event)=>{
         handleSelect(event.target.id);
-        console.log(event.target.id)
     }))
 
     ratingStars.forEach(item=> item.addEventListener('click', (event)=>{
         const val = event.target.id;
-        console.log(val);
 
         let isSubmit = false
         ratingForm.addEventListener('submit', e=>{

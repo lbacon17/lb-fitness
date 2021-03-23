@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from datetime import timedelta
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -20,3 +21,11 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rated_video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='ratings')
+    rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00,
+        null=True, blank=True, validators=[MaxValueValidator(5),
+        MinValueValidator(0)])
