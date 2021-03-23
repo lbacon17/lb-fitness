@@ -9,4 +9,6 @@ urlpatterns = [
     path('delete_video/<video_id>', views.delete_video, name='delete_video'),
     path('search/', views.videos_autocomplete, name='videos_autocomplete'),
     path('rate_video/', views.rate_video, name='rate_video'),
+    path('update_comment/<video_id>/<comment_id>', views.update_comment, name='update_comment'),
+    path('delete_comment/<video_id>/<comment_id>', views.delete_comment, name='delete_comment'),
 ]

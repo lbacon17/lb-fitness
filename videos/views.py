@@ -69,7 +69,7 @@ def add_video(request):
                 user = request.user
                 new_video = form.save()
                 messages.success(request, f'Video "{new_video.title}" successfully created.')
-                return redirect(reverse('training_videos', args=[user.id]))
+                return redirect(reverse('training_videos'))
             else:
                 messages.error(request, 'Sorry, there was an error updating '\
                     'the information. Please ensure all fields are filled '\
@@ -121,6 +121,7 @@ def video_details(request, video_id):
         template = 'videos/video_details.html'
         context = {
             'video': video,
+            'new_comment': new_comment,
             'comments': comments,
             'comment_form': comment_form,
         }
@@ -143,7 +144,7 @@ def edit_video(request, video_id):
                 form.save()
                 messages.success(request, 'The video information was '\
                     'successfully updated.')
-                return redirect(reverse('training_videos', args=[user.id]))
+                return redirect(reverse('training_videos'))
             else:
                 messages.error(request, 'Sorry, there was an error updating '\
                     'the information. Please ensure all fields are filled '\
@@ -170,7 +171,7 @@ def delete_video(request, video_id):
         video = get_object_or_404(Video, pk=video_id)
         video.delete()
         messages.success(request, f'Successfully deleted "{video.title}" ')
-        return redirect(reverse('training_videos', args=[user.id]))
+        return redirect(reverse('training_videos'))
     else:
         messages.error('Sorry, you do not have permission to view this page.')
         return redirect(reverse('home'))
@@ -201,8 +202,61 @@ def rate_video(request):
     return JsonResponse({'success': 'false'})
 
 
+@login_required
 def approve_comment(request, comment_id):
     if request.user.is_superuser:
         comment = get_object_or_404(Comment, pk=comment_id)
         comment.update(approved=True)
         comment.save()
+    else:
+        messages.error(request, 'Sorry, you do not have permission to perform '\
+                        'this action.')
+        return redirect(reverse('home'))
+
+
+@login_required
+def update_comment(request, comment_id, video_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    video = get_object_or_404(Video, pk=video_id)
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST, request.FILES, instance=comment)
+        if comment_form.is_valid():
+            updated_comment = comment_form.save()
+            updated_comment.save()
+            messages.success(request, 'Your comment was '\
+                'successfully updated.')
+            return redirect(reverse('video_details', args=[video.id]))
+        else:
+            messages.error(request, 'Sorry, there was an error updating '\
+                'your comment. Please ensure everything is filled out '\
+                'correctly.')
+            return redirect(reverse('video_details', args=[video.id]))
+    else:
+        comment_form = CommentForm(instance=comment)
+
+    template = 'videos/edit_comment.html'
+    context = {
+        'comment_form': comment_form,
+        'comment': comment,
+        'video': video,
+    }
+    return render(request, template, context)
+
+@login_required
+def delete_comment(request, comment_id, video_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.user.is_superuser:
+        video = Video.objects.get(id=video_id)
+        comment.delete()
+        messages.success(request, 'The comment was successfully deleted.')
+        return redirect(reverse('video_details', args=[video.id]))
+    elif comment.user == request.user:
+        video = Video.objects.get(id=video_id)
+        comment.delete()
+        messages.success(request, 'Your comment was successfully deleted.')
+        return redirect(reverse('video_details', args=[video.id]))
+    else:
+        messages.error(request, 'Sorry, you do not have permission to '\
+                         'perform that action.')
+        return redirect(reverse('home'))
+ 
