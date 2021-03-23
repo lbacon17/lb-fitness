@@ -13,45 +13,49 @@ from members.models import Member
 @login_required
 def training_videos(request):
     """This view renders the videos available to paid subscribers"""
-    if request.user.member.subscription_package.id == 1:
-        videos = Video.objects.filter(premium=False)
+    if request.user.member.subscription_package:
+        if request.user.member.subscription_package.id == 1:
+            videos = Video.objects.filter(premium=False)
+        else:
+            videos = Video.objects.all()
+        query = None
+        sort = None
+        direction = None
+
+        if request.GET:
+            if 'sort' in request.GET:
+                sortkey = request.GET['sort']
+                sort = sortkey
+                if sortkey == 'title':
+                    sortkey == 'lower_title'
+                    videos = videos.annotate(lower_title=Lower('title'))
+                if 'direction' in request.GET:
+                    direction = request.GET['direction']
+                    if direction == 'desc':
+                        sortkey = f'-{sortkey}'
+                videos = videos.order_by(sortkey)
+
+            if 'q' in request.GET:
+                query = request.GET['q']
+                user = request.user
+                if not query:
+                    messages.error(request, "You didn't enter any search terms")
+                    return redirect(reverse('training_videos'))
+
+                queries = Q(title__icontains=query) | Q(name__icontains=query) | Q(description__icontains=query)
+                videos = videos.filter(queries)
+
+        sort_by = f'{sort}_{direction}'
+
+        context = {
+            'videos': videos,
+            'search_term': query,
+            'sort_by': sort_by,
+        }
+        return render(request, 'videos/videos.html', context)
     else:
-        videos = Video.objects.all()
-    query = None
-    sort = None
-    direction = None
-
-    if request.GET:
-        if 'sort' in request.GET:
-            sortkey = request.GET['sort']
-            sort = sortkey
-            if sortkey == 'title':
-                sortkey == 'lower_title'
-                videos = videos.annotate(lower_title=Lower('title'))
-            if 'direction' in request.GET:
-                direction = request.GET['direction']
-                if direction == 'desc':
-                    sortkey = f'-{sortkey}'
-            videos = videos.order_by(sortkey)
-
-        if 'q' in request.GET:
-            query = request.GET['q']
-            user = request.user
-            if not query:
-                messages.error(request, "You didn't enter any search terms")
-                return redirect(reverse('training_videos'))
-
-            queries = Q(title__icontains=query) | Q(name__icontains=query) | Q(description__icontains=query)
-            videos = videos.filter(queries)
-
-    sort_by = f'{sort}_{direction}'
-
-    context = {
-        'videos': videos,
-        'search_term': query,
-        'sort_by': sort_by,
-    }
-    return render(request, 'videos/videos.html', context)
+        messages.error(request, 'Sorry, you are not authorised to view this page.')
+        return redirect(reverse('home'))
 
 
 @login_required
@@ -74,7 +78,7 @@ def add_video(request):
             form = VideoForm()
     else:
         messages.error(request, 'Sorry, you do not have permission to view this page.')
-        return redirect(reverse)
+        return redirect(reverse('home'))
     template = 'videos/add_video.html'
     context = {
         'form': form,
@@ -84,14 +88,24 @@ def add_video(request):
 
 @login_required
 def video_details(request, video_id):
-    video = get_object_or_404(
-        Video.objects.annotate(average_rating=Avg('rating')), pk=video_id)
-    # Video.objects.aggregate(aggregate_rating=Avg('rating'))['aggregate_rating']
-    template = 'videos/video_details.html'
-    context = {
-        'video': video,
-    }
-    return render(request, template, context)
+    if request.user.member.subscription_package:
+        video = get_object_or_404(
+            Video.objects.annotate(average_rating=Avg('rating')), pk=video_id)
+        if video.premium:
+            if request.user.member.subscription_package.id == 1:
+                messages.error(request, 'Sorry, this video is only available to '\
+                                'premium members. Please purchase a premium or '\
+                                'VIP subscription to view this video.')
+                return redirect(reverse('home'))
+
+        template = 'videos/video_details.html'
+        context = {
+            'video': video,
+        }
+        return render(request, template, context)
+    else:
+        messages.error(request, 'Sorry, you are not authorised to view this page.')
+        return redirect(reverse('home'))
 
 
 @login_required
