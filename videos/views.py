@@ -3,8 +3,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
+from django.http import JsonResponse
 
-from .models import Video
+from .models import Video, VideoRating
 from .forms import VideoForm
 from members.models import Member
 
@@ -124,3 +125,28 @@ def delete_video(request, video_id):
     else:
         messages.error('Sorry, you do not have permission to view this page.')
         return redirect(reverse('home'))
+
+
+def videos_autocomplete(request):
+    if request.is_ajax():
+        query = request.GET.get('term', '')
+        videos = Video.objects.filter(title__icontains=query)
+        search_suggestions = []
+        for video in videos:
+            place_json = video.title
+            search_suggestions.append(place_json)
+        data = json.dumps(search_suggestions)
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
+
+@login_required
+def rate_video(request):
+    if request.method == 'POST':
+        element_id = request.POST.get('element_id')
+        value = request.POST.get('val')
+        rating = VideoRating.objects.get(id=element_id)
+        rating.rating = value
+        video.save()
+        return JsonResponse({'success': 'true', 'score': value}, safe=False)
+    return JsonResponse({'success': 'false'})

@@ -1,28 +1,40 @@
-<small class="text-muted">Rating: 
-    {% if video.rating >= 0.50 %}
-        <i class="fas fa-star rating-star"></i>
-    {% else %}
-        <i class="far fa-star"></i>
-    {% endif %}
-    {% if video.rating >= 1.50 %}
-        <i class="fas fa-star rating-star"></i>
-    {% else %}
-        <i class="far fa-star"></i>
-    {% endif %}
-    {% if video.rating >= 2.50 %}
-        <i class="fas fa-star rating-star"></i>
-    {% else %}
-        <i class="far fa-star"></i>
-    {% endif %}
-    {% if video.rating >= 3.50 %}
-        <i class="fas fa-star rating-star"></i>
-    {% else %}
-        <i class="far fa-star"></i>
-    {% endif %}
-    {% if video.rating >= 4.50 %}
-        <i class="fas fa-star rating-star"></i>
-    {% else %}
-        <i class="far fa-star"></i>
-    {% endif %}
-    {{ video.rating }}
-</small>
+<form action="" class="rating-form d-flex" method="POST" id="{{ video.id }}">
+    {% csrf_token %}
+    <button type="submit" id="first" class="rating-button px-1">
+        {% if video.rating >= 0.50 %}
+            <i class="fas fa-star rating-star fa-2x"></i>
+        {% else %}
+            <i class="far fa-star fa-2x"></i>
+        {% endif %}
+    </button>
+    <button type="submit" id="second" class="rating-button px-1">
+        {% if video.rating >= 1.50 %}
+            <i class="fas fa-star rating-star fa-2x"></i>
+        {% else %}
+            <i class="far fa-star fa-2x"></i>
+        {% endif %}
+    </button>
+    <button type="submit" id="third" class="rating-button px-1">
+        {% if video.rating >= 2.50 %}
+            <i class="fas fa-star rating-star fa-2x"></i>
+        {% else %}
+            <i class="far fa-star fa-2x"></i>
+        {% endif %}
+    </button>
+    <button type="submit" id="fourth" class="rating-button px-1">
+        {% if video.rating >= 3.50 %}
+        <i class="fas fa-star rating-star fa-2x"></i>
+        {% else %}
+            <i class="far fa-star fa-2x"></i>
+        {% endif %}
+    </button>
+    <button type="submit" id="fifth" class="rating-button px-1">
+        {% if video.rating >= 4.50 %}
+            <i class="fas fa-star rating-star fa-2x"></i>
+        {% else %}
+            <i class="far fa-star fa-2x"></i>
+        {% endif %}
+    </button>
+    <span>{{ video.rating }}</span>
+    <div id="rating-confirmation"></div>
+</form>
