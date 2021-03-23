@@ -5,16 +5,15 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 from django.http import JsonResponse
 
-from .models import Video, VideoRating
+from .models import Video
 from .forms import VideoForm
 from members.models import Member
 
 
 @login_required
-def training_videos(request, user):
+def training_videos(request):
     """This view renders the videos available to paid subscribers"""
     videos = Video.objects.all()
-    member = get_object_or_404(Member, user=user)
     query = None
     sort = None
     direction = None
@@ -46,7 +45,6 @@ def training_videos(request, user):
 
     context = {
         'videos': videos,
-        'member': member,
         'search_term': query,
         'sort_by': sort_by,
     }
@@ -77,6 +75,16 @@ def add_video(request):
     template = 'videos/add_video.html'
     context = {
         'form': form,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def video_details(request, video_id):
+    video = get_object_or_404(Video, pk=video_id)
+    template = 'videos/video_details.html'
+    context = {
+        'video': video,
     }
     return render(request, template, context)
 
@@ -143,10 +151,10 @@ def videos_autocomplete(request):
 @login_required
 def rate_video(request):
     if request.method == 'POST':
-        element_id = request.POST.get('element_id')
+        video_id = request.POST.get('video_id')
         value = request.POST.get('val')
-        rating = VideoRating.objects.get(id=element_id)
-        rating.rating = value
+        video = Video.objects.get(id=video_id)
+        video.rating = value
         video.save()
-        return JsonResponse({'success': 'true', 'score': value}, safe=False)
+        return JsonResponse({'success': 'true', 'rating': value}, safe=False)
     return JsonResponse({'success': 'false'})

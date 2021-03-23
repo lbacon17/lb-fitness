@@ -45,7 +45,7 @@
     <div class="container-fluid search-container">
         <div class="row mt-3 px-3 text-center text-left-sm">
             <div class="col-12">
-                <form action="{% url 'training_videos' user.id %}" method="GET" class="d-flex">
+                <form action="{% url 'training_videos' %}" method="GET" class="d-flex">
                     <label for="videos-search"></label>
                     <input class="form-control me-2" id="videos-search" type="search" name="q" placeholder="Search videos" aria-label="Search" class="validate" required>
                     <button class="btn btn-outline-success" type="submit">
@@ -70,15 +70,17 @@
                 <div class="col-12">
                     <h4>No videos found containing "{{ search_term }}"</h4>
                     <hr>
-                    <a href="{% url 'training_videos' user.id %}" class="btn-lg btn-primary text-dec-none">View All Videos</a>
+                    <a href="{% url 'training_videos' %}" class="btn-lg btn-primary text-dec-none">View All Videos</a>
                 </div>
             </div>
         {% endif %}
         <div class="row">
-            {% if member.subscription_package %}
+            {% if request.user.member.subscription_package %}
                 {% for video in videos %}
                     <div class="col-12 col-md-6 col-lg-4">
-                        <h2 class="font-weight-bold px-2">{{ video.title }}</h2>
+                        <h2 class="font-weight-bold px-2">
+                            <a href="{% url 'video_details' video.id %}">{{ video.title }}</a>
+                        </h2>
                         <video src="{{ video.video_file.url }}" alt="{{ video.title }}" class="img-thumbnail" controls preload type="video/mp4">
                         </video>
                         <p class="mb-0 px-2 small text-muted">
@@ -108,6 +110,7 @@
 
 {% block postloadjs %}
 {{ block.super }}
+<script src="{% static 'videos/js/video_rating.js' %}"></script>
 {% for video in videos %}
     {% include 'videos/includes/delete_confirmation_script.html' %}
 {% endfor %}
@@ -141,113 +144,5 @@
                 minLength: 2,
             });
         });
-    </script>
-    <script type="text/javascript">
-        // gets each rating star
-        var one = document.getElementById("first");
-        var two = document.getElementById("second");
-        var three = document.getElementById("third");
-        var four = document.getElementById("fourth");
-        var five = document.getElementById("fifth");
-
-        var ratingForm = document.querySelector('.rating-form');
-        var ratingConfirmation = document.getElementById('rating-confirmation');
-        var csrfToken = document.getElementsByName('csrfmiddlewaretoken');
-
-        // adds and removes checked class to/from rating stars
-        function handleStarSelect(size) {
-            var childElements = ratingForm.children;
-            for (let i = 0; i < childElements.length; i++) {
-                if (i <= size) {
-                    childElements[i].classList.add('checked');
-                } else {
-                    childElements[i].classList.remove('checked');
-                }
-            }            
-        }
-
-        // determines how many stars to check
-        function handleSelect(selection) {
-            switch(selection){
-                case 'first': {
-                    handleStarSelect(1);
-                    return
-                }
-                case 'second': {
-                    handleStarSelect(2);
-                    return
-                }
-                case 'third': {
-                    handleStarSelect(3);
-                    return
-                }
-                case 'fourth': {
-                    handleStarSelect(4);
-                    return
-                }
-                case 'fifth': {
-                    handleStarSelect(5);
-                    return
-                }
-            }
-        }
-
-        const getNumericValue = (stringValue) =>{
-            let numericValue;
-            if (stringValue === 'first') {
-                numericValue = 1;
-            } else if (stringValue === 'second') {
-                numericValue = 2;
-            } else if (stringValue === 'third') {
-                numericValue = 3;
-            } else if (stringValue === 'fourth') {
-                numericValue = 4;
-            } else if (stringValue === 'fifth') {
-                numericValue = 5;
-            } else {
-                numericValue = 0;
-            }
-            return numericValue
-        }
-
-        if (one) {
-            var ratingStars = [one, two, three, four, five];
-    
-            ratingStars.forEach(item=> item.addEventListener('mouseover', (event)=>{
-                handleSelect(event.target.id);
-            }));
-
-            ratingStars.forEach(item=> item.addEventListener('click', function(event) {
-                var val = event.target.id;
-                console.log(val);
-
-                var isSubmit = false
-                ratingForm.addEventListener('submit', e=>{
-                    e.preventDefault();
-                    if (isSubmit) {
-                        return
-                    }
-                    isSubmit = true
-                    var videoId = e.target.id;
-                    var val_num = getNumericValue(val);
-                    $.ajax({
-                        type: 'POST',
-                        url: '/rate_video/',
-                        data: {
-                            'csrfmiddlewaretoken': csrfToken[0].value,
-                            'element_id': videoId,
-                            'val': val_num
-                        },
-                        success: function(response) {
-                            console.log(response);
-                            ratingConfirmation.innerHTML = `<h1>Successfully rated video as ${response.rating} stars.</h1>`
-                        },
-                        error: function(error) {
-                            console.log(error);
-                        }
-                    })
-                })
-            }))
-        }
     </script>
 {% endblock %}

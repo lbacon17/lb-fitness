@@ -20,7 +20,7 @@
                 <div class="col-12">
                     <span>You are currently to subscribed to the {{ member.subscription_package.friendly_name }} paying {{ member.subscription_package.monthly_rate }} per month.</span>
                     <hr>
-                    <a href="{% url 'training_videos' user.id %}" class="btn-lg btn-dark text-dec-none">View Training Videos</a>
+                    <a href="{% url 'training_videos' %}" class="btn-lg btn-dark text-dec-none">View Training Videos</a>
                 </div>
             </div>
             {% if member.subscription_package.id != 1 %}

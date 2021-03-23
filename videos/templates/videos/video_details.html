@@ -9,108 +9,50 @@
     <div class="container-fluid mt-5 py-5 text-center">
         <div class="row">
             <div class="col-12">
-                <h1>Videos</h1>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid sorting-container">
-        <div class="row mt-3 px-3 text-center text-left-sm">
-            <div class="col-12">
-                <select class="custom-select-sm btn-sm border-black" id="sort-videos">
-                    <option value="reset" {% if sort_by == 'None_None' %}selected{% endif %}>
-                        Sort by...
-                    </option>
-                    <option value="title_asc" {% if sort_by == 'title_asc' %}selected{% endif %}>
-                        Title (A-Z)
-                    </option>
-                    <option value="title_desc" {% if sort_by == 'title_desc' %}selected{% endif %}>
-                        Title (Z-A)
-                    </option>
-                    <option value="rating_asc" {% if sort_by == 'rating_asc' %}selected{% endif %}>
-                        Rating (low to high)
-                    </option>
-                    <option value="rating_desc" {% if sort_by == 'rating_Desc' %}selected{% endif %}>
-                        Rating (high to low)
-                    </option>
-                    <option value="length_asc" {% if sort_by == 'length_asc' %}selected{% endif %}>
-                        Length (short to long)
-                    </option>
-                    <option value="length_desc" {% if sort_by == 'length_desc' %}selected{% endif %}>
-                        Length (long to short)
-                    </option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid search-container">
-        <div class="row mt-3 px-3 text-center text-left-sm">
-            <div class="col-12">
-                <form action="{% url 'training_videos' user.id %}" method="GET" class="d-flex">
-                    <label for="videos-search"></label>
-                    <input class="form-control me-2" id="videos-search" type="search" name="q" placeholder="Search videos" aria-label="Search" class="validate" required>
-                    <button class="btn btn-outline-success" type="submit">
-                        <span class="icon">
-                            <i class="fas fa-search"></i>
-                        </span>
-                    </button>
-                </form>
+                <h1>{{ video.title }}</h1>
             </div>
         </div>
     </div>
     <div class="container-fluid px-3">
-        {% if request.user.is_superuser %}
-            <div class="row py-3">
-                <div class="col-12">
-                    <a href="{% url 'add_video' %}" class="btn-lg btn-success text-dec-none">Add Video</a>
-                </div>
-            </div>
-        {% endif %}
-        {% if videos|length == 0 %}
-            <div class="row">
-                <div class="col-12">
-                    <h4>No videos found containing "{{ search_term }}"</h4>
-                    <hr>
-                    <a href="{% url 'training_videos' user.id %}" class="btn-lg btn-primary text-dec-none">View All Videos</a>
-                </div>
-            </div>
-        {% endif %}
         <div class="row">
-            {% if member.subscription_package %}
-                {% for video in videos %}
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <h2 class="font-weight-bold px-2">{{ video.title }}</h2>
-                        <video src="{{ video.video_file.url }}" alt="{{ video.title }}" class="img-thumbnail" controls preload type="video/mp4">
-                        </video>
-                        <p class="mb-0 px-2">
-                            <small class="text-muted">{{ video.length }} Rating: {% include 'videos/includes/video_rating.html' %}</small>
-                        </p>
-                        <p class="mx-2">{{ video.description }}</p>
-                        {% if request.user.is_superuser %}
-                            <div class="row">
-                                <div class="col-md-6 text-right">
-                                    <a href="{% url 'edit_video' video.id %}" class="btn-primary btn-lg text-dec-none">Edit</a>
-                                </div>
-                                <div class="col-md-6 text-left">
-                                    {% include 'videos/includes/delete_video_modal_popup.html' %}
-                                </div>
+            {% if request.user.member.subscription_package %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <h2 class="font-weight-bold px-2">{{ video.title }}</h2>
+                    <video src="{{ video.video_file.url }}" alt="{{ video.title }}" class="img-thumbnail" controls preload type="video/mp4">
+                    </video>
+                    <p class="mb-0 px-2">
+                        <small class="text-muted">{{ video.length }} Rating: {% include 'videos/includes/video_rating.html' %}</small>
+                    </p>
+                    <p class="mx-2">{{ video.description }}</p>
+                    {% if request.user.is_superuser %}
+                        <div class="row">
+                            <div class="col-md-6 text-right">
+                                <a href="{% url 'edit_video' video.id %}" class="btn-primary btn-lg text-dec-none">Edit</a>
                             </div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                            <div class="col-md-6 text-left">
+                                {% include 'videos/includes/delete_video_modal_popup.html' %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
             {% else %}
                 <div class="col-12">
                     <h5>You are not authorised to view this page.</h5>
                 </div>
             {% endif %}
         </div>
+        <div class="row text-center pt-3">
+            <div class="col-12">
+                <a href="{% url 'training_videos' %}" class="btn-lg btn-dark text-dec-none">Back to all videos</a>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
 {% block postloadjs %}
 {{ block.super }}
-{% for video in videos %}
+    <script src="{% static 'videos/js/video_rating.js' %}"></script>
     {% include 'videos/includes/delete_confirmation_script.html' %}
-{% endfor %}
     <script type="text/javascript">
         // enables video sorting. Credit to Boutique Ado project that provides the basis for this logic
         $('#sort-videos').change(function() {
@@ -141,15 +83,5 @@
                 minLength: 2,
             });
         });
-    </script>
-    <script type="text/javascript">
-        // get rating stars
-        var one = document.getElementById("first");
-        var two = document.getElementById("second");
-        var three = document.getElementById("third");
-        var four = document.getElementById("fourth");
-        var five = document.getElementById("fifth");
-
-        console.log(one);
     </script>
 {% endblock %}

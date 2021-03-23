@@ -1,4 +1,3 @@
-.rating-star,
 .checked {
     color:rgb(255, 215, 0);
 }
@@ -6,4 +5,8 @@
 .rating-button {
     background-color: inherit !important;
     border: 0 !important;
+}
+
+.rated {
+    color: rgb(255, 215, 0);
 }
