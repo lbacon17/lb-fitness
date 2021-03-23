@@ -5,8 +5,8 @@ from django.db.models import Q, Avg, Count
 from django.db.models.functions import Lower
 from django.http import JsonResponse
 
-from .models import Video
-from .forms import VideoForm
+from .models import Video, Comment
+from .forms import VideoForm, CommentForm
 from members.models import Member
 
 
@@ -98,9 +98,31 @@ def video_details(request, video_id):
                                 'VIP subscription to view this video.')
                 return redirect(reverse('home'))
 
+        comments = video.comments.filter(approved=True)
+        new_comment = None
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                new_comment = comment_form.save(commit=False)
+                new_comment.video = video
+                new_comment.user = request.user
+                new_comment.save()
+                messages.success(request, 'Your comment was successfully '\
+                    'submitted. It will appear beside the video once it '\
+                    'has been approved by an administrator.')
+                return redirect(reverse('video_details', args=[video.id]))
+            else:
+                messages.error(request, 'Thre was an issue submitting your '\
+                    'comment. Please ensure you have filled out the form '\
+                    'correctly.')
+        else:
+            comment_form = CommentForm()
+
         template = 'videos/video_details.html'
         context = {
             'video': video,
+            'comments': comments,
+            'comment_form': comment_form,
         }
         return render(request, template, context)
     else:

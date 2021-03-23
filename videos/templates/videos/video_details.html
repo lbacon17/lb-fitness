@@ -16,7 +16,7 @@
     <div class="container-fluid px-3">
         <div class="row">
             {% if request.user.member.subscription_package %}
-                <div class="col-12 col-md-6 col-lg-4">
+                <div class="col-12 col-md-6">
                     <h2 class="font-weight-bold px-2">{{ video.title }}</h2>
                     <video src="{{ video.video_file.url }}" alt="{{ video.title }}" class="img-thumbnail" controls preload type="video/mp4">
                     </video>
@@ -27,8 +27,34 @@
                         {{ video.average_rating|floatformat:2 }}
                     </p>
                     <p class="mx-2">{{ video.description }}</p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <h6>Comments</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            {% for comment in comments %}
+                                <p>{{ comment.user }}</p>
+                                <p>{{ comment.created_on }}</p>
+                                <p>{{ comment.content }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h6>Add a Comment</h6>
+                            <form action="{% url 'video_details' video.id %}" method="POST">
+                                {% csrf_token %}
+                                {{ comment_form|crispy }}
+                                <button class="btn-lg btn-success" type="submit">Submit Comment</button>
+                            </form>
+                        </div>
+                    </div>
                     {% if request.user.is_superuser %}
-                        <div class="row">
+                        <div class="row pt-5">
                             <div class="col-md-6 text-right">
                                 <a href="{% url 'edit_video' video.id %}" class="btn-primary btn-lg text-dec-none">Edit</a>
                             </div>
