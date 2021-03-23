@@ -18,20 +18,13 @@
         {% if member.subscription_package %}
             <div class="row">
                 <div class="col-12">
-                    <span>You are currently to subscribed to the {{ member.subscription_package.friendly_name }} paying {{ member.subscription_package.monthly_rate }} per month.</span>
+                    <span>You are currently to subscribed to the {{ member.subscription_package.friendly_name }} paying £{{ member.subscription_package.monthly_rate }} per month.</span>
                     <hr>
                     <a href="{% url 'training_videos' %}" class="btn-lg btn-dark text-dec-none">View Training Videos</a>
                 </div>
             </div>
             {% if member.subscription_package.id != 1 %}
                 <hr>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="my-5">
-                            <a href="" class="btn-lg btn-primary text-dec-none">Get Support</a>
-                        </p>
-                    </div>
-                </div>
                 {% if member.subscription_package.id == 3 %}
                     <hr>
                     <div class="row">

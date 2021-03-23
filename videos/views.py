@@ -13,7 +13,10 @@ from members.models import Member
 @login_required
 def training_videos(request):
     """This view renders the videos available to paid subscribers"""
-    videos = Video.objects.all()
+    if request.user.member.subscription_package.id == 1:
+        videos = Video.objects.filter(premium=False)
+    else:
+        videos = Video.objects.all()
     query = None
     sort = None
     direction = None
@@ -36,7 +39,7 @@ def training_videos(request):
             user = request.user
             if not query:
                 messages.error(request, "You didn't enter any search terms")
-                return redirect(reverse('training_videos', args=[user.id]))
+                return redirect(reverse('training_videos'))
 
             queries = Q(title__icontains=query) | Q(name__icontains=query) | Q(description__icontains=query)
             videos = videos.filter(queries)

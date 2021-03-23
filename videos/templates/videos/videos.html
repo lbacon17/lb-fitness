@@ -83,6 +83,9 @@
                         </h2>
                         <video src="{{ video.video_file.url }}" alt="{{ video.title }}" class="img-thumbnail" controls preload type="video/mp4">
                         </video>
+                        <p class="small">
+                            Category: {% if video.premium %}Premium{% else %}Basic{% endif %}
+                        </p>
                         <p class="mb-0 px-2 small text-muted">
                             {{ video.length }} Rating: {% include 'videos/includes/video_rating.html' %}
                         </p>

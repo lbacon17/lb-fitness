@@ -14,7 +14,7 @@ class Package(models.Model):
     monthly_rate = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
     videos_available = models.BooleanField(default=False)
     unlimited_training_and_meal_plans = models.BooleanField(default=False)
-    chat_support = models.BooleanField(default=False)
+    all_videos_available = models.BooleanField(default=False)
     shop_discount = models.BooleanField(default=False)
     plan_description = models.TextField()
 

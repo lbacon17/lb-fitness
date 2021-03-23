@@ -8,9 +8,9 @@
             "monthly_rate": 9.99,
             "videos_available": true,
             "unlimited_training_and_meal_plans": true,
-            "chat_support": false,
+            "all_videos_available": false,
             "shop_discount": false,
-            "plan_description": "In our Basic Plan you get access to all our training videos and will be able to create as many training and meals plans as you like for £9.99 per month. \r This plan is for those who want to keep track of their training and nutrition and have enough experience to not need hands-on support."
+            "plan_description": "In our Basic Plan you get access to select training videos for £9.99 per month and can watch them as often as you like. \r This plan is for those who want to keep track of their training and nutrition and have enough experience to not need hands-on support."
         }
     },
     {
@@ -22,9 +22,9 @@
             "monthly_rate": 25.99,
             "videos_available": true,
             "unlimited_training_and_meal_plans": true,
-            "chat_support": true,
+            "all_videos_available": true,
             "shop_discount": false,
-            "plan_description": "Our Premium Plan costs £25.99 a month. You still get access to all our training videos and can create unlimited training and meal plans. On top of that, we'll give you personalised support as often as you need to ensure you achieve your goals. \r This plan is for those who may need a bit of extra guidance on their journey due to a lack of experience."
+            "plan_description": "Our Premium Plan costs £25.99 a month. You will get access to our full suite of training videos and can create unlimited training and meal plans. \r This plan is for those who may need a bit of extra guidance on their journey due to a lack of experience."
         }
     },
     {
@@ -36,7 +36,7 @@
             "monthly_rate": 39.99,
             "videos_available": true,
             "unlimited_training_and_meal_plans": true,
-            "chat_support": true,
+            "all_videos_available": true,
             "shop_discount": true,
             "plan_description": "In our VIP plan, you get all the features of our Premium Plan, but you also get a 50% discount plus free delivery in our Shop for as long as you have the membership! \r If you need some extra personalised support and love our awesome products (including our meal prep boxes), this plan is for you."
         }

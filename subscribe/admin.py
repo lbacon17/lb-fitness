@@ -9,7 +9,7 @@ class PackageAdmin(admin.ModelAdmin):
         'monthly_rate',
         'videos_available',
         'unlimited_training_and_meal_plans',
-        'chat_support',
+        'all_videos_available',
         'shop_discount',
         'plan_description',
     )
