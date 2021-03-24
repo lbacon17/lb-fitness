@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'shop/css/shop.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container-fluid mt-5 py-3 text-center">
     <div class="row">
@@ -146,5 +150,10 @@
         var itemId = $(this).data('item_id');
         disableQuantityInput(itemId);
     });
+
+    function hideModal(id) {
+        $('#' + id).modal('hide');
+        $('.modal').hide();
+    }
 </script>
 {% endblock %}

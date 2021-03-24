@@ -84,24 +84,6 @@ body {
 
 /*-- subscribe page --*/
 
-/*-- shop page --*/
-
-.item-specs-container a,
-.item-specs-container a:hover {
-    color: #000000;
-    text-decoration: none;
-}
-
-.modal {
-    position: fixed;
-    width: 50%;
-    height: 40%;
-    top: 50%;
-    left: 25%;
-    background-color: #fafafa;
-    border: 2px solid #676767;
-}
-
 /*-- BOOTSTRAP TOASTS --*/
 
 .messages-container {
