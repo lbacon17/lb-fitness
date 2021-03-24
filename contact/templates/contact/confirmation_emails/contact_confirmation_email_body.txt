@@ -1,0 +1,15 @@
+Dear {{ contact_request.name }},
+
+Thank you very much for getting in touch with us. You are receiving this e-mail as confirmation that we have received your request and will endeavour to respond to you as soon as possible.
+
+Here are the details of your contact request:
+
+Name: {{ contact_request.name }}
+E-mail address: {{ contact_request.email_address }}
+Subejct: {{ contact_request.subject }}
+Message: {{ contact_request.message }}
+
+Please don't hestitate to reach out to us in the meantime if you have any further questions.
+
+Kind regards,
+LB Fitness
