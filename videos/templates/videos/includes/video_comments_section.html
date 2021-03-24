@@ -5,6 +5,7 @@
 </div>
 <div class="row">
     <div class="col-12">
+        <span><small>{{ video.comments.count }} comments</small></span>
         {% if request.user.is_superuser %}
             {% if unapproved_comments %}
                 <h6>Comments Pending Approval</h6>
