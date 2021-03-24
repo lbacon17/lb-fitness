@@ -95,7 +95,7 @@ def load_checkout(request):
         if not cart:
             messages.error(request, 'Your cart is currently empty. Please add '\
                             'at lest one item to be able to check out.')
-            return redirect(reverse('shop_all'))
+            return redirect(reverse('shop'))
         
         shopping_cart = cart_contents(request)
         total = shopping_cart['grand_total']
