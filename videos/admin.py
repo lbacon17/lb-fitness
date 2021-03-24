@@ -29,7 +29,7 @@ class CommentAdmin(admin.ModelAdmin):
     actions = ['approve_comments']
 
     def approve_comments(self, request, queryset):
-        queryset.update(visible=True)
+        queryset.update(approved=True)
 
 
 admin.site.register(Video, VideoAdmin)

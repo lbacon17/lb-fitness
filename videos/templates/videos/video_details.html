@@ -29,53 +29,7 @@
                     <p class="mx-2">{{ video.description }}</p>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="row">
-                        <div class="col-12">
-                            <h6>Comments</h6>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            {% for comment in comments %}
-                                <div class="card">
-                                    <p class="small mt-2 ml-2">By {{ comment.user }} on {{ comment.created_on }}</p>
-                                    <p class="mt-0 ml-2">
-                                        {{ comment.content }}
-                                        {% if comment.user == request.user or request.user.is_superuser %}
-                                            <a href="{% url 'update_comment' video.id comment.id %}" class="btn-sm btn-primary text-dec-none text-right">
-                                                Edit
-                                            </a>
-                                            <a href="{% url 'delete_comment' video.id comment.id %}" class="btn-sm btn-danger text-dec-none textleft">
-                                                Delete
-                                            </a>
-                                        {% endif %}
-                                    </p>
-                                    {% if request.user.is_superuser %}
-                                        {% if comment.approved == False %}
-                                            <a href="" class="btn-danger text-dec-none">Remove Comment</a>
-                                            <a href="" class="btn-success text-dec-none">Approve</a>
-                                        {% endif %}
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            {% if new_comment %}
-                                <div class="card">
-                                    <p>Your comment is awaiting moderation.</p>
-                                </div>
-                            {% else %}
-                                <h6>Add a Comment</h6>
-                                <form action="{% url 'video_details' video.id %}" method="POST">
-                                    {% csrf_token %}
-                                    {{ comment_form|crispy }}
-                                    <button class="btn-lg btn-success" type="submit">Submit Comment</button>
-                                </form>
-                            {% endif %}
-                        </div>
-                    </div>
+                    {% include 'videos/includes/video_comments_section.html' %}
                     {% if request.user.is_superuser %}
                         <div class="row pt-5">
                             <div class="col-md-6 text-right">

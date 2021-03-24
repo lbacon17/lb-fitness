@@ -7,6 +7,7 @@ from django.http import JsonResponse
 
 from .models import Video, Comment
 from .forms import VideoForm, CommentForm
+from .admin import CommentAdmin
 from members.models import Member
 
 
@@ -99,6 +100,7 @@ def video_details(request, video_id):
                 return redirect(reverse('home'))
 
         comments = video.comments.filter(approved=True)
+        unapproved_comments = video.comments.filter(approved=False)
         new_comment = None
         if request.method == 'POST':
             comment_form = CommentForm(request.POST)
@@ -110,7 +112,6 @@ def video_details(request, video_id):
                 messages.success(request, 'Your comment was successfully '\
                     'submitted. It will appear beside the video once it '\
                     'has been approved by an administrator.')
-                return redirect(reverse('video_details', args=[video.id]))
             else:
                 messages.error(request, 'Thre was an issue submitting your '\
                     'comment. Please ensure you have filled out the form '\
@@ -123,6 +124,7 @@ def video_details(request, video_id):
             'video': video,
             'new_comment': new_comment,
             'comments': comments,
+            'unapproved_comments': unapproved_comments,
             'comment_form': comment_form,
         }
         return render(request, template, context)
@@ -203,11 +205,14 @@ def rate_video(request):
 
 
 @login_required
-def approve_comment(request, comment_id):
+def approve_comment(request, comment_id, video_id):
     if request.user.is_superuser:
         comment = get_object_or_404(Comment, pk=comment_id)
-        comment.update(approved=True)
+        video = get_object_or_404(Video, pk=video_id)
+        comment.approved = True
         comment.save()
+        messages.success(request, 'Successfully approved comment.')
+        return redirect(reverse('video_details', args=[video.id]))
     else:
         messages.error(request, 'Sorry, you do not have permission to perform '\
                         'this action.')
