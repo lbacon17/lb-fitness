@@ -1,0 +1,26 @@
+Dear {{ order.full_name }},
+
+Thank you for placing your order with LB Fitness.
+
+This is a confirmation of your order. Please find your order details below.
+
+Order Number: {{ shop_order.order_number }}
+Date: {{ shop_order.date }}
+
+Address:
+
+{{ shop_order.address_line1 }}
+{% if shop_order.address_line2 %}
+    {{ shop_order.address_line2 }}
+{% endif %}
+{{ shop_order.town_or_city }}
+{% if shop_order.county_or_region %}
+    {{ shop_order.county_or_region }}
+{% endif %}
+{{ shop_order.postcode }}
+{{ shop_order.country }}
+
+If you have any questions or there is a problem with your order, please don't hesitate to contact us at {{ contact_email }}
+
+Kind regards,
+LB Fitness
