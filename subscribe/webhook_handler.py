@@ -10,7 +10,7 @@ import json
 import time
 
 
-class StripeWH_Handler_Subscribe:
+class StripeWH_HandlerSubscribe:
     def __init__(self, request):
         self.request = request
 
