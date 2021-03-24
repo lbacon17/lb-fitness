@@ -4,8 +4,8 @@ from django.template.loader import render_to_string
 from django.conf import settings
 
 from .models import ShopOrder, OrderLineItem
-from products.models import Product
-from profiles.models import StoreUser
+from shop.models import Product
+from user_profiles.models import StoreUser
 
 import json
 import time
@@ -127,11 +127,11 @@ class StripeWH_Handler:
                     status=500)
         self._send_confirmation_email(shop_order)
         return HttpResponse(
-            content(f'Webhook received: {event["type"]} | SUCCESS: 
-                      Created order in webhook.'),
+            content(f'Webhook received: {event["type"]} | SUCCESS: '
+                     f'Created order in webhook.'),
             status=200)
         
-        def handle_payment_intent_payment_failed(self event):
+        def handle_payment_intent_payment_failed(self, event):
             return HttpResponse(
                 content=f'Webhook received: {event["type"]}',
                 status=200)
