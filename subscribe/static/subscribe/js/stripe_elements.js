@@ -36,15 +36,17 @@ card.addEventListener('change', function(event) {
 // Handles form submission
 var subscriptionForm = document.getElementById('subscription-form');
 
-subscriptionForm.addEventListener(function (ev) {
+subscriptionForm.addEventListener('submit', function (ev) {
     ev.PreventDefault();
     card.update({'disabled': true});
     $('#complete-subscription').attr('disabled', true);
 
+    var saveMemberInfo = Boolean($('#id-save-member-info').attr('checked'));
     var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
     var postData = {
         'csrfmiddlewaretoken': csrfToken,
-        'client_secret': clientSecret
+        'client_secret': clientSecret,
+        'save_member_info': saveMemberInfo
     };
 
     var url = '/subscribe/cache_checkout_data/';

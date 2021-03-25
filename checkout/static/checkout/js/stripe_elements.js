@@ -36,10 +36,11 @@ card.addEventListener('change', function(event) {
 // Handles form submission
 var paymentForm = document.getElementById('payment-form');
 
-paymentForm.addEventListener(function (ev) {
+paymentForm.addEventListener('submit', function (ev) {
     ev.PreventDefault();
     card.update({'disabled': true});
     $('#complete-order').attr('disabled', true);
+    $('#payment-form').fadeToggle(100);
 
     var saveUserInfo = Boolesn($('#id-save-user-info').attr('checked'));
     var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
