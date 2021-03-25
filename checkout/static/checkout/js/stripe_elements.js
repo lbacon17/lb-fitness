@@ -27,7 +27,8 @@ card.mount('#card-element');
 card.addEventListener('change', function(event) {
     var errorElement = document.getElementById('card-errors');
     if (event.error) {
-        $(errorElement).html(`<span>${event.error.message}</span>`);
+        var html = `<span class="text-danger"><i class="fas fa-exclamation-circle"></i> ${event.error.message}</span>`
+        $(errorElement).html(html);
     } else {
         errorElement.textContent = '';
     }
