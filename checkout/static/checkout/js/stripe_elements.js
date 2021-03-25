@@ -69,18 +69,18 @@ paymentForm.addEventListener('submit', function (ev) {
                         country: $.trim(paymentForm.country.value),
                         state: $.trim(paymentForm.county_or_region.value),
                     }
-                },
-                shipping: {
-                    name: $.trim(paymentForm.full_name.value),
-                    phone: $.trim(paymentForm.phone_number.value),
-                    address: {
-                        line1: $.trim(paymentForm.address_line1.value),
-                        line2: $.trim(paymentForm.address_line2.value),
-                        city: $.trim(paymentForm.town_or_city.value),
-                        country: $.trim(paymentForm.country.value),
-                        postal_code: $.trim(paymentForm.postcode.value),
-                        state: $.trim(paymentForm.county_or_region.value),
-                    }
+                }
+            },
+            shipping: {
+                name: $.trim(paymentForm.full_name.value),
+                phone: $.trim(paymentForm.phone_number.value),
+                address: {
+                    line1: $.trim(paymentForm.address_line1.value),
+                    line2: $.trim(paymentForm.address_line2.value),
+                    city: $.trim(paymentForm.town_or_city.value),
+                    country: $.trim(paymentForm.country.value),
+                    postal_code: $.trim(paymentForm.postcode.value),
+                    state: $.trim(paymentForm.county_or_region.value),
                 }
             },
         }).then(function(result) {
