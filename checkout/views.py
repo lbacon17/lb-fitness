@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
@@ -59,6 +59,7 @@ def load_checkout(request):
             for item_id, item_data in cart.items():
                 try:
                     item = Product.objects.get(id=item_id)
+                    # creates a line item for items without sizes
                     if isinstance(item_data, int):
                         order_line_item = OrderLineItem(
                             shop_order=shop_order,
@@ -105,6 +106,9 @@ def load_checkout(request):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY
         )
+
+        print(intent)
+
         if request.user.is_authenticated:
             try:
                 user_profile = StoreUser.objects.get(user=request.user)
@@ -125,8 +129,7 @@ def load_checkout(request):
             shop_order_form = ShopOrderForm()
     if not stripe_public_key:
         messages.warning(request, ('Your Stripe public key is missing. Please '\
-                                    'ensure that you have set this in your '\
-                                    'environment.'))
+            'ensure that you have set this in your environment.'))
     
     template = 'checkout/checkout.html'
     context = {

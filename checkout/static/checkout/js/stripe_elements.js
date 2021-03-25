@@ -27,7 +27,8 @@ card.mount('#card-element');
 card.addEventListener('change', function(event) {
     var errorElement = document.getElementById('card-errors');
     if (event.error) {
-        var html = `<span class="text-danger"><i class="fas fa-exclamation-circle"></i> ${event.error.message}</span>`
+        var html = `
+            <span class="text-danger"><i class="fas fa-exclamation-circle"></i> ${event.error.message}</span>`;
         $(errorElement).html(html);
     } else {
         errorElement.textContent = '';
@@ -48,7 +49,7 @@ paymentForm.addEventListener('submit', function (ev) {
     var postData = {
         'csrfmiddlewaretoken': csrfToken,
         'client_secret': clientSecret,
-        'save_user_info': saveUserInfo
+        'save_user_info': saveUserInfo,
     };
 
     var url = '/checkout/cache_checkout_data/';
@@ -57,36 +58,37 @@ paymentForm.addEventListener('submit', function (ev) {
         stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
-                billing_info: {
-                    full_name: $.trim(paymentForm.full_name.value),
-                    email_address: $.trim(paymentForm.email_address.value),
-                    phone_number: $.trim(paymentForm.phone_number.value),
+                billing_details: {
+                    name: $.trim(paymentForm.full_name.value),
+                    email: $.trim(paymentForm.email_address.value),
+                    phone: $.trim(paymentForm.phone_number.value),
                     address: {
-                        address_line1: $.trim(paymentForm.address_line1.value),
-                        address_line2: $.trim(paymentForm.address_line2.value),
-                        town_or_city: $.trim(paymentForm.town_or_city.value),
-                        county_or_region: $.trim(paymentForm.county_or_region.value),
-                        postcode: $.trim(paymentForm.postcode.value),
-                        country: $.trim(paymentForm.country.value)
+                        line1: $.trim(paymentForm.address_line1.value),
+                        line2: $.trim(paymentForm.address_line2.value),
+                        city: $.trim(paymentForm.town_or_city.value),
+                        country: $.trim(paymentForm.country.value),
+                        state: $.trim(paymentForm.county_or_region.value),
                     }
                 },
-                delivery_info: {
-                    full_name: $.trim(paymentForm.full_name.value),
-                    phone_number: $.trim(paymentForm.phone_number.value),
+                shipping: {
+                    name: $.trim(paymentForm.full_name.value),
+                    phone: $.trim(paymentForm.phone_number.value),
                     address: {
-                        address_line1: $.trim(paymentForm.address_line1.value),
-                        address_line2: $.trim(paymentForm.address_line2.value),
-                        town_or_city: $.trim(paymentForm.town_or_city.value),
-                        county_or_region: $.trim(paymentForm.county_or_region.value),
-                        postcode: $.trim(paymentForm.postcode.value),
-                        country: $.trim(paymentForm.country.value)
+                        line1: $.trim(paymentForm.address_line1.value),
+                        line2: $.trim(paymentForm.address_line2.value),
+                        city: $.trim(paymentForm.town_or_city.value),
+                        country: $.trim(paymentForm.country.value),
+                        postal_code: $.trim(paymentForm.postcode.value),
+                        state: $.trim(paymentForm.county_or_region.value),
                     }
                 }
-            }
+            },
         }).then(function(result) {
             if (result.error) {
                 var errorElement = document.getElementById('card-errors');
-                $(errorElement).html(`<span>${result.error.message}</span>`);
+                var html = `
+                    <span class="text-danger"><i class="fas fa-exclamation-circle"></i> ${event.error.message}</span>`;
+                $(errorElement).html(html);
                 card.update({'disabled': false});
                 $('#complete-order').attr('disabled', false);
             } else {

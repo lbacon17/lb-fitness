@@ -10,7 +10,8 @@ def subscription_cart_contents(request):
     total = 0
     count = 0
     subscription_cart = request.session.get('subscription_cart', {})
-    
+    print(subscription_cart)
+
     for package_id, package_data in subscription_cart.items():
         if isinstance(package_data, int):
             package = get_object_or_404(Package, pk=package_id)
@@ -21,7 +22,6 @@ def subscription_cart_contents(request):
                 'quantity': 1,
                 'package': package,
             })
-            print(subscription_cart)
         else:
             package = get_object_or_404(Package, pk=package_id)
             for quantity in package_data.items():

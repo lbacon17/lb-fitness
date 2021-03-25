@@ -117,7 +117,6 @@ def get_subscription(request, package_id):
                                      args=[subscription.subscription_id]))
         else:
             messages.error(request, 'There was an error submitting the form.')
-            print(subscription_form.errors)
     else:
         subscription_cart = request.session.get('cart', {})
         if not subscription_cart:
@@ -133,6 +132,7 @@ def get_subscription(request, package_id):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
+        print(intent)
         if request.user.is_authenticated:
             try:
                 member = Member.objects.get(user=request.user)
