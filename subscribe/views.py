@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from .forms import SubscriptionForm
 from .models import Package, Subscription, SubscriptionCount
-from .contexts import subscription_cart
+from .contexts import subscription_cart_contents
 
 from members.models import Member
 
@@ -23,7 +23,7 @@ def cache_checkout_data(request):
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
-            'cart': json.dumps(request.session.get('cart', {})),
+            'subscription_cart': json.dumps(request.session.get('subscription_cart', {})),
             'save_member_info': request.POST.get('save_member_info'),
             'username': request.user,
         })
@@ -51,15 +51,16 @@ def add_package_to_cart(request, package_id):
     package = get_object_or_404(Package, pk=package_id)
     quantity = 1
     redirect_url = request.POST.get('redirect_url')
-    cart = request.session.get('cart', {})
+    subscription_cart = request.session.get('subscription_cart', {})
+    subscription_cart[package_id] = quantity
 
-    if package_id in list(cart.keys()):
-        cart[package_id] += quantity
-    else:
-        cart[package_id] = quantity
+    # if package_id in list(subscription_cart.keys()):
+    #     subscription_cart[package_id] += quantity
+    # else:
+    #     subscription_cart[package_id] = quantity
 
-    request.session['cart'] = cart
-    return redirect(redirect_url)
+    request.session['subscription_cart'] = subscription_cart
+    return redirect(reverse('get_subscription', args=[package.id]))
 
 
 @login_required
@@ -71,14 +72,12 @@ def get_subscription(request, package_id):
 
     package = get_object_or_404(Package, pk=package_id)
     if request.method == "POST":
-        cart = request.session.get('cart', {})
+        subscription_cart = request.session.get('subscription_cart', {})
 
         member_info = {
             'full_name': request.POST['full_name'],
             'email_address': request.POST['email_address'],
             'phone_number': request.POST['phone_number'],
-        }
-        billing_info = {
             'cardholder_name': request.POST['cardholder_name'],
             'address_line1': request.POST['address_line1'],
             'address_line2': request.POST['address_line2'],
@@ -88,17 +87,17 @@ def get_subscription(request, package_id):
             'country': request.POST['country'],
         }
 
-        subscription_form = SubscriptionForm(member_info, billing_info)
+        subscription_form = SubscriptionForm(member_info)
         if subscription_form.is_valid():
             subscription = subscription_form.save(commit=False)
             member = Member.objects.get(user=request.user)
             pid = request.POST.get('client_secret').split('_secret')[0]
             subscription.stripe_pid = pid
-            subscription.package_in_cart = json.dumps(cart)
+            subscription.package_in_cart = json.dumps(subscription_cart)
             subscription.save()
             member.subscription_package = package
             member.save()
-            for package_id, package_data in cart.items():
+            for package_id, package_data in subscription_cart.items():
                 try:
                     package = Package.objects.get(id=package_id)
                     if isinstance(package_data, int):
@@ -118,13 +117,14 @@ def get_subscription(request, package_id):
                                      args=[subscription.subscription_id]))
         else:
             messages.error(request, 'There was an error submitting the form.')
+            print(subscription_form.errors)
     else:
-        cart = request.session.get('cart', {})
-        if not cart:
+        subscription_cart = request.session.get('cart', {})
+        if not subscription_cart:
             messages.error(request, "You didn't select a subscription")
-            return redirect(reverse('subscribe_page'))
+            # return redirect(reverse('subscribe_page'))
 
-        current_cart = subscription_cart(request)
+        current_cart = subscription_cart_contents(request)
         grand_total = current_cart['grand_total']
         stripe_total = round(grand_total * 100)
         stripe.api_key = stripe_secret_key
@@ -151,7 +151,7 @@ def get_subscription(request, package_id):
             except Member.DoesNotExist:
                 subscription_form = SubscriptionForm()
         else:
-            messages.error(request, 'You must have an accoun to get a subscription.')
+            messages.error(request, 'You must have an account to get a subscription.')
             return redirect(reverse('home'))
 
     if not stripe_public_key:

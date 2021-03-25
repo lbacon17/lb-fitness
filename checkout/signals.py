@@ -6,9 +6,9 @@ from .models import OrderLineItem
 
 @receiver(post_save, sender=OrderLineItem)
 def update_on_save(sender, instance, created, **kwargs):
-    instance.shop_order.update_total()
+    instance.shop_order.update_cart_total()
 
 
 @receiver(post_delete, sender=OrderLineItem)
 def update_on_delete(sender, instance, **kwargs):
-    instance.shop_order.update_total()
+    instance.shop_order.update_cart_total()

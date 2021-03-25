@@ -5,22 +5,23 @@ from django.shortcuts import get_object_or_404
 from .models import Package
 
 
-def subscription_cart(request):
+def subscription_cart_contents(request):
     cart_items = []
     total = 0
     count = 0
-    cart = request.session.get('cart', {})
-
-    for package_id, package_data in cart.items():
+    subscription_cart = request.session.get('subscription_cart', {})
+    
+    for package_id, package_data in subscription_cart.items():
         if isinstance(package_data, int):
             package = get_object_or_404(Package, pk=package_id)
-            total += package_data * package.monthly_rate
-            count += package_data
+            total = package.monthly_rate
+            count += 1
             cart_items.append({
                 'package_id': package_id,
-                'quantity': package_data,
+                'quantity': 1,
                 'package': package,
             })
+            print(subscription_cart)
         else:
             package = get_object_or_404(Package, pk=package_id)
             for quantity in package_data.items():
@@ -33,7 +34,7 @@ def subscription_cart(request):
                 })
 
     grand_total = total
-    
+
     context = {
         'cart_items': cart_items,
         'total': total,
