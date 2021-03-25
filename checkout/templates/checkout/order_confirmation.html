@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load cart_tools %}
 
 {% load static %}
 
@@ -51,10 +52,40 @@
                             </p>
                         </div>
                         <div class="col-12 col-md-6">
-                            <p class="text-left">{{ item.quantity }} £{{ item.item.price }}</p>
+                            <p class="text-left">
+                                x{{ item.quantity }} - £{% if request.user.member.subscription_package.id == 3 %}{{ item.item.price | calc_discount_price }}{% else %}{{ item.item.price }}{% endif %}
+                            </p>
                         </div>
                     </div>
                 {% endfor %}
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <p class="font-weight-bold text-right">
+                            Total:
+                        </p>                            
+                        <p class="font-weight-bold text-right">
+                            Delivery:
+                        </p>                            
+                        <p class="font-weight-bold text-right">
+                            Grand Total:
+                        </p>                            
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <p class="text-left">
+                            £{{ shop_order.order_total }}
+                        </p>
+                        <p class="text-left">
+                            {% if request.user.member.subscription_package.id == 3 %}
+                                £0.00
+                            {% else %}
+                                £{{ shop_order.delivery_charge }}
+                            {% endif %}
+                        </p>
+                        <p class="text-left">
+                            £{{ shop_order.grand_total }}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

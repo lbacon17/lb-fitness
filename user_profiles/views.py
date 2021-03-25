@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import StoreUser
 from .forms import StoreUserForm
 from checkout.models import ShopOrder, OrderLineItem
+from cart.contexts import cart_contents
 
 
 def user_profile(request):
@@ -56,7 +57,7 @@ def delete_account(request, user):
 
 def user_order_history(request, order_number):
     shop_order = get_object_or_404(ShopOrder, order_number=order_number)
-    template = 'user_profiles/order_history.html'
+    template = 'checkout/order_confirmation.html'
     context = {
         'shop_order': shop_order,
     }

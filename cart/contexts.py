@@ -14,7 +14,7 @@ def cart_contents(request):
     for item_id, item_data in cart.items():
         if isinstance(item_data, int):
             item = get_object_or_404(Product, pk=item_id)
-            if request.user.member.subscription_package.id == 3:
+            if request.user.is_authenticated and request.user.member.subscription_package and request.user.member.subscription_package.id == 3:
                 total += (item_data * item.price) / 2
             else:
                 total += item_data * item.price
@@ -27,7 +27,7 @@ def cart_contents(request):
         else:
             item = get_object_or_404(Product, pk=item_id)
             for size, quantity in item_data['items_by_size'].items():
-                if request.user.member.subscription_package.id == 3:
+                if request.user.is_authenticated and request.user.member.subscription_package and request.user.member.subscription_package.id == 3:
                     total += (quantity * item.price) / 2
                 else:
                     total += quantity * item.price
@@ -40,7 +40,7 @@ def cart_contents(request):
                 })
 
     if total < settings.FREE_DELIVERY_THRESHOLD:
-        if request.user.member.subscription_package.id == 3:
+        if request.user.is_authenticated and request.user.member.subscription_package and request.user.member.subscription_package.id == 3:
             delivery = 0
             free_delivery_gap = 0
         else:
@@ -50,7 +50,7 @@ def cart_contents(request):
         delivery = 0
         free_delivery_gap = 0
 
-    if request.user.member.subscription_package.id == 3:
+    if request.user.is_authenticated and request.user.member.subscription_package and request.user.member.subscription_package.id == 3:
         grand_total = total
     else:
         grand_total = delivery + total
