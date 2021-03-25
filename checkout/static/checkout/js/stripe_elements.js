@@ -42,7 +42,7 @@ paymentForm.addEventListener('submit', function (ev) {
     $('#complete-order').attr('disabled', true);
     $('#payment-form').fadeToggle(100);
 
-    var saveUserInfo = Boolesn($('#id-save-user-info').attr('checked'));
+    var saveUserInfo = Boolean($('#id-save-user-info').attr('checked'));
     var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
     var postData = {
         'csrfmiddlewaretoken': csrfToken,
