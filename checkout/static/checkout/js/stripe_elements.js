@@ -39,7 +39,7 @@ card.addEventListener('change', function(event) {
 var form = document.getElementById('payment-form');
 
 form.addEventListener('submit', function (ev) {
-    ev.PreventDefault();
+    ev.preventDefault();
     card.update({'disabled': true});
     $('#complete-order').attr('disabled', true);
     $('#payment-form').fadeToggle(100);
