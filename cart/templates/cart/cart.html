@@ -43,7 +43,7 @@
                         <a class="update-quantity btn-dark text-white">Update Qty</a>
                     </div>
                     <div class="col-12 col-md-6">
-                        <a id="remove_{{ item.item_id }}" class="remove-item btn-lg bg-danger text-white" href="{% url 'remove_item_from_cart' item.item_id %}">
+                        <a id="remove_{{ item.item_id }}" class="remove-item btn-lg bg-danger text-white" data-item_size="{{ item.size }}">
                             <i class="fas fa-times"></i>
                         </a>
                     </div>
@@ -104,7 +104,7 @@
             var itemId = $(this).attr('id').split('remove_')[1];
             var size = $(this).data('item_size');
             var url = `/cart/remove_item/${itemId}/`;
-            var data = {'csrfmiddlewaretoken': csrfToken};
+            var data = {'csrfmiddlewaretoken': csrfToken, 'item_size': size};
 
             $.post(url, data)
              .done(function() {

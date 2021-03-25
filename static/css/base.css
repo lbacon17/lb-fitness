@@ -84,6 +84,13 @@ body {
 
 /*-- subscribe page --*/
 
+/*-- cart page --*/
+
+.update-quantity,
+.remove-item {
+    cursor: pointer;
+}
+
 /*-- BOOTSTRAP TOASTS --*/
 
 .messages-container {
