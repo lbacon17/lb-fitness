@@ -29,7 +29,7 @@
                     </fieldset>
                     <fieldset class="px-3 mb-5">
                         <legend class="small w-auto">Billing Address</legend>
-                        {{ subscription_form.full_name | as_crispy_field }}
+                        {{ subscription_form.cardholder_name | as_crispy_field }}
                         {{ subscription_form.address_line1 | as_crispy_field }}
                         {{ subscription_form.address_line2 | as_crispy_field }}
                         {{ subscription_form.town_or_city | as_crispy_field }}

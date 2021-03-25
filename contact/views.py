@@ -14,7 +14,8 @@ def contact(request):
         contact_form = ContactForm(request.POST)
         if contact_form.is_valid():
             contact_request = contact_form.save(commit=False)
-            contact_request.user = request.user
+            if request.user.is_authenticated:
+                contact_request.user = request.user
             contact_request.save()
             user_email = contact_request.email_address
             subject = render_to_string(
@@ -27,7 +28,8 @@ def contact(request):
                 subject,
                 body,
                 settings.DEFAULT_FROM_EMAIL,
-                [user_email]
+                [user_email],
+                fail_silently=False
             )
             messages.success(request, 'Your query was submitted successfully')
             return redirect(reverse('contact'))

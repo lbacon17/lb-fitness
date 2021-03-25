@@ -53,10 +53,13 @@ subscriptionForm.addEventListener(function (ev) {
         stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
-                billing_info: {
+                member_info: {
                     full_name: $.trim(subscriptionForm.full_name.value),
                     email_address: $.trim(subscriptionForm.email_address.value),
                     phone_number: $.trim(subscriptionForm.phone_number.value),
+                },
+                billing_info: {
+                    cardholder_name: $.trim(subscriptionForm.cardholder_name.value),
                     address: {
                         address_line1: $.trim(subscriptionForm.address_line1.value),
                         address_line2: $.trim(subscriptionForm.address_line2.value),

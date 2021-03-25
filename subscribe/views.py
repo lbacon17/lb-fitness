@@ -70,10 +70,13 @@ def get_subscription(request, package_id):
     if request.method == "POST":
         cart = request.session.get('cart', {})
 
-        billing_info = {
+        member_info = {
             'full_name': request.POST['full_name'],
             'email_address': request.POST['email_address'],
             'phone_number': request.POST['phone_number'],
+        }
+        billing_info = {
+            'cardholder_name': request.POST['cardholder_name'],
             'address_line1': request.POST['address_line1'],
             'address_line2': request.POST['address_line2'],
             'town_or_city': request.POST['town_or_city'],
@@ -82,7 +85,7 @@ def get_subscription(request, package_id):
             'country': request.POST['country'],
         }
 
-        subscription_form = SubscriptionForm(billing_info)
+        subscription_form = SubscriptionForm(member_info, billing_info)
         if subscription_form.is_valid():
             subscription = subscription_form.save(commit=False)
             member = Member.objects.get(user=request.user)
@@ -119,29 +122,34 @@ def get_subscription(request, package_id):
             return redirect(reverse('subscribe_page'))
 
         current_cart = subscription_cart(request)
-        amount_due = current_cart['amount_due']
-        stripe_total = round(amount_due * 100)
+        grand_total = current_cart['grand_total']
+        stripe_total = round(grand_total * 100)
         stripe.api_key = stripe_secret_key
+        global intent
         intent = stripe.PaymentIntent.create(
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
-
-        try:
-            member = Member.objects.get(user=request.user)
-            subscription_form = SubscriptionForm(initial={
-                'full_name': member.user.get_full_name(),
-                'email_address': member.default_email_address,
-                'phone_number': member.default_phone_number,
-                'address_line1': member.default_address_line1,
-                'address_line2': member.default_address_line2,
-                'town_or_city': member.default_town_or_city,
-                'county_or_region': member.default_county_or_region,
-                'postcode': member.default_postcode,
-                'country': member.default_country,
-            })
-        except Member.DoesNotExist:
-            subscription_form = SubscriptionForm()
+        if request.user.is_authenticated:
+            try:
+                member = Member.objects.get(user=request.user)
+                subscription_form = SubscriptionForm(initial={
+                    'full_name': member.user.get_full_name(),
+                    'email_address': member.default_email_address,
+                    'phone_number': member.default_phone_number,
+                    'cardholder_name': member.user.get_full_name(),
+                    'address_line1': member.default_address_line1,
+                    'address_line2': member.default_address_line2,
+                    'town_or_city': member.default_town_or_city,
+                    'county_or_region': member.default_county_or_region,
+                    'postcode': member.default_postcode,
+                    'country': member.default_country,
+                })
+            except Member.DoesNotExist:
+                subscription_form = SubscriptionForm()
+        else:
+            messages.error(request, 'You must have an accoun to get a subscription.')
+            return redirect(reverse('home'))
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe Public Key missing')

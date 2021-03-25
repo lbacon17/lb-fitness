@@ -5,9 +5,10 @@ from .models import Subscription
 class SubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
-        fields = ('full_name','email_address', 'phone_number', 'address_line1',
-                  'address_line2', 'town_or_city', 'county_or_region',
-                  'postcode', 'country',)
+        fields = ('full_name','email_address', 'cardholder_name',
+                  'phone_number', 'address_line1', 'address_line2',
+                  'town_or_city', 'county_or_region', 'postcode',
+                  'country',)
     
     def __init__(self, *args, **kwargs):
         """
@@ -18,6 +19,7 @@ class SubscriptionForm(forms.ModelForm):
         placeholders = {
             'full_name': 'Full Name',
             'email_address': 'E-mail Address',
+            'cardholder_name': 'Cardholder Name',
             'phone_number': 'Phone Number',
             'address_line1': 'Address Line 1',
             'address_line2': 'Address Line 2',

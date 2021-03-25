@@ -32,13 +32,13 @@ def subscription_cart(request):
                     'package': package,
                 })
 
-    amount_due = total
+    grand_total = total
     
     context = {
         'cart_items': cart_items,
         'total': total,
         'count': count,
-        'amount_due': amount_due,
+        'grand_total': grand_total,
     }
 
     return context
