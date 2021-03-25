@@ -128,7 +128,7 @@ def get_subscription(request, package_id):
         grand_total = current_cart['grand_total']
         stripe_total = round(grand_total * 100)
         stripe.api_key = stripe_secret_key
-        global intent
+        # global intent
         intent = stripe.PaymentIntent.create(
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
