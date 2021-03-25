@@ -43,8 +43,9 @@ def cart_contents(request):
         if request.user.member.subscription_package.id == 3:
             delivery = 0
             free_delivery_gap = 0
-        delivery = Decimal(settings.STANDARD_DELIVERY_CHARGE)
-        free_delivery_gap = settings.FREE_DELIVERY_THRESHOLD - total
+        else:
+            delivery = Decimal(settings.STANDARD_DELIVERY_CHARGE)
+            free_delivery_gap = settings.FREE_DELIVERY_THRESHOLD - total
     else:
         delivery = 0
         free_delivery_gap = 0
