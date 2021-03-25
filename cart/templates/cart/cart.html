@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load cart_tools %}
 
 {% block content %}
     <div class="container-fluid mt-5 py-3 text-center">
@@ -16,10 +17,23 @@
                         <p>{% if item.item.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
                     </div>
                     <div class="col-md-4">
-                        {{ item.item.price }}
+                        {% if request.user.member.subscription_package.id == 3 %}
+                            {{ item.item.price | calc_discount_price }}
+                        {% else %}
+                            {{ item.item.price }}
+                        {% endif %}
                     </div>
                     <div class="col-md-4">
                         {{ item.quantity }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {% if request.user.member.subscription_package.id == 3 %}
+                            Subtotal: {{ item.item.price | calc_subtotal:item.quantity | calc_discount_price }}
+                        {% else %}
+                            Subtotal: {{ item.item.price | calc_subtotal:item.quantity }}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="row pt-2">
@@ -56,12 +70,14 @@
                     <h4>Total amount due: £{{ grand_total|floatformat:2 }}</h4>
                 </div>
             </div>
-            {% if free_delivery_gap > 0 %}
-                <div class="row">
-                    <div class="col-12">
-                        <h6>Spend £{{ free_delivery_gap }} more for free delivery.</h5>
+            {% if not request.user.member.subscription_package.id == 3 %}
+                {% if free_delivery_gap > 0 %}
+                    <div class="row">
+                        <div class="col-12">
+                            <h6>Spend £{{ free_delivery_gap }} more for free delivery.</h5>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             {% endif %}
         {% else %}
             <div class="row">
