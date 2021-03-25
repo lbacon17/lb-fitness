@@ -36,9 +36,9 @@ card.addEventListener('change', function(event) {
 });
 
 // Handles form submission
-var paymentForm = document.getElementById('payment-form');
+var form = document.getElementById('payment-form');
 
-paymentForm.addEventListener('submit', function (ev) {
+form.addEventListener('submit', function (ev) {
     ev.PreventDefault();
     card.update({'disabled': true});
     $('#complete-order').attr('disabled', true);
@@ -59,28 +59,28 @@ paymentForm.addEventListener('submit', function (ev) {
             payment_method: {
                 card: card,
                 billing_details: {
-                    name: $.trim(paymentForm.full_name.value),
-                    email: $.trim(paymentForm.email_address.value),
-                    phone: $.trim(paymentForm.phone_number.value),
+                    name: $.trim(form.full_name.value),
+                    phone: $.trim(form.phone_number.value),
+                    email: $.trim(form.email_address.value),
                     address: {
-                        line1: $.trim(paymentForm.address_line1.value),
-                        line2: $.trim(paymentForm.address_line2.value),
-                        city: $.trim(paymentForm.town_or_city.value),
-                        country: $.trim(paymentForm.country.value),
-                        state: $.trim(paymentForm.county_or_region.value),
+                        line1: $.trim(form.address_line1.value),
+                        line2: $.trim(form.address_line2.value),
+                        city: $.trim(form.town_or_city.value),
+                        country: $.trim(form.country.value),
+                        state: $.trim(form.county_or_region.value),
                     }
                 }
             },
             shipping: {
-                name: $.trim(paymentForm.full_name.value),
-                phone: $.trim(paymentForm.phone_number.value),
+                name: $.trim(form.full_name.value),
+                phone: $.trim(form.phone_number.value),
                 address: {
-                    line1: $.trim(paymentForm.address_line1.value),
-                    line2: $.trim(paymentForm.address_line2.value),
-                    city: $.trim(paymentForm.town_or_city.value),
-                    country: $.trim(paymentForm.country.value),
-                    postal_code: $.trim(paymentForm.postcode.value),
-                    state: $.trim(paymentForm.county_or_region.value),
+                    line1: $.trim(form.address_line1.value),
+                    line2: $.trim(form.address_line2.value),
+                    city: $.trim(form.town_or_city.value),
+                    country: $.trim(form.country.value),
+                    postal_code: $.trim(form.postcode.value),
+                    state: $.trim(form.county_or_region.value),
                 }
             },
         }).then(function(result) {
@@ -93,7 +93,7 @@ paymentForm.addEventListener('submit', function (ev) {
                 $('#complete-order').attr('disabled', false);
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
-                    paymentForm.submit();
+                    form.submit();
                 }
             }
         });
