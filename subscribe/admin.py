@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Package, Subscription
+from .models import Package, Subscription, SubscriptionCount
 
 
 class PackageAdmin(admin.ModelAdmin):
@@ -21,8 +21,6 @@ class SubscriptionAdmin(admin.ModelAdmin):
     list_display = (
         'subscription_id',
         'member',
-        'package',
-        'user',
         'date',
         'full_name',
         'email_address',
@@ -42,5 +40,15 @@ class SubscriptionAdmin(admin.ModelAdmin):
     ordering = ('subscription_id',)
 
 
+class SubscriptionCountAdmin(admin.ModelAdmin):
+    list_display = (
+        'subscription',
+        'package',
+        'quantity',
+        'monthly_rate',
+    )
+
+
 admin.site.register(Package, PackageAdmin)
 admin.site.register(Subscription, SubscriptionAdmin)
+admin.site.register(SubscriptionCount, SubscriptionCountAdmin)

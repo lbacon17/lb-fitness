@@ -119,7 +119,20 @@ class StripeWH_HandlerSubscribe:
                     active=True,
                     stripe_pid=pid,
                 )
-                subscription.save()
+                for package_id, package_data in json.loads(subscription_cart.items()):
+                    package = Package.objects.get(id=package_id)
+                    if isinstance(package_data, int):
+                        subscription_count = SubscriptionCount(
+                            subscription=subscription,
+                            package=package,
+                            quantity=package_data,
+                        )
+                        subscription_count.save()
+                    else:
+                        subscription.delete()
+                        return HttpResponse(
+                            content=f'Webhook received: {event["type"]} | ERROR {e}',
+                            status=500)
             except Exception as e:
                 if subscription:
                     subscription.delete()

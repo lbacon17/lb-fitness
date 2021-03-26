@@ -11,7 +11,7 @@ class Member(models.Model):
     class Meta:
         verbose_name_plural = 'Members'
     
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=False, blank=False, default=1)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     subscription_package = models.ForeignKey(Package, on_delete=models.SET_NULL, null=True, blank=True, related_name='package')
     default_email_address = models.CharField(max_length=254, null=True, blank=True)
     default_phone_number = models.CharField(max_length=20, null=True, blank=True)
@@ -27,9 +27,8 @@ class Member(models.Model):
 
 
 @receiver(post_save, sender=User)
-def add_subscription_to_user_profile(sender, instance, created, **kwargs):
-    """When a user chooses a subscription, this adds the package"""
-    """to the user's profile"""
+def create_or_update_member_profile(sender, instance, created, **kwargs):
+    """This view creates or updates the member's profile"""
     if created:
         Member.objects.create(user=instance)
     instance.member.save()

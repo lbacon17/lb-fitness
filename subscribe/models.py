@@ -34,8 +34,6 @@ class Subscription(models.Model):
 
     subscription_id = models.CharField(max_length=32, null=False, editable=False)
     member = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, blank=True, related_name='subscriptions')
-    package = models.ForeignKey(Package, on_delete=models.SET_NULL, null=True, blank=True)
-    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True)
     date = models.DateField(auto_now_add=True, null=True)
     full_name = models.CharField(max_length=60, null=False, blank=False)
     email_address = models.CharField(max_length=254, null=False, blank=False)
@@ -71,14 +69,14 @@ class Subscription(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.member.user.username
+        return self.subscription_id
 
 
 class SubscriptionCount(models.Model):
     subscription = models.ForeignKey('Subscription', null=False, blank=False,
         on_delete=models.CASCADE, related_name='subscription_count')
     package = models.ForeignKey(Package, null=False, blank=False, on_delete=models.CASCADE)
-    quantity = models.IntegerField(null=False, blank=False, default=1)
+    quantity = models.IntegerField(null=False, blank=False, default=1, editable=False)
     monthly_rate = models.DecimalField(max_digits=6, decimal_places=2,
         null=False, blank=False, editable=False)
 

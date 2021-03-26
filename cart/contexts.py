@@ -40,20 +40,20 @@ def cart_contents(request):
                 })
 
     if total < settings.FREE_DELIVERY_THRESHOLD:
-        if request.user.is_authenticated and request.user.member.subscription_package and request.user.member.subscription_package.id == 3:
-            delivery = 0
-            free_delivery_gap = 0
-        else:
-            delivery = Decimal(settings.STANDARD_DELIVERY_CHARGE)
-            free_delivery_gap = settings.FREE_DELIVERY_THRESHOLD - total
+        # if request.user.is_authenticated and request.user.member.subscription_package and request.user.member.subscription_package.id == 3:
+        #     delivery = 0
+        #     free_delivery_gap = 0
+        # else:
+        delivery = Decimal(settings.STANDARD_DELIVERY_CHARGE)
+        free_delivery_gap = settings.FREE_DELIVERY_THRESHOLD - total
     else:
         delivery = 0
         free_delivery_gap = 0
 
-    if request.user.is_authenticated and request.user.member.subscription_package and request.user.member.subscription_package.id == 3:
-        grand_total = total
-    else:
-        grand_total = delivery + total
+    # if request.user.is_authenticated and request.user.member.subscription_package and request.user.member.subscription_package.id == 3:
+    #     grand_total = total
+    # else:
+    grand_total = delivery + total
 
     context = {
         'items_in_cart': items_in_cart,

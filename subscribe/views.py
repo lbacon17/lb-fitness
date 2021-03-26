@@ -36,9 +36,9 @@ def cache_checkout_data(request):
 
 def subscribe_page(request):
     """This view renders the different subscription packages a user can buy."""
-    if request.user.member.subscription_package:
-        messages.error(request, 'You already have a subscription.')
-        return redirect(reverse('home'))
+    # if request.user.member.subscription_package:
+    #     messages.error(request, 'You already have a subscription.')
+    #     return redirect(reverse('home'))
     packages = Package.objects.all()
     context = {
         'packages': packages,
@@ -88,7 +88,7 @@ def get_subscription(request, package_id):
         subscription_form = SubscriptionForm(form_data)
         if subscription_form.is_valid():
             subscription = subscription_form.save(commit=False)
-            member = Member.objects.get(user=request.user)
+            member = Member.objects.create(user=request.user)
             pid = request.POST.get('client_secret').split('_secret')[0]
             subscription.stripe_pid = pid
             subscription.package_in_cart = json.dumps(subscription_cart)
@@ -105,8 +105,19 @@ def get_subscription(request, package_id):
                             quantity=package_data,
                         )
                         subscription_count.save()
+                    else:
+                        # Subscription packages do not have sizes or any other
+                        # differentiating data, so package_data should always
+                        # return an integer. In the unlikely event that it doesn't
+                        # the app throws this error, resets the cart and redirects
+                        # the user
+                        messages.error(request, 'We were unable to locate '\
+                            'the subscription in our database. Please try '\
+                            'again later.')
+                        subscription.delete()
+                        return redirect(reverse('get_subscription'))
                 except Package.DoesNotExist:
-                    messages.error(request, 'We were unable to locate. '\
+                    messages.error(request, 'We were unable to locate '\
                         'the subscription in our database. Please try '\
                         'again later.')
                     subscription.delete()
@@ -128,7 +139,6 @@ def get_subscription(request, package_id):
         grand_total = current_cart['grand_total']
         stripe_total = round(grand_total * 100)
         stripe.api_key = stripe_secret_key
-        # global intent
         intent = stripe.PaymentIntent.create(
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
@@ -177,6 +187,8 @@ def subscription_confirmation(request, subscription_id):
     member = Member.objects.get(user=request.user)
     subscription.member = member
     subscription.save()
+    fix_bug = Subscription.objects.filter(member=None)
+    fix_bug.update(member=1)
 
     if save_member_info:
         member_data = {
