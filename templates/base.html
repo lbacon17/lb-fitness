@@ -124,15 +124,16 @@
             extendedTimeOut: 0,
         };
 
-        // Prevent input of consecutive whitespaces in textarea and input fields
+        // Prevents input of consecutive whitespaces in textarea fields
         $('textarea').on('keydown', function (e) {
-            var inputValue = $('textarea').val();
-            if (inputValue.length == 0 || inputValue.slice(-1) == ' ') {
+            var textAreaValue = $('textarea').val();
+            if (textAreaValue.length == 0 || textAreaValue.slice(-1) == ' ') {
                 return e.which !== 32;
             }
         });
 
-        $('input').on('keydown', function (e) {
+        // Prevents input of consecutive whitespaces in search bar
+        $('.search-bar').on('keydown', function (e) {
             var inputValue = $('input').val();
             if (inputValue.length == 0 || inputValue.slice(-1) == ' ') {
                 return e.which !== 32;
