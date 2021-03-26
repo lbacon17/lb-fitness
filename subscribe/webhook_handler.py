@@ -1,22 +1,23 @@
 from django.http import HttpResponse
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from .models import Package, Subscription
 from members.models import Member
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.contrib.auth.models import User
 
 import json
 import time
 
 
 class StripeWH_HandlerSubscribe:
+
     def __init__(self, request):
         self.request = request
 
     def _confirm_subscription_mail(self):
-        subscriber_email = user.email_address
+        subscriber_email = subscription.email_address
         subject = render_to_string(
             'subscribe/confirmation_emails/subscription_confirmation_subject.txt',
             {'package': package})
@@ -42,36 +43,30 @@ class StripeWH_HandlerSubscribe:
         """Handles the payment_intent.succeeded webhook from Stripe"""
         intent = event.data.object
         pid = intent.id
-        cart = intent.metadata.cart
+        subscription_cart = intent.metadata.subscription_cart
         save_member_info = intent.metadata.save_member_info
 
-        member_info = intent.member_info
-        billing_info = intent.charges.data[0].billing_info
+        billing_details = intent.charges.data[0].billing_details
+        shipping_details = intent.shipping
         grand_total = round(intent.charges.data[0].amount / 100, 2)
 
-        for field, value in member_info.items():
+        for field, value in shipping_details.address.items():
             if value == '':
-                member_info[field] = None
+                shipping_details.address[field] = None
         
-        for field, value in billing_info.address.items():
-            if value == '':
-                billing_info.address[field] = None
-
         member = None
         username = intent.metadata.username
-
         if username != 'AnonymousUser':
-            member = Member.objects.get(user__username-username)
+            member = Member.objects.get(user__username=username)
             if save_member_info:
-                member.default_email_address = member_info.email_address
-                member.default_phone_number = member_info.phone_number
-                member.default_cardholder_name = billing_info.cardholder_name
-                member.default_address_line1 = billing_info.address_line1
-                member.default_address_line2 = billing_info.address_line2
-                member.default_town_or_city = billing_info.town_or_city
-                member.default_county_or_region = billing_info.county_or_region
-                member.default_postcode = billing_info.postcode
-                member.default_country = billing_info.country
+                member.default_email_address = billing_details.email
+                member.default_phone_number = shipping_details.phone
+                member.default_address_line1 = shipping_details.address.line1
+                member.default_address_line2 = shipping_details.address.line2
+                member.default_town_or_city = shipping_details.address.city
+                member.default_county_or_region = shipping_details.address.state
+                member.default_postcode = shipping_details.address.postal_code
+                member.default_country = shipping_details.address.country
                 member.save()
 
         subscription_exists = False
@@ -79,18 +74,19 @@ class StripeWH_HandlerSubscribe:
         while attempt <= 5:
             try:
                 subscription = Subscription.objects.get(
-                    full_name__iexact=member_info.full_name,
-                    email_address__iexact=member_info.email_address,
-                    phone_number__iexact=member_info.phone_number,
-                    cardholder_name__iexact=billing_info.cardholder_name,
-                    address_line1__iexact=billing_info.address.address_line1,
-                    address_line2__iexact=billing_info.address.address_line2,
-                    town_or_city__iexact=billing_info.address.town_or_city,
-                    county_or_region__iexact=billing_info.address.county_or_region,
-                    postcode__iexact=billing_info.address.postcode,
-                    country__iexact=billing_info.address.country,
+                    full_name__iexact=shipping_details.name,
+                    email_address__iexact=billing_details.email,
+                    phone_number__iexact=shipping_details.phone,
+                    cardholder_name__iexact=billing_details.name,
+                    address_line1__iexact=shipping_details.address.line1,
+                    address_line2__iexact=shipping_details.address.line2,
+                    town_or_city__iexact=shipping_details.address.city,
+                    county_or_region__iexact=shipping_details.address.state,
+                    postcode__iexact=shipping_details.address.postal_code,
+                    country__iexact=shipping_details.address.country,
                     amount_due=grand_total,
-                    package_in_cart=cart,
+                    active=True,
+                    package_in_cart=subscription_cart,
                     stripe_pid=pid,
                 )
                 subscription_exists = True
@@ -98,27 +94,29 @@ class StripeWH_HandlerSubscribe:
             except Subscription.DoesNotExist:
                 attempt += 1
                 time.sleep(1)
+
         if subscription_exists:
             self._confirm_subscription_mail(subscription)
             return HttpResponse(
-                content=(f'Webhook received {event["type"]} | SUCCESS.'),
-                status=200)
+                content=f'Webhook received {event["type"]} | SUCCESS: '
+                'verified subscription already in database', status=200)
         else:
             subscription = None
             try:
                 subscription = Subscription.objects.create(
                     member=member,
-                    full_name=member_info.full_name,
-                    email_address=member_info.email_address,
-                    phone_number=member_info.phone_number,
-                    cardholder_name=billing_info.cardholder_name,
-                    address_line1=billing_info.address.address_line1,
-                    address_line2=billing_info.address.address_line2,
-                    town_or_cityt=billing_info.address.town_or_city,
-                    county_or_region=billing_info.address.county_or_region,
-                    postcode=billing_info.address.postcode,
-                    country=billing_info.address.country,
-                    package_in_cart=cart,
+                    full_name=shipping_details.name,
+                    email_address=billing_details.email,
+                    phone_number=shipping_details.phone,
+                    cardholder_name=billing_details.name,
+                    address_line1=shipping_details.address.line1,
+                    address_line2=shipping_details.address.line2,
+                    town_or_cityt=shipping_details.address.city,
+                    county_or_region=shipping_details.address.state,
+                    postcode=shipping_details.address.postal_code,
+                    country=shipping_details.address.country,
+                    package_in_cart=subscription_cart,
+                    active=True,
                     stripe_pid=pid,
                 )
                 subscription.save()
@@ -126,15 +124,15 @@ class StripeWH_HandlerSubscribe:
                 if subscription:
                     subscription.delete()
                 return HttpResponse(
-                    content=(
-                        f'Webhook received: {event["type"]} " ERROR: {e}'
-                    ), status=500)
-        self._confirm_subscription_mail(subscription)
+                    content=f'Webhook received: {event["type"]} " ERROR: {e}',
+                    status=500)
+        print(intent)
         return HttpResponse(
-            content=(f'Webhook received: {event["type"]} | SUCCESS'),
-            status=200)
+            content=f'Webhook received: {event["type"]} | SUCCESS: '
+            f'created subscription in webhook.', status=200)
 
     def handle_payment_intent_payment_failed(self, event):
         """Handles the payment_intent.payment_failed webhook"""
         return HttpResponse(
-            content=f'Payment failed: {event["type"]}', status=200)
+            content=f'Payment failed! Webhook received: {event["type"]}',
+            status=200)

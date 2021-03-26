@@ -26,17 +26,13 @@ Phone #: {{ shop_order.phone_number }}
 Address:
 
 {{ shop_order.address_line1 }}
-{% if shop_order.address_line2 %}
-{{ shop_order.address_line2 }}
-{% endif %}
+{% if shop_order.address_line2 %}{{ shop_order.address_line2 }}{% endif %}
 {{ shop_order.town_or_city }}
-{% if shop_order.county_or_region %}
-{{ shop_order.county_or_region }}
-{% endif %}
+{% if shop_order.county_or_region %}{{ shop_order.county_or_region }}{% endif %}
 {{ shop_order.postcode }}
 {{ shop_order.country }}
 
-If you have any questions or there is a problem with your order, please don't hesitate to contact us at {{ contact_email }}
+If you have any questions or there is a problem with your order, please don't hesitate to contact us at {{ contact_email }}.
 
 Kind regards,
 LB Fitness

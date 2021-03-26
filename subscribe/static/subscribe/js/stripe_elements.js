@@ -23,23 +23,26 @@ var style = {
 var card = elements.create('card', {style: style});
 card.mount('#card-element');
 
-// Handles real-time validation errors
+// Handles real-time validation errors on the card element
 card.addEventListener('change', function(event) {
     var errorElement = document.getElementById('card-errors');
     if (event.error) {
-        $(errorElement).html(`<span>${event.error.message}</span>`);
+        var html = `
+            <span><i class="fas fa-exclamation-circle"></i>${event.error.message}</span>`;
+        $(errorElement).html(html);
     } else {
         errorElement.textContent = '';
     }
 });
 
 // Handles form submission
-var subscriptionForm = document.getElementById('subscription-form');
+var form = document.getElementById('subscription-form');
 
-subscriptionForm.addEventListener('submit', function (ev) {
-    ev.PreventDefault();
+form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
     card.update({'disabled': true});
     $('#complete-subscription').attr('disabled', true);
+    $('#subscription-form').fadeToggle(100);
 
     var saveMemberInfo = Boolean($('#id-save-member-info').attr('checked'));
     var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
@@ -48,39 +51,48 @@ subscriptionForm.addEventListener('submit', function (ev) {
         'client_secret': clientSecret,
         'save_member_info': saveMemberInfo
     };
-
     var url = '/subscribe/cache_checkout_data/';
 
     $.post(url, postData).done(function() {
         stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
-                member_info: {
-                    full_name: $.trim(subscriptionForm.full_name.value),
-                    email_address: $.trim(subscriptionForm.email_address.value),
-                    phone_number: $.trim(subscriptionForm.phone_number.value),
-                },
-                billing_info: {
-                    cardholder_name: $.trim(subscriptionForm.cardholder_name.value),
+                billing_details: {
+                    name: $.trim(form.cardholder_name.value),
+                    phone: $.trim(form.phone_number.value),
+                    email: $.trim(form.email_address.value),
                     address: {
-                        address_line1: $.trim(subscriptionForm.address_line1.value),
-                        address_line2: $.trim(subscriptionForm.address_line2.value),
-                        town_or_city: $.trim(subscriptionForm.town_or_city.value),
-                        county_or_region: $.trim(subscriptionForm.county_or_region.value),
-                        postcode: $.trim(subscriptionForm.postcode.value),
-                        country: $.trim(subscriptionForm.country.value)
+                        line1: $.trim(form.address_line1.value),
+                        line1: $.trim(form.address_line2.value),
+                        city: $.trim(form.town_or_city.value),
+                        country: $.trim(form.country.value),
+                        state: $.trim(form.county_or_region.value),
                     }
+                }
+            },
+            shipping: {
+                name: $.trim(form.full_name.value),
+                phone: $.trim(form.phone_number.value),
+                address: {
+                    line1: $.trim(form.address_line1.value),
+                    line2: $.trim(form.address_line2.value),
+                    city: $.trim(form.town_or_city.value),
+                    country: $.trim(form.country.value),
+                    postal_code: $.trim(form.postcode.value),
+                    state: $.trim(form.county_or_region.value),
                 }
             }
         }).then(function(result) {
             if (result.error) {
                 var errorElement = document.getElementById('card-errors');
-                $(errorElement).html(`<span>${result.error.message}</span>`);
+                var html = `
+                    <span><i class="fa-exclamation-circle"></i>${result.error.message}</span>`;
+                $(errorElement).html(html);
                 card.update({'disabled': false});
                 $('#complete-subscription').attr('disabled', false);
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
-                    subscriptionForm.submit();
+                    form.submit();
                 }
             }
         });

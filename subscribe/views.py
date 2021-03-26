@@ -52,12 +52,10 @@ def add_package_to_cart(request, package_id):
     quantity = 1
     redirect_url = request.POST.get('redirect_url')
     subscription_cart = request.session.get('subscription_cart', {})
-    subscription_cart[package_id] = quantity
-
-    # if package_id in list(subscription_cart.keys()):
-    #     subscription_cart[package_id] += quantity
-    # else:
-    #     subscription_cart[package_id] = quantity
+    if package_id in list(subscription_cart.keys()):
+        subscription_cart[package_id] += quantity
+    else:
+        subscription_cart[package_id] = quantity
 
     request.session['subscription_cart'] = subscription_cart
     return redirect(reverse('get_subscription', args=[package.id]))
@@ -74,7 +72,7 @@ def get_subscription(request, package_id):
     if request.method == "POST":
         subscription_cart = request.session.get('subscription_cart', {})
 
-        member_info = {
+        form_data = {
             'full_name': request.POST['full_name'],
             'email_address': request.POST['email_address'],
             'phone_number': request.POST['phone_number'],
@@ -87,7 +85,7 @@ def get_subscription(request, package_id):
             'country': request.POST['country'],
         }
 
-        subscription_form = SubscriptionForm(member_info)
+        subscription_form = SubscriptionForm(form_data)
         if subscription_form.is_valid():
             subscription = subscription_form.save(commit=False)
             member = Member.objects.get(user=request.user)
@@ -108,7 +106,9 @@ def get_subscription(request, package_id):
                         )
                         subscription_count.save()
                 except Package.DoesNotExist:
-                    messages.error(request, 'An error occured.')
+                    messages.error(request, 'We were unable to locate. '\
+                        'the subscription in our database. Please try '\
+                        'again later.')
                     subscription.delete()
                     return redirect(reverse('get_subscription'))
 
@@ -116,9 +116,10 @@ def get_subscription(request, package_id):
             return redirect(reverse('subscription_confirmation',
                                      args=[subscription.subscription_id]))
         else:
-            messages.error(request, 'There was an error submitting the form.')
+            messages.error(request, 'There was an error submitting the form. Please '\
+                'ensure that you have filled out all fields correctly.')
     else:
-        subscription_cart = request.session.get('cart', {})
+        subscription_cart = request.session.get('subscription_cart', {})
         if not subscription_cart:
             messages.error(request, "You didn't select a subscription")
             # return redirect(reverse('subscribe_page'))
@@ -138,7 +139,7 @@ def get_subscription(request, package_id):
                 member = Member.objects.get(user=request.user)
                 subscription_form = SubscriptionForm(initial={
                     'full_name': member.user.get_full_name(),
-                    'email_address': member.default_email_address,
+                    'email_address': member.user.email,
                     'phone_number': member.default_phone_number,
                     'cardholder_name': member.user.get_full_name(),
                     'address_line1': member.default_address_line1,
@@ -155,7 +156,8 @@ def get_subscription(request, package_id):
             return redirect(reverse('home'))
 
     if not stripe_public_key:
-        messages.warning(request, 'Stripe Public Key missing')
+        messages.warning(request, ('Your Stripe public key is missing. Please '\
+            'ensure that you have set this in your environment.'))
 
     template = 'subscribe/get_subscription.html'
     context = {
