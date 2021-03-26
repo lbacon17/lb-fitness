@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'subscribe/css/subscribe.css' %}">
+{% endblock %}
+
 {% block content %}
     <div class="container-fluid mt-5 text-center">
         <div class="row">
@@ -46,7 +50,7 @@
                         <!-- Stripe card element-->
                         <div id="card-element" class="border form-control"></div>
                         <!-- Form errors -->
-                        <div class="text-danger" id="card-errors" role="alert"></div>
+                        <div class="text-danger pt-2" id="card-errors" role="alert"></div>
                         <!-- Passes client secret to the view and gives us the payment intent id -->
                         <input type="hidden" value="{{ client_secret }}" name="client_secret">
                     </fieldset>
@@ -68,6 +72,13 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div id="loading-overlay">
+        <h1 class="loading-spinner">
+            <span class="icon">
+                <i class="fas fa-spinner fa-spin fa-3x"></i>
+            </span>
+        </h1>
     </div>
 {% endblock %}
 

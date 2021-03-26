@@ -63,9 +63,9 @@
                         </p>
                     </div>
                     <div class="col-12 col-md-6">
-                        <p class="text-left">£{{ total|floatformat:2 }}</p>
-                        <p class="text-left">£{% if request.user.member.subscription_package.id == 3 %}0.00{% else %}{{ delivery|floatformat:2 }}{% endif %}</p>
-                        <p class="text-left">£{{ grand_total|floatformat:2 }}</p>
+                        <p class="text-left">£{{ shop_order.order_total }}</p>
+                        <p class="text-left">£{% if request.user.member.subscription_package.id == 3 %}0.00{% else %}{{ shop_order.delivery_charge }}{% endif %}</p>
+                        <p class="text-left">£{{ shop_order.grand_total }}</p>
                     </div>
                 </div>
                 <div class="row">

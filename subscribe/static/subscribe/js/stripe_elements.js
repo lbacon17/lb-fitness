@@ -27,9 +27,9 @@ card.mount('#card-element');
 card.addEventListener('change', function(event) {
     var errorElement = document.getElementById('card-errors');
     if (event.error) {
-        var html = `
-            <span><i class="fas fa-exclamation-circle"></i>${event.error.message}</span>`;
-        $(errorElement).html(html);
+        var errorMessage = `
+            <span><i class="fas fa-exclamation-circle"></i> ${event.error.message}</span>`;
+        $(errorElement).html(errorMessage);
     } else {
         errorElement.textContent = '';
     }
@@ -43,6 +43,7 @@ form.addEventListener('submit', function (ev) {
     card.update({'disabled': true});
     $('#complete-subscription').attr('disabled', true);
     $('#subscription-form').fadeToggle(100);
+    $('#loading-overlay').fadeToggle(100);
 
     var saveMemberInfo = Boolean($('#id-save-member-info').attr('checked'));
     var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
@@ -85,9 +86,11 @@ form.addEventListener('submit', function (ev) {
         }).then(function(result) {
             if (result.error) {
                 var errorElement = document.getElementById('card-errors');
-                var html = `
-                    <span><i class="fa-exclamation-circle"></i>${result.error.message}</span>`;
-                $(errorElement).html(html);
+                var errorMessage = `
+                    <span><i class="fas fa-exclamation-circle"></i> ${result.error.message}</span>`;
+                $(errorElement).html(errorMessage);
+                $('#subscription-form').fadeToggle(100);
+                $('#loading-overlay').fadeToggle(100);
                 card.update({'disabled': false});
                 $('#complete-subscription').attr('disabled', false);
             } else {

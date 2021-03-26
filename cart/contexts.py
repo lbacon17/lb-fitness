@@ -27,10 +27,10 @@ def cart_contents(request):
         else:
             item = get_object_or_404(Product, pk=item_id)
             for size, quantity in item_data['items_by_size'].items():
-                if request.user.is_authenticated and request.user.member.subscription_package and request.user.member.subscription_package.id == 3:
-                    total += (quantity * item.price) / 2
-                else:
-                    total += quantity * item.price
+                # if request.user.is_authenticated and request.user.member.subscription_package and request.user.member.subscription_package.id == 3:
+                #     total += (quantity * item.price) / 2
+                # else:
+                total += quantity * item.price
                 count += quantity
                 items_in_cart.append({
                     'item_id': item_id,

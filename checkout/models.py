@@ -2,10 +2,11 @@ import uuid
 from django.db import models
 from django.db.models import Sum
 from django.conf import settings
-
+from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 
 from shop.models import Product
+from members.models import Member
 from user_profiles.models import StoreUser
 from decimal import Decimal
 
@@ -13,7 +14,7 @@ from decimal import Decimal
 class ShopOrder(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
     store_user = models.ForeignKey(StoreUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='shop_orders')
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     full_name = models.CharField(max_length=60, null=False, blank=False)
     email_address = models.CharField(max_length=254, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
@@ -57,7 +58,7 @@ class OrderLineItem(models.Model):
     item_size = models.CharField(max_length=2, null=True, blank=True)
     quantity = models.IntegerField(null=False, blank=False, default=0)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2,
-        null=False, blank=False, editable=False)
+        null=False, blank=False)
 
     def save(self, *args, **kwargs):
         self.lineitem_total = self.item.price * self.quantity

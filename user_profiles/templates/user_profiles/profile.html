@@ -26,7 +26,6 @@
                             <tr>
                                 <th>Order Number</th>
                                 <th>Date</th>
-                                <th>Contents</th>
                                 <th>Total</th>
                                 <th>Delivering To</th>
                             </tr>
@@ -35,19 +34,10 @@
                             {% for order in order_history %}
                                 <tr>
                                     <td>
-                                        <p><a href="{% url 'user_order_history' order.order_number %}" class="font-weight-bold text-dec-none">{{ order.order_number }}</a></p>
+                                        <p><a href="{% url 'user_order_history' order.order_number %}" class="font-weight-bold text-dec-none">{{ order.order_number|truncatechars:6 }} (click to see full details)</a></p>
                                     </td>
                                     <td>{{ order.date }}</td>
-                                    <td>
-                                        <ul>
-                                            {% for item in shop_order.lineitems.all %}
-                                                <li class="small">
-                                                    {{ item.item.friendly_name }} x{{ item.quantity }}
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </td>
-                                    <td>{{ order.grand_total }}</td>
+                                    <td>£{{ order.grand_total }}</td>
                                     <td>
                                         <ul class="list-inline list-unstyled text-left pl-3">
                                             <li class="small list-inline-item">{{ order.full_name }}</li>

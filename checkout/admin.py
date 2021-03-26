@@ -21,7 +21,7 @@ class ShopOrderAdmin(admin.ModelAdmin):
         'grand_total',
     )
 
-    ordering = ('order_number',)
+    ordering = ('-date',)
 
 
 class OrderLineItemAdmin(admin.ModelAdmin):

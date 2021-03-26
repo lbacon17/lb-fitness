@@ -123,7 +123,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <strong>Select Size:</strong>
-                                                <select name="item_size" id="id_item_size" class="w-50">
+                                                <select name="item_size" id="id_item_size_{{ item.id }}" class="w-50">
                                                     <option value="xs">XS</option>
                                                     <option value="s">S</option>
                                                     <option value="m" selected>M</option>
@@ -186,9 +186,11 @@
 {% block postloadjs %}
 {{ block.super }}
 {% include 'shop/includes/adjust_quantity_script.html' %}
-{% for item in shop_items %}
-    {% include 'shop/includes/delete_confirmation_script.html' %}
-{% endfor %}
+{% if request.user.is_superuser %}
+    {% for item in shop_items %}
+        {% include 'shop/includes/delete_confirmation_script.html' %}
+    {% endfor %}
+{% endif %}
     <script type="text/javascript">
         // enables product sorting. Credit to Boutique Ado project for this code
         $('#sort-products').change(function() {

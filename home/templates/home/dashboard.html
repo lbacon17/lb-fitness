@@ -19,6 +19,9 @@
             <div class="row">
                 <div class="col-12">
                     <span>You are currently to subscribed to the {{ member.subscription_package.friendly_name }} paying £{{ member.subscription_package.monthly_rate }} per month.</span>
+                    <a href="{% url 'cancel_subscription' user.id %}" class="btn-lg btn-danger text-dec-none">
+                        Cancel Subscription
+                    </a>
                     <hr>
                     <a href="{% url 'training_videos' %}" class="btn-lg btn-dark text-dec-none">View Training Videos</a>
                 </div>

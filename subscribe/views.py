@@ -52,10 +52,22 @@ def add_package_to_cart(request, package_id):
     quantity = 1
     redirect_url = request.POST.get('redirect_url')
     subscription_cart = request.session.get('subscription_cart', {})
-    if package_id in list(subscription_cart.keys()):
-        subscription_cart[package_id] += quantity
+    if subscription_cart:
+        # This block handles the event that a user selects one
+        # subscription packages, then goes back and selects a 
+        # different package. Each time the user selects a package
+        # the cart is emptied before the new one is added so the
+        # user is not charged for multiple subscriptions
+        subscription_cart.clear()
+        if package_id in list(subscription_cart.keys()):
+            subscription_cart[package_id] += quantity
+        else:
+            subscription_cart[package_id] = quantity
     else:
-        subscription_cart[package_id] = quantity
+        if package_id in list(subscription_cart.keys()):
+            subscription_cart[package_id] += quantity
+        else:
+            subscription_cart[package_id] = quantity
 
     request.session['subscription_cart'] = subscription_cart
     return redirect(reverse('get_subscription', args=[package.id]))
@@ -187,8 +199,8 @@ def subscription_confirmation(request, subscription_id):
     member = Member.objects.get(user=request.user)
     subscription.member = member
     subscription.save()
-    fix_bug = Subscription.objects.filter(member=None)
-    fix_bug.update(member=1)
+    # fix_bug = Subscription.objects.filter(member=None)
+    # fix_bug.update(member=1)
 
     if save_member_info:
         member_data = {
@@ -217,3 +229,13 @@ def subscription_confirmation(request, subscription_id):
     }
 
     return render(request, template, context)
+
+
+@login_required
+def cancel_subscription(request, user):
+    """This view cancels a user's subscription by detaching its user"""
+    member = get_object_or_404(Member, user=request.user)
+    member.delete()
+    messages.success(request, 'Your subscription was successfully '\
+        'cancelled')
+    return redirect(reverse('home'))

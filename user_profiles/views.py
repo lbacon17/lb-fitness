@@ -10,7 +10,7 @@ from cart.contexts import cart_contents
 def user_profile(request):
     """This view renders the user's profile on their profile page"""
     profile = get_object_or_404(StoreUser, user=request.user)
-    order_history = profile.shop_orders.all()
+    order_history = profile.shop_orders.all().order_by('-date')
     template = 'user_profiles/profile.html'
     context = {
         'order_history': order_history,
@@ -57,7 +57,7 @@ def delete_account(request, user):
 
 def user_order_history(request, order_number):
     shop_order = get_object_or_404(ShopOrder, order_number=order_number)
-    template = 'checkout/order_confirmation.html'
+    template = 'user_profiles/order_history.html'
     context = {
         'shop_order': shop_order,
     }

@@ -11,6 +11,8 @@ from user_profiles.models import StoreUser
 from user_profiles.forms import StoreUserForm
 from cart.contexts import cart_contents
 
+from decimal import Decimal
+
 import stripe
 import json
 
@@ -68,8 +70,7 @@ def load_checkout(request):
                         )
                         order_line_item.save()
                     else:
-                        # renders items with sizes in user's order history and
-                        # confirmation
+                        # creates a line item with sizes
                         for size, quantity in item_data['items_by_size'].items():
                             order_line_item = OrderLineItem(
                                 shop_order=shop_order,

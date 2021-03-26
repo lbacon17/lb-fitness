@@ -14,7 +14,7 @@ class PackageAdmin(admin.ModelAdmin):
         'plan_description',
     )
 
-    ordering = ('name',)
+    ordering = ('id',)
 
 
 class SubscriptionAdmin(admin.ModelAdmin):
@@ -37,7 +37,7 @@ class SubscriptionAdmin(admin.ModelAdmin):
         'active',
     )
 
-    ordering = ('subscription_id',)
+    ordering = ('-date',)
 
 
 class SubscriptionCountAdmin(admin.ModelAdmin):

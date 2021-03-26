@@ -32,6 +32,12 @@ class Product(models.Model):
     image_url = models.URLField(max_length=1054, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
 
+    def set_vip_discount(self, user_id):
+        user = User.objects.get(id=user_id)
+        if user.member.subscription_package.id == 3:
+            self.price = self.price * Decimal(self.vip_discount_percentage / 100)
+            self.save()
+
     def __str__(self):
         return self.name
 

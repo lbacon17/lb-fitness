@@ -26,9 +26,9 @@ class Member(models.Model):
         return self.user.username
 
 
-@receiver(post_save, sender=User)
-def create_or_update_member_profile(sender, instance, created, **kwargs):
-    """This view creates or updates the member's profile"""
-    if created:
-        Member.objects.create(user=instance)
-    instance.member.save()
+# @receiver(post_save, sender=User)
+# def create_or_update_member_profile(sender, instance, created, **kwargs):
+#     """This view creates or updates the member's profile"""
+#     if created:
+#         Member.objects.create(user=instance)
+#     instance.member.save()
