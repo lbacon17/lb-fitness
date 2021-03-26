@@ -1,8 +1,9 @@
 import uuid
-
 from django.db import models
+from django.db.models import Sum
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
+
 
 
 class Package(models.Model):
@@ -31,7 +32,6 @@ class Subscription(models.Model):
     
     from members.models import Member
 
-
     subscription_id = models.CharField(max_length=32, null=False, editable=False)
     member = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, blank=True, related_name='subscriptions')
     package = models.ForeignKey(Package, on_delete=models.SET_NULL, null=True, blank=True)
@@ -52,12 +52,15 @@ class Subscription(models.Model):
     stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
     active = models.BooleanField(default=True)
 
-
     def _generate_subscription_id(self):
         """
         Generates a subscription ID using UUID
         """
         return uuid.uuid4().hex.upper()
+
+    def update_amount_due(self):
+        self.amount_due = self.subscription_count.aggregate(Sum('monthly_rate'))['monthly_rate__sum'] or 0
+        self.save()
 
     def save(self, *args, **kwargs):
         """
@@ -76,7 +79,8 @@ class SubscriptionCount(models.Model):
         on_delete=models.CASCADE, related_name='subscription_count')
     package = models.ForeignKey(Package, null=False, blank=False, on_delete=models.CASCADE)
     quantity = models.IntegerField(null=False, blank=False, default=1)
-    monthly_rate = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
+    monthly_rate = models.DecimalField(max_digits=6, decimal_places=2,
+        null=False, blank=False, editable=False)
 
     def save(self, *args, **kwargs):
         self.monthly_rate = self.package.monthly_rate * self.quantity
