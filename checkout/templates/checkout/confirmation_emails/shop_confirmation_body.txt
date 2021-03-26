@@ -1,4 +1,4 @@
-Dear {{ order.full_name }},
+Dear {{ shop_order.full_name }},
 
 Thank you for placing your order with LB Fitness.
 
@@ -7,15 +7,31 @@ This is a confirmation of your order. Please find your order details below.
 Order Number: {{ shop_order.order_number }}
 Date: {{ shop_order.date }}
 
+Contents:
+
+{% for item in shop_order.lineitems.all %}
+{{ item.quantity }}x {{ item.item.friendly_name }}{% if item.item.has_sizes %} - Size {{ item.item_size|upper }}{% endif %}: £{{ item.item.price }}
+{% endfor %}
+
+Total: £{{ shop_order.order_total }}
+Delivery: £{% if request.member.subscription_package.id == 3 %}0.00{% else %}{{ shop_order.delivery_charge }}{% endif %}
+Grand Total: £{{ shop_order.grand_total }}
+
+Customer Details:
+
+Name: {{ shop_order.full_name }}
+Email: {{ shop_order.email_address }}
+Phone #: {{ shop_order.phone_number }}
+
 Address:
 
 {{ shop_order.address_line1 }}
 {% if shop_order.address_line2 %}
-    {{ shop_order.address_line2 }}
+{{ shop_order.address_line2 }}
 {% endif %}
 {{ shop_order.town_or_city }}
 {% if shop_order.county_or_region %}
-    {{ shop_order.county_or_region }}
+{{ shop_order.county_or_region }}
 {% endif %}
 {{ shop_order.postcode }}
 {{ shop_order.country }}
