@@ -21,6 +21,11 @@ class Member(models.Model):
     default_county_or_region = models.CharField(max_length=50, null=True, blank=True)
     default_postcode = models.CharField(max_length=10, null=True, blank=True)
     default_country = CountryField(blank_label='Country', null=True, blank=True)
+    is_vip = models.BooleanField(default=False)
+
+    def set_vip(self):
+        self.is_vip = True if self.subscription_package.id == 3 else False
+        self.save()
 
     def __str__(self):
         return self.user.username

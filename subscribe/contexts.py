@@ -10,7 +10,6 @@ def subscription_cart_contents(request):
     total = 0
     count = 0
     subscription_cart = request.session.get('subscription_cart', {})
-    print(subscription_cart)
 
     for package_id, package_data in subscription_cart.items():
         if isinstance(package_data, int):

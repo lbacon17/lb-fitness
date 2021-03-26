@@ -106,6 +106,9 @@ def get_subscription(request, package_id):
             subscription.package_in_cart = json.dumps(subscription_cart)
             subscription.save()
             member.subscription_package = package
+            if package.id == 3:
+                member.is_vip = True
+                member.save()
             member.save()
             for package_id, package_data in subscription_cart.items():
                 try:
@@ -155,7 +158,6 @@ def get_subscription(request, package_id):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
-        print(intent)
         if request.user.is_authenticated:
             try:
                 member = Member.objects.get(user=request.user)

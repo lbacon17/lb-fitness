@@ -1,10 +1,10 @@
-Dear {{ user.fname }},
+Dear {{ subscription.full_name }},
 
 Thank you for subscribing to LB Fitness.
 
-You have subscribed to our {{ package.friendly_name }} membership package. You are currently on a free trial for two weeks, starting now. After your free trial period ends on {{ charge_date }}, your card will be charged {{ package.monthly_rate }} each month.
+You have subscribed to our {{ package.friendly_name }} membership package. You are currently on a free trial for two weeks, starting now. After your free trial period ends, your card will be charged {{ package.monthly_rate }} each month.
 
-If you have any queries, please don't hestitate to contact us at {{ contact_email }}
+If you have any queries, please don't hestitate to contact us at {{ contact_email }}.
 
 We hope you enjoy everything our plan has to offer!
 

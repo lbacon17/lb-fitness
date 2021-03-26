@@ -139,7 +139,6 @@ class StripeWH_Handler:
                         return HttpResponse(
                             content=f'Webhook received: {event["type"]} | ERROR {e}',
                             status=500)
-        print(intent) 
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: '
             f'Created order in webhook.', status=200)

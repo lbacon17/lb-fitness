@@ -139,7 +139,6 @@ class StripeWH_HandlerSubscribe:
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} " ERROR: {e}',
                     status=500)
-        print(intent)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: '
             f'created subscription in webhook.', status=200)

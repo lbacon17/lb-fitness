@@ -53,11 +53,6 @@ def load_checkout(request):
         }
         shop_order_form = ShopOrderForm(form_data)
         if shop_order_form.is_valid():
-            for field in shop_order_form.fields:
-                if '  ' in request.POST.get(field):
-                    messages.error(request, 'Fields may not contain multiple spaces.')
-                    return redirect(reverse('load_checkout'))
-
             shop_order = shop_order_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
             shop_order.stripe_pid = pid

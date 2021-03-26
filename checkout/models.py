@@ -35,8 +35,16 @@ class ShopOrder(models.Model):
 
     def update_cart_total(self):
         self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
+        vip = Member.objects.filter(is_vip=True)
+        print(vip)
+        if vip:
+            self.order_total = Decimal(self.order_total * settings.VIP_DISCOUNT_PERCENTAGE / 100)
+
         if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
-            self.delivery_charge = Decimal(settings.STANDARD_DELIVERY_CHARGE)
+            if vip:
+                self.delivery_charge = 0
+            else:
+                self.delivery_charge = Decimal(settings.STANDARD_DELIVERY_CHARGE)
         else:
             self.delivery_charge = 0
         self.grand_total = self.order_total + self.delivery_charge
