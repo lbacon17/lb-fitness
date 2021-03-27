@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-12">
                     <section class="callout">
-                        {% if member %}
+                        {% if request.user.member %}
                             <a href="{% url 'user_dashboard' user.id %}" class="btn-dark uppercase text-dec-none">View Dashboard</a>
                         {% else %}
                             <h1 class="callout-heading my-5">Personalised training and nutrition plans</h1>

@@ -11,7 +11,8 @@ def cart_contents(request):
     total = 0
     count = 0
     cart = request.session.get('cart', {})
-    vip = Member.objects.filter(user=request.user, is_vip=True)
+    if request.user.is_authenticated:
+        vip = Member.objects.filter(user=request.user, is_vip=True)
 
     for item_id, item_data in cart.items():
         if isinstance(item_data, int):
@@ -42,9 +43,14 @@ def cart_contents(request):
                 })
 
     if total < settings.FREE_DELIVERY_THRESHOLD:
-        if vip:
-            delivery = 0
-            free_delivery_gap = 0
+        if request.user.is_authenticated:
+            vip = Member.objects.filter(user=request.user, is_vip=True)
+            if vip:
+                delivery = 0
+                free_delivery_gap = 0
+            else:
+                delivery = Decimal(settings.STANDARD_DELIVERY_CHARGE)
+                free_delivery_gap = settings.FREE_DELIVERY_THRESHOLD - total
         else:
             delivery = Decimal(settings.STANDARD_DELIVERY_CHARGE)
             free_delivery_gap = settings.FREE_DELIVERY_THRESHOLD - total
@@ -52,8 +58,12 @@ def cart_contents(request):
         delivery = 0
         free_delivery_gap = 0
 
-    if vip:
-        grand_total = total
+    if request.user.is_authenticated:
+        vip = Member.objects.filter(user=request.user, is_vip=True)
+        if vip:
+            grand_total = total
+        else:
+            grand_total = delivery + total
     else:
         grand_total = delivery + total
 
@@ -61,7 +71,6 @@ def cart_contents(request):
         'items_in_cart': items_in_cart,
         'total': total,
         'count': count,
-        'vip': vip,
         'delivery': delivery,
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
         'free_delivery_gap': free_delivery_gap,
