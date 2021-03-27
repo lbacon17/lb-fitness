@@ -156,7 +156,7 @@ body {
 /*-- CUSTOM 404/500 PAGES --*/
 
 .error-404-container {
-    background: url('/media/404_bg_image.png') no-repeat center center fixed;
+    /* background: url('/media/404_bg_image.png') no-repeat center center fixed; */
     position: fixed;
     top: 0;
     left: 0;
@@ -175,4 +175,29 @@ body {
 
 .error-404-text {
     font-size: 10rem;
+}
+
+/*-- PAGE FOOTER --*/
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #454545;
+    color: #ffffff;
+    padding-top: .75rem;
+    padding-bottom: .5rem;
+}
+
+footer a {
+    color: #ffffff;
+}
+
+.copyright-text {
+    font-size: 0.8rem;
+    letter-spacing: 0.04rem;
+}
+
+footer a:hover {
+    color: #afafaf;
 }

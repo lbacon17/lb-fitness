@@ -107,6 +107,27 @@
         {% block content %}
 
         {% endblock %}
+        <footer class="container-fluid text-center">
+            <p>
+                <a href="https://facebook.com/" target="_blank" data-bs-toggle="tooltip" title="Facebook">
+                    <i class="fab fa-facebook-f fa-2x"></i>
+                    <span class="sr-only">Facebook</span>
+                </a>
+                <a href="https://twitter.com/" target="_blank">
+                    <i class="fab fa-twitter fa-2x" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter"></i>
+                    <span class="sr-only">Twitter</span>
+                </a>
+                <a href="https://instagram.com/" target="_blank">
+                    <i class="fab fa-instagram-square fa-2x" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"></i>
+                    <span class="sr-only">Instagram</span>
+                </a>
+                <a href="https://youtube.com/" target="_blank">
+                    <i class="fab fa-youtube fa-2x" data-bs-toggle="tooltip" data-bs-placement="top" title="YouTube"></i>
+                    <span class="sr-only">YouTube</span>
+                </a>
+            </p>
+            <p class="copyright-text">LB Fitness Ltd. &#169; <span id="year"></span>. All rights reserved.</p>
+        </footer>
     </div>
     {% block postloadjs %}
     <script type="text/javascript">
@@ -147,6 +168,9 @@
                 minLength: 2,
             });
         });
+
+        // Renders and auto-updates copyright year
+        $('#year').text(new Date().getFullYear());
     </script>
     {% endblock %}
 </body>
