@@ -103,32 +103,33 @@
         {% block page_header %}
 
         {% endblock %}
-
-        {% block content %}
-
-        {% endblock %}
-        <footer class="container-fluid text-center">
-            <p>
-                <a href="https://facebook.com/" target="_blank" data-bs-toggle="tooltip" title="Facebook">
-                    <i class="fab fa-facebook-f fa-2x"></i>
-                    <span class="sr-only">Facebook</span>
-                </a>
-                <a href="https://twitter.com/" target="_blank">
-                    <i class="fab fa-twitter fa-2x" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter"></i>
-                    <span class="sr-only">Twitter</span>
-                </a>
-                <a href="https://instagram.com/" target="_blank">
-                    <i class="fab fa-instagram-square fa-2x" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"></i>
-                    <span class="sr-only">Instagram</span>
-                </a>
-                <a href="https://youtube.com/" target="_blank">
-                    <i class="fab fa-youtube fa-2x" data-bs-toggle="tooltip" data-bs-placement="top" title="YouTube"></i>
-                    <span class="sr-only">YouTube</span>
-                </a>
-            </p>
-            <p class="copyright-text">LB Fitness Ltd. &#169; <span id="year"></span>. All rights reserved.</p>
-        </footer>
+        <main>
+            {% block content %}
+            
+            {% endblock %}
+        </main>
     </div>
+    <footer class="container-fluid text-center">
+        <p class="mb-2">
+            <a href="https://facebook.com/" target="_blank" class="social-link">
+                <i class="fab fa-facebook-f fa-2x" data-bs-toggle="tooltip" title="Facebook"></i>
+                <span class="sr-only">Facebook</span>
+            </a>
+            <a href="https://twitter.com/" target="_blank" class="social-link">
+                <i class="fab fa-twitter fa-2x" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter"></i>
+                <span class="sr-only">Twitter</span>
+            </a>
+            <a href="https://instagram.com/" target="_blank" class="social-link">
+                <i class="fab fa-instagram-square fa-2x" data-bs-toggle="tooltip" data-bs-placement="top" title="Instagram"></i>
+                <span class="sr-only">Instagram</span>
+            </a>
+            <a href="https://youtube.com/" target="_blank" class="social-link">
+                <i class="fab fa-youtube fa-2x" data-bs-toggle="tooltip" data-bs-placement="top" title="YouTube"></i>
+                <span class="sr-only">YouTube</span>
+            </a>
+        </p>
+        <p class="copyright-text">LB Fitness Ltd. &#169; <span id="year"></span>. All rights reserved | <a href="{% url 'contact' %}" class="text-dec-none">Contact Us</a></p>
+    </footer>
     {% block postloadjs %}
     <script type="text/javascript">
         // Cwitches between each deal banner every 1 second
@@ -171,6 +172,10 @@
 
         // Renders and auto-updates copyright year
         $('#year').text(new Date().getFullYear());
+
+        $(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip()
+        })
     </script>
     {% endblock %}
 </body>

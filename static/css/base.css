@@ -43,12 +43,20 @@ body {
 
 .page-wrap {
     padding-top: 60px;
+    padding-bottom: 60px;
+    min-height: 100vh;
+}
+
+main {
+    overflow: auto;
+    padding-bottom: 100px;
 }
 
 .banner {
     height: 100vh;
     background: url('/media/site_hero_image.png') no-repeat center center fixed;
     background-size: cover;
+    margin-bottom: -100px;
 }
 
 .callout {
@@ -180,12 +188,15 @@ body {
 /*-- PAGE FOOTER --*/
 
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    position: relative;
+    /* bottom: 0;
+    left: 0; */
+    margin-top: -100px;
+    height: 100px;
+    clear: both;
     background-color: #454545;
     color: #ffffff;
-    padding-top: .75rem;
+    padding-top: 1.5rem;
     padding-bottom: .5rem;
 }
 
@@ -198,6 +209,21 @@ footer a {
     letter-spacing: 0.04rem;
 }
 
+.copyright-text a:hover {
+    color: inherit;
+}
+
 footer a:hover {
     color: #afafaf;
+}
+
+.social-link {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    text-decoration: none;
+}
+
+.social-link:hover {
+    text-decoration: none;
 }
