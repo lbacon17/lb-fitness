@@ -165,10 +165,14 @@ body {
     z-index: 9999;
 }
 
-.error-404-heading {
+.error-404-message {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0;
     height: 100%;
+}
+
+.error-404-text {
+    font-size: 10rem;
 }

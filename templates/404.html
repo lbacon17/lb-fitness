@@ -6,10 +6,39 @@
         <div class="row">
             <div class="col-12">
                 <div class="error-404-container">
-                    <h1 class="error-404-message">404 error, page not found</h1>
-                    <p class="mt-2">
-                        <a href="{% url 'home' %}" class="btn-lg btn-dark text-dec-none">Back to homepage</a>
-                    </p>
+                    <div class="error-404-message">
+                        <h1 class="error-404-heading text-danger pt-5 mt-5">
+                            <i class="fas fa-exclamation-circle fa-5x"></i>
+                            <span class="error-404-text">Oops!</span>
+                            <br>
+                            <p class="my-5 px-5">
+                                <h5>
+                                    The page you were looking for could not be found. Please make sure you've entered the URL correctly, or click one of the links below to be safely redirected.
+                                </h5>
+                            </p>
+                            <div class="redirect-links text-dark">
+                                <h3 class="mb-3">Take me somewhere else</h3>
+                                <p class="mt-2">
+                                    <a href="{% url 'home' %}" class="btn-lg btn-dark text-dec-none">
+                                        <i class="fas fa-chevron-left"></i> Back to homepage
+                                    </a>
+                                    <a href="{% url 'shop_all' %}" class="btn-lg btn-success text-dec-none">
+                                        <i class="fas fa-shopping-basket"></i> Go Shopping
+                                    </a>
+                                    <a href="{% if request.user.member %}{% url 'subscribe_page' %}{% else %}{% url 'dashboard' user.id %}{% endif %}" class="btn-lg btn-primary text-dec-none">
+                                        {% if request.user.member %}
+                                            <i class="fas fa-user-plus"></i> Subscribe
+                                        {% else %}
+                                            <i class="fas fa-clipboard-list"></i> User Dashboard
+                                        {% endif %}
+                                    </a>
+                                    <a href="{% url 'contact' %}" class="btn-lg btn-warning text-dec-none">
+                                        <i class="fas fa-envelope-open-text"></i> Contact Us
+                                    </a>
+                                </p>
+                            </div>
+                        </h1>
+                    </div>
                 </div>
             </div>
         </div>
