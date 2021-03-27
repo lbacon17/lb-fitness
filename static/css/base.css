@@ -9,6 +9,8 @@ body {
     background-color: #fafafa;
 }
 
+/*-- navbar components --*/
+
 .navbar-nav .nav-item .nav-link {
     font-family: 'RocknRoll One', sans-serif;
     color: #000000;
@@ -18,6 +20,12 @@ body {
     color: #000000;
 }
 
+#ui-id-1 {
+    z-index: 99999;
+    margin-top: 2px;
+    border: 1px solid #454545;
+}
+
 .cart-preview {
     margin-left: -130px;
 }
@@ -25,6 +33,8 @@ body {
 .font-size-xs {
     font-size: 0.7rem;
 }
+
+/*-- main body --*/
 
 .deals-heading {
     display: none;
@@ -89,8 +99,6 @@ main {
 .text-dec-none {
     text-decoration: none;
 }
-
-/*-- subscribe page --*/
 
 /*-- cart page --*/
 

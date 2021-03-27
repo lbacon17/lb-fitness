@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'contact/css/contact.css' %}">
+{% endblock %}
+
 {% block extra_js %}
     <script src="https://www.google.com/recaptcha/api.js"></script>
 {% endblock %}
@@ -45,6 +49,13 @@
         </div>
     </div>
 </div>
+<div id="loading-overlay">
+    <h1 class="loading-spinner">
+        <span class="icon">
+            <i class="fas fa-spinner fa-spin fa-3x"></i>
+        </span>
+    </h1>
+</div>
 {% endblock %}
 
 {% block postloadjs %}
@@ -53,5 +64,17 @@
         function onSubmit(token) {
             document.getElementById("contact-form").submit();
         }
+
+        var form = document.getElementById("contact-form");
+        form.addEventListener('submit', function (ev) {
+            ev.preventDefault();
+            $('#loading-overlay').fadeToggle(100);
+            var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
+            var postData = {
+                'csrfmiddlewaretoken': csrfToken,
+            };
+
+            var url = '/contact/';
+        });
     </script>
 {% endblock %}

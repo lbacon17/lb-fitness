@@ -81,16 +81,18 @@
         <div class="row">
             {% for item in shop_items %}
                 <div class="col-sm-6 col-lg-4 col-xl-3">
-                    <div class="h-100 item-specs-container p-2">
-                        {% if item.image %}
-                            <a href="{% url 'item_info' item.id %}">
-                                <img src="{{ item.image.url }}" alt="{{ item.friendly_name }}" class="img-thumbnail">
-                            </a>
-                        {% else %}
-                            <a href="{% url 'item_info' item.id %}">
-                                <img src="{{ MEDIA_URL }}noimage.png" alt="{{ item.friendly_name }}" class="img-thumbnail">
-                            </a>
-                        {% endif %}
+                    <div class="item-specs-container h-100 p-2">
+                        <div class="image-container">
+                            {% if item.image %}
+                                <a href="{% url 'item_info' item.id %}">
+                                    <img src="{{ item.image.url }}" alt="{{ item.friendly_name }}" class="img-thumbnail">
+                                </a>
+                            {% else %}
+                                <a href="{% url 'item_info' item.id %}">
+                                    <img src="{{ MEDIA_URL }}noimage.png" alt="{{ item.friendly_name }}" class="img-thumbnail">
+                                </a>
+                            {% endif %}
+                        </div>
                         <div class="pt-3 font-weight-bold">
                             <p class="mb-0">{{ item.friendly_name }}</p>
                         </div>
@@ -121,17 +123,15 @@
                             <div class="col">
                                 <form action="{% url 'add_item_to_cart' item.id %}" class="form" method="POST">
                                     {% csrf_token %}
-                                    {% if item.has_sizes %}
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <button type="button" id="modal-add-{{ item.id }}" class="btn btn-dark text-dec-none" data-toggle="modal" data-target="#add-{{ item.id }}">
-                                                    <i class="fas fa-cart-plus" data-bs-toggle="tooltip" title="Add {{ item.friendly_name }} to cart"></i>
-                                                    <span class="sr-only">Add To Cart</span>
-                                                </button>
-                                                {% include 'shop/includes/add_to_cart_modal_popup.html' %}
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button type="button" id="modal-add-{{ item.id }}" class="btn btn-dark text-dec-none mt-2" data-toggle="modal" data-target="#add-{{ item.id }}">
+                                                <i class="fas fa-cart-plus" data-bs-toggle="tooltip" title="Add {{ item.friendly_name }} to cart"></i>
+                                                <span class="sr-only">Add To Cart</span>
+                                            </button>
+                                            {% include 'shop/includes/add_to_cart_modal_popup.html' %}
                                         </div>
-                                    {% endif %}
+                                    </div>
                                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                                 </form>
                             </div>
