@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid mt-5 text-center">
+        <div class="row">
+            <div class="col-12">
+                <h1>Server Error</h1>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'home' %}" class="btn-lg btn-dark text-dec-none">Back to homepage</a>
+{% endblock %}
