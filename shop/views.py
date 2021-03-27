@@ -42,6 +42,8 @@ def shop_all(request):
             categories = request.GET['category'].split(',')
             shop_items = shop_items.filter(category__name__in=categories)
             categories = Category.objects.filter(name__in=categories)
+            # Renders the category name on the pagewhen user views all items 
+            # in one category
             for category in categories:
                 queried_category = category.friendly_name
 
