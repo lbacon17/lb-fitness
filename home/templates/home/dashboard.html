@@ -11,42 +11,63 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
-                <h2>My Subscriptions</h2>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h2 class="mb-2 pt-2">My Subscriptions</h2>
+                    </div>
+                    <div class="card-body">
+                        {% if member.subscription_package %}
+                            <p class="card-text">{{ member.subscription_package.friendly_name }}</p>
+                            <p class="small"><span>You are currently to subscribed to the {{ member.subscription_package.friendly_name }} paying £{{ member.subscription_package.monthly_rate }} per month.</span></p>
+                            <p><a href="{% url 'training_videos' %}" class="btn-lg btn-dark text-dec-none">View Training Videos</a></p>
+                            {% if member.subscription_package.id == 3 %}
+                                <p class="my-3">As a VIP, you get 50% off all items in our store!</p>
+                                <a href="{% url 'shop' %}" class="btn-lg btn-success text-dec-none">Go To Shop</a>
+                            {% endif %}
+                        {% else %}
+                            <p class="card-text">You do not have any active subscriptions.</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer py-3">
+                        {% if member.subscription_package %}
+                            <a href="{% url 'cancel_subscription' user.id %}" class="btn-sm btn-danger text-dec-none">
+                                Cancel Subscription
+                            </a>
+                        {% else %}
+                            <a href="{% url 'subscribe_page' %}" class="btn-lg btn-success text-dec-none">
+                                Subscribe Now
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h2 class="mb-2 pt-2">My Orders</h2>
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                    <div class="card-footer">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h2 class="mb-2 pt-2">My Profile</h2>
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                    <div class="card-footer">
+
+                    </div>
+                </div>
             </div>
         </div>
-        {% if member.subscription_package %}
-            <div class="row">
-                <div class="col-12">
-                    <span>You are currently to subscribed to the {{ member.subscription_package.friendly_name }} paying £{{ member.subscription_package.monthly_rate }} per month.</span>
-                    <a href="{% url 'cancel_subscription' user.id %}" class="btn-lg btn-danger text-dec-none">
-                        Cancel Subscription
-                    </a>
-                    <hr>
-                    <a href="{% url 'training_videos' %}" class="btn-lg btn-dark text-dec-none">View Training Videos</a>
-                </div>
-            </div>
-            {% if member.subscription_package.id != 1 %}
-                <hr>
-                {% if member.subscription_package.id == 3 %}
-                    <hr>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="my-3">
-                                As a VIP, you get 50% off all items in our store!
-                            </p>
-                            <hr>
-                            <a href="{% url 'shop' %}" class="btn-lg btn-success text-dec-none">Go To Shop</a>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endif %}
-        {% else %}
-            <div class="row">
-                <div class="col-12">
-                    <span>You do not have any active subscriptions.</span>
-                </div>
-            </div>
-        {% endif %}
     </div>
 {% endblock %}

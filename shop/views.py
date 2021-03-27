@@ -13,11 +13,11 @@ import json
 def shop_all(request):
     """This view renders all items on the main shop page"""
     shop_items = Product.objects.all()
-    categories = Category.objects.all()
+    categories = None
     query = None
-    category = None
     sort = None
     direction = None
+    queried_category = None
     
     if request.GET:
         # checks whether a sort parameter exists and orders by selected
@@ -42,6 +42,8 @@ def shop_all(request):
             categories = request.GET['category'].split(',')
             shop_items = shop_items.filter(category__name__in=categories)
             categories = Category.objects.filter(name__in=categories)
+            for category in categories:
+                queried_category = category.friendly_name
 
         # checks whether search query exists and returns results containing
         # keywords
@@ -61,6 +63,7 @@ def shop_all(request):
         'search_term': query,
         'categories': categories,
         'sort_by': sort_by,
+        'queried_category': queried_category,
     }
 
     return render(request, 'shop/shop.html', context)
