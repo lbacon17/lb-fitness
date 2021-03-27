@@ -1,22 +1,4 @@
 <script type="text/javascript">
-    // Increases quantity
-    $('.increase-qty').click(function(e) {
-        e.preventDefault();
-        var closestInputElement = $(this).closest('.input-group');
-        var currentQuantity = parseInt($(closestInputElement).val());
-        $(closestInputElement).val(currentQuantity + 1);
-        var itemId = $(this).data('item_id');
-    });
-
-    // Decreases quantity
-    $('.decrease-qty').click(function(e) {
-        e.preventDefault();
-        var closestInputElement = $(this).closest('.input-group');
-        var currentQuantity = parseInt($(closestInputElement).val());
-        $(closestInputElement).val(currentQuantity - 1);
-        var itemId = $(this).data('item_id');
-    });
-
     // Disables +/- buttons outside the min-max range
     function disableQuantityInput(itemId) {
         var currentQuantity = parseInt($(`#id_qty_${itemId}`).val());
@@ -33,7 +15,27 @@
     }
 
     // Checks in real time if button should be disabled whenever user changes input
-    $('qty_input').change(function() {
+    $('.qty_input').change(function() {
+        var itemId = $(this).data('item_id');
+        disableQuantityInput(itemId);
+    });
+
+    // Increases quantity
+    $('.increase-qty').click(function(e) {
+        e.preventDefault();
+        var closestInputElement = $(this).closest('.input-group').find('.qty_input')[0];
+        var currentQuantity = parseInt($(closestInputElement).val());
+        $(closestInputElement).val(currentQuantity + 1);
+        var itemId = $(this).data('item_id');
+        disableQuantityInput(itemId);
+    });
+
+    // Decreases quantity
+    $('.decrease-qty').click(function(e) {
+        e.preventDefault();
+        var closestInputElement = $(this).closest('.input-group').find('.qty_input')[0];
+        var currentQuantity = parseInt($(closestInputElement).val());
+        $(closestInputElement).val(currentQuantity - 1);
         var itemId = $(this).data('item_id');
         disableQuantityInput(itemId);
     });

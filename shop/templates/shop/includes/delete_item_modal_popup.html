@@ -1,14 +1,11 @@
-<button type="button" id="modal-trigger-{{ item.id }}" class="btn-lg btn-danger text-dec-none" data-bs-toggle="modal" data-bs-target="#{{ item.id }}">
-    Delete
-</button>
-<div class="modal" id="{{ item.id }}" tabindex="-1" aria-labelledby="{{ item.id }}Label">
+<div class="modal fade" id="{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="{{ item.id }}Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="{{ item.id }}Label">
                     Delete Item {{ item.friendly_name }}
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p class="mb-2">
@@ -19,9 +16,9 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <a href="{% url 'item_info' item.id %}" class="btn-lg btn-light text-dec-none cancel">
+                <button type="button" class="btn-lg btn-light text-dark cancel" data-dismiss="modal" aria-label="Close">
                     Cancel
-                </a>
+                </button>
                 <a href="{% url 'delete_item' item.id %}" class="btn-lg btn-danger text-dec-none confrm-delete">
                     Delete
                 </a>

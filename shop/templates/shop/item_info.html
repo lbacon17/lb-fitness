@@ -48,6 +48,9 @@
                         <p class="mb-1 small">
                             Rating: <span>{{ item.rating }}</span>
                         </p>
+                        <p class="mb-1 small">
+                            Category: <span><a href="{% url 'shop' %}?category={{ item.category.name }}" class="small text-dark text-dec-none">{{ item.category.friendly_name }}</a></span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -75,13 +78,15 @@
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <button class="decrease-qty btn" data-item_id="{{ item.id }}" id="decrease-qty_{{ item.id }}">
-                                                    <i class="fas fa-minus"></i>
+                                                    <i class="fas fa-minus" data-bs-toggle="tooltip" title="Decrease Quantity"></i>
+                                                    <span class="sr-only">Decrease Quantity</span>
                                                 </button>
                                             </div>
                                             <input type="number" class="form-control qty_input" name="quantity" value="1" min="1" max="100" data-item_id="{{ item.id }}" id="id_qty_{{ item.id }}">
                                             <div class="input-group-append">
                                                 <button class="increase-qty btn" data-item_id="{{ item.id }}" id="increase-qty_{{ item.id }}">
-                                                    <i class="fas fa-plus"></i>
+                                                    <i class="fas fa-plus" data-bs-toggle="tooltip" title="Increase Quantity"></i>
+                                                    <span class="sr-only">Increase Quantity</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -102,14 +107,17 @@
                 </div>
             </div>
             {% if request.user.is_superuser %}
-                <div class="row py-3">
-                    <div class="col-md-6 text-right">
-                        <a href="{% url 'edit_item' item.id %}" class="btn-lg btn-primary text-dec-none">Update Details</a>
-                    </div>
-                    <div class="col-md-6 text-left">
+            <div class="admin-actions-container my-5">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="{% url 'edit_item' item.id %}" class="btn btn-primary text-dec-none mr-2">Update Details</a>
+                        <button type="button" id="modal-trigger-{{ item.id }}" class="btn btn-danger text-dec-none" data-toggle="modal" data-target="#{{ item.id }}">
+                            Delete
+                        </button>
                         {% include 'shop/includes/delete_item_modal_popup.html' %}
                     </div>
                 </div>
+            </div>
             {% endif %}
         </div>
     </div>
@@ -118,50 +126,6 @@
 
 {% block postloadjs %}
 {{ block.super }}
+{% include 'shop/includes/adjust_quantity_script.html' %}
 {% include 'shop/includes/delete_confirmation_script.html' %}
-<script type="text/javascript">
-    // Increases quantity
-    $('.increase-qty').click(function(e) {
-        e.preventDefault();
-        var closestInputElement = $(this).closest('.input-group').find('.qty_input')[0];
-        var currentQuantity = parseInt($(closestInputElement).val());
-        $(closestInputElement).val(currentQuantity + 1);
-        var itemId = $(this).data('item_id');
-    });
-
-    // Decreases quantity
-    $('.decrease-qty').click(function(e) {
-        e.preventDefault();
-        var closestInputElement = $(this).closest('.input-group').find('.qty_input')[0];
-        var currentQuantity = parseInt($(closestInputElement).val());
-        $(closestInputElement).val(currentQuantity - 1);
-        var itemId = $(this).data('item_id');
-    });
-
-    // Disables +/- buttons outside the min-max range
-    function disableQuantityInput(itemId) {
-        var currentQuantity = parseInt($(`#id_qty_${itemId}`).val());
-        var disableDecrease = currentQuantity < 2;
-        var disableIncrease = currentQuantity > 98;
-        $(`#decrease-qty_${itemId}`).prop('disabled', disableDecrease);
-        $(`#increase-qty_${itemId}`).prop('disabled', disableIncrease);
-    }
-
-    var allQtyInputs = $('.qty_input');
-    for (var i = 0; i < allQtyInputs.length; i++) {
-        var itemId = $(allQtyInputs[i]).data('item_id');
-        disableQuantityInput(itemId);
-    }
-
-    // Checks in real time if button should be disabled whenever user changes input
-    $('qty_input').change(function() {
-        var itemId = $(this).data('item_id');
-        disableQuantityInput(itemId);
-    });
-
-    function hideModal(id) {
-        $('#' + id).modal('hide');
-        $('.modal').hide();
-    }
-</script>
 {% endblock %}
