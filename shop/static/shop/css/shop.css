@@ -1,17 +1,14 @@
-/*-- shop page --*/
+/*-- Makes button the same height as sort selector and aligns the two components horizontally --*/
+.add-item-to-store {
+    line-height: 1.2rem;
+    margin-top: -4px;
+}
 
-.item-specs-container a,
-.item-specs-container a:hover {
+.item-specs-container a {
     color: #000000;
     text-decoration: none;
 }
 
-/* .modal {
-    position: fixed;
-    width: 50%;
-    height: 40%;
-    top: 50%;
-    left: 25%;
-    background-color: #fafafa;
-    border: 2px solid #676767;
-} */
+.item-specs-container a:hover {
+    text-decoration: underline;
+}

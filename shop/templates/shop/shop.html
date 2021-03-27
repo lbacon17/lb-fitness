@@ -50,7 +50,7 @@
                 </select>
                 {% if request.user.is_superuser %}
                     <p class="mt-3 mt-sm-0 d-sm-inline-block">
-                        <a href="{% url 'add_item' %}" class="btn-lg btn-success text-dec-none">
+                        <a href="{% url 'add_item' %}" class="btn btn-success text-dec-none add-item-to-store">
                             <span>Add Item</span>
                         </a>
                     </p>
@@ -59,14 +59,6 @@
         </div>
     </div>
     <div class="container-fluid text-center px-5 my-3">
-        <!-- {% if shop_items|length == 0 %}
-            <div class="row">
-                <div class="col-12">
-                    <h4 class="mb-5">No items found for "{{ search_term }}"</h4>
-                    <a href="{% url 'shop' %}" class="btn-lg btn-primary text-dec-none">View All Products</a>
-                </div>
-            </div>
-        {% endif %} -->
         <div class="row">
             <div class="col-12">
                     {% if search_term %}
@@ -104,7 +96,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <p class="lead mb-0 text-left">
+                                <p class="lead mb-0">
                                     {% if request.user.member.subscription_package.id == 3 %}
                                         <strike>£{{ item.price }}</strike> £{{ item.set_discount_price|floatformat:2 }}
                                     {% else %}
@@ -125,6 +117,25 @@
                                 </p>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <form action="{% url 'add_item_to_cart' item.id %}" class="form" method="POST">
+                                    {% csrf_token %}
+                                    {% if item.has_sizes %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button type="button" id="modal-add-{{ item.id }}" class="btn btn-dark text-dec-none" data-toggle="modal" data-target="#add-{{ item.id }}">
+                                                    <i class="fas fa-cart-plus" data-bs-toggle="tooltip" title="Add {{ item.friendly_name }} to cart"></i>
+                                                    <span class="sr-only">Add To Cart</span>
+                                                </button>
+                                                {% include 'shop/includes/add_to_cart_modal_popup.html' %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                </form>
+                            </div>
+                        </div>
                         {% if request.user.is_superuser %}
                             <div class="text-center py-3">
                                 <a href="{% url 'edit_item' item.id %}" class="btn btn-primary mr-1">
@@ -132,58 +143,13 @@
                                         Edit Details
                                     </span>
                                 </a>
+                                <button type="button" id="modal-trigger-{{ item.id }}" class="btn btn-danger text-dec-none" data-toggle="modal" data-target="#{{ item.id }}">
+                                    Delete
+                                </button>
                                 {% include 'shop/includes/delete_item_modal_popup.html' %}
                             </div>
                         {% endif %}
-                        <div class="row">
-                            <div class="col">
-                                <form action="{% url 'add_item_to_cart' item.id %}" class="form text-center" method="POST">
-                                    {% csrf_token %}
-                                    {% if item.has_sizes %}
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <strong>Select Size:</strong>
-                                                <select name="item_size" id="id_item_size_{{ item.id }}" class="w-50">
-                                                    <option value="xs">XS</option>
-                                                    <option value="s">S</option>
-                                                    <option value="m" selected>M</option>
-                                                    <option value="l">L</option>
-                                                    <option value="xl">XL</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                {% endif %}
-                                    <div class="row">
-                                        <div class="col-md-6 float-right">
-                                            <input type="submit" class="btn btn-dark text-dec-none {% if not request.user.is_superuser %}my-3{% endif %}" value="Add To Cart">
-                                        </div>
-                                        <div class="col-md-6 float-left">
-                                            <div class="row input-group">
-                                                <div class="col">
-                                                    <div class="input-group-prepend">
-                                                        <button class="decrease-qty btn rounded-0" data-item_id="{{ item.id }}" id="decrease-qty_{{ item.id }}">
-                                                            <i class="fas fa-minus"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <input type="number" class="form-control qty_input" name="quantity" value="1" min="1" max="100" data-item_id="{{ item.id }}" id="id_qty_{{ item.id }}">
-                                                </div>
-                                                <div class="col">
-                                                    <div class="input-group-append">
-                                                        <button class="increase-qty btn rounded-0" data-item_id="{{ item.id }}" id="increase-qty_{{ item.id }}">
-                                                            <i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                                </form>
-                            </div>
-                        </div>
-                        {% if user.is_authenticated %}
+                        <!-- {% if user.is_authenticated %}
                             <div class="row">
                                 <div class="col">
                                     <form action="{% url 'favourite_item' item.id %}" method="POST">
@@ -195,7 +161,7 @@
                                     </form>
                                 </div>
                             </div>
-                        {% endif %}
+                        {% endif %} -->
                     </div>
                 </div>
             {% endfor %}
@@ -211,67 +177,27 @@
         {% include 'shop/includes/delete_confirmation_script.html' %}
     {% endfor %}
 {% endif %}
-    <script type="text/javascript">
-        // enables product sorting. Credit to Boutique Ado project for this code
-        $('#sort-products').change(function() {
-            var selector = $(this);
-            var currentUrl = new URL(window.location);
+<script type="text/javascript">
+    // enables product sorting. Credit to Boutique Ado project for this code
+    $('#sort-products').change(function() {
+        var selector = $(this);
+        var currentUrl = new URL(window.location);
 
-            var selectedVal = selector.val()
-            if (selectedVal != "reset") {
-                var sort = selectedVal.split("_")[0] // "price etc."
-                var direction = selectedVal.split("_")[1]; // "asc" or "desc"
+        var selectedVal = selector.val()
+        if (selectedVal != "reset") {
+            var sort = selectedVal.split("_")[0] // "price etc."
+            var direction = selectedVal.split("_")[1]; // "asc" or "desc"
 
-                currentUrl.searchParams.set("sort", sort); // sort=price
-                currentUrl.searchParams.set("direction", direction); //direction=asc
+            currentUrl.searchParams.set("sort", sort); // sort=price
+            currentUrl.searchParams.set("direction", direction); //direction=asc
 
-                window.location.replace(currentUrl);
-            } else {
-                currentUrl.searchParams.delete("sort");
-                currentUrl.searchParams.delete("direction");
+            window.location.replace(currentUrl);
+        } else {
+            currentUrl.searchParams.delete("sort");
+            currentUrl.searchParams.delete("direction");
 
-                window.location.replace(currentUrl);
-            }
-        });
-    </script>
-    <script type="text/javascript">
-        // Increases quantity
-        $('.increase-qty').click(function(e) {
-            e.preventDefault();
-            var closestInputElement = $(this).closest('.input-group').find('.qty_input')[0];
-            var currentQuantity = parseInt($(closestInputElement).val());
-            $(closestInputElement).val(currentQuantity + 1);
-            var itemId = $(this).data('item_id');
-        });
-
-        // Decreases quantity
-        $('.decrease-qty').click(function(e) {
-            e.preventDefault();
-            var closestInputElement = $(this).closest('.input-group').find('.qty_input')[0];
-            var currentQuantity = parseInt($(closestInputElement).val());
-            $(closestInputElement).val(currentQuantity - 1);
-            var itemId = $(this).data('item_id');
-        });
-
-        // Disables +/- buttons outside the min-max range
-        function disableQuantityInput(itemId) {
-            var currentQuantity = parseInt($(`#id_qty_${itemId}`).val());
-            var disableDecrease = currentQuantity < 2;
-            var disableIncrease = currentQuantity > 98;
-            $(`#decrease-qty_${itemId}`).prop('disabled', disableDecrease);
-            $(`#increase-qty_${itemId}`).prop('disabled', disableIncrease);
+            window.location.replace(currentUrl);
         }
-
-        var allQtyInputs = $('.qty_input');
-        for (var i = 0; i < allQtyInputs.length; i++) {
-            var itemId = $(allQtyInputs[i]).data('item_id');
-            disableQuantityInput(itemId);
-        }
-
-        // Checks in real time if button should be disabled whenever user changes input
-        $('qty_input').change(function() {
-            var itemId = $(this).data('item_id');
-            disableQuantityInput(itemId);
-        });
-    </script>
+    });
+</script>
 {% endblock %}

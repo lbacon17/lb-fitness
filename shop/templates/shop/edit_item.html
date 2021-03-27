@@ -3,9 +3,9 @@
 
 {% block content %}
     <div class="container text-center">
-        <div class="row mt-5 pt-5">
+        <div class="row mt-5 py-3">
             <div class="col-12">
-                <h1>Edit details for {{ item.friendly_name }}</h1>
+                <h3 class="my-3">Edit details for {{ item.friendly_name }}</h3>
             </div>
         </div>
     </div>
@@ -17,8 +17,8 @@
                     {% csrf_token %}
                     {{ form|crispy }}
                     <div class="text-right">
-                        <a href="{% url 'shop' %}" class="btn">Cancel</a>
-                        <button type="submit" class="btn">Update Item</button>
+                        <a href="{% url 'shop' %}" class="btn bg-white border-dark">Cancel</a>
+                        <button type="submit" class="btn btn-primary text-dec-none">Update Item</button>
                     </div>
                 </form>
             </div>

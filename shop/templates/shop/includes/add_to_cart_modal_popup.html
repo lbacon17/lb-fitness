@@ -1,0 +1,58 @@
+<div class="modal" id="add-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="{{ item.id }}LabelAdd" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{ item.id }}LabelAdd">
+                    Select {% if item.has_sizes %}Size and {% endif %}Quantity
+                </h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="small mb-2">Adding {{ item.friendly_name }} to cart.</p>
+                <div class="row">
+                    {% with item.has_sizes as sizes %}
+                        {% if sizes %}
+                            <div class="col-md-6">
+                                <strong>Size:</strong>
+                                <select name="item_size" id="id_item_size_{{ item.id }}" class="w-25">
+                                    <option value="xs">XS</option>
+                                    <option value="s">S</option>
+                                    <option value="m" selected>M</option>
+                                    <option value="l">L</option>
+                                    <option value="xl">XL</option>
+                                </select>
+                            </div>
+                        {% endif %}
+                        <div class="col-{% if sizes %}md-6{% else %}12{%endif %}">
+                            <div class="row input-group">
+                                <div class="col-3">
+                                    <div class="input-group-prepend">
+                                        <button class="decrease-qty btn rounded-0" data-item_id="{{ item.id }}" id="decrease-qty_{{ item.id }}">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" class="form-control qty_input" name="quantity" value="1" min="1" max="100" data-item_id="{{ item.id }}" id="id_qty_{{ item.id }}">
+                                </div>
+                                <div class="col-3">
+                                    <div class="input-group-append">
+                                        <button class="increase-qty btn rounded-0" data-item_id="{{ item.id }}" id="increase-qty_{{ item.id }}">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-lg btn-light text-dark cancel" data-dismiss="modal" aria-label="Close">
+                    Cancel
+                </button>
+                <input type="submit" class="btn-lg btn-dark text-dec-none {% if not request.user.is_superuser %}my-3{% endif %}" value="Add To Cart">
+            </div>
+        </div>
+    </div>
+</div>
