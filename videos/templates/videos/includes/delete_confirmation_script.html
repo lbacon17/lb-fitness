@@ -1,8 +1,11 @@
 <script type="text/javascript">
+    // Hides modal element from user's initial view
+    $('#video-{{ video.id }}').modal('hide');
+
     // Displays pop-up box to confirm deletion of an item
     var modalTrigger = document.getElementById('modal-trigger-{{ video.id }}');
     modalTrigger.addEventListener('click', function() {
         var modalPopup = document.getElementById('{{ video.id }}')
-        modalPopup.style.display = 'block';
+        $('#video-{{ video.id }}').modal('show');
     });
 </script>

@@ -64,7 +64,7 @@
                 </small>
             </a>
             {% if grand_total %}
-            <ul class="dropdown-menu cart-preview" aria-labelledby="cart-dropdown">
+            <ul class="dropdown-menu {% if items_in_cart %}cart-preview{% else %}empty-cart{% endif %}" aria-labelledby="cart-dropdown">
                 <li>
                     {% include 'includes/cart_preview.html' %}
                 </li>

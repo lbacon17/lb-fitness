@@ -1,3 +1,9 @@
+/*-- Makes button the same height as sort selector and aligns the two components horizontally --*/
+.add-video {
+    line-height: 1.2rem;
+    margin-top: -4px;
+}
+
 .checked {
     color:rgb(255, 215, 0);
 }

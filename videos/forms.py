@@ -8,7 +8,7 @@ class VideoForm(forms.ModelForm):
 
         model = Video
         fields = ('title', 'name', 'description', 'rating',
-                  'length', 'video_file',)
+                  'length', 'video_file', 'premium',)
     
         # def __init__(*args, **kwargs):
         # super().__init__(*args, **kwargs)

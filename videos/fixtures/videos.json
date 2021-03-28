@@ -1,0 +1,80 @@
+[
+    {
+        "pk": 1,
+        "model": "videos.video",
+        "fields": {
+            "title": "Demonstration | Kettlebell Snatch",
+            "name": "demo_kb_snatch",
+            "description": "This is a demonstration of a man performing a snatch using a kettlebell.",
+            "rating": 0.00,
+            "length": "00:00:16",
+            "premium": false,
+            "video_file": "kb_snatch.mp4"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "videos.video",
+        "fields": {
+            "title": "Demonstration | Lat Pulldown",
+            "name": "demo_lat_pulldown",
+            "description": "This is a demonstration of a woman performing a lat pulldown.",
+            "rating": 0.00,
+            "length": "00:00:14",
+            "premium": false,
+            "video_file": "lat_pulldown.mp4"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "videos.video",
+        "fields": {
+            "title": "Demonstration | Incline Bench",
+            "name": "demo_incline_bench",
+            "description": "This is a demonstration of a man performing an incline bench press using a barbell.",
+            "rating": 0.00,
+            "length": "00:00:11",
+            "premium": true,
+            "video_file": "incline_bench.mp4"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "videos.video",
+        "fields": {
+            "title": "Demonstration | Bulgarian Split Squat",
+            "name": "demo_bss",
+            "description": "This is a demonstration of a woman performing a Bulgarian split squat using dumbbells and a plyometric box.",
+            "rating": 0.00,
+            "length": "00:00:14",
+            "premium": true,
+            "video_file": "bulgarian_split_squat.mp4"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "videos.video",
+        "fields": {
+            "title": "Demonstration | Squat",
+            "name": "demo_kb_snatch",
+            "description": "This is a demonstration of a man performing a squat.",
+            "rating": 0.00,
+            "length": "00:00:09",
+            "premium": false,
+            "video_file": "squat.mp4"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "videos.video",
+        "fields": {
+            "title": "Demonstration | Push-Ups",
+            "name": "demo_push_ups",
+            "description": "This is a demonstration of a man performing push-ups.",
+            "rating": 0.00,
+            "length": "00:00:23",
+            "premium": false,
+            "video_file": "push_ups.mp4"
+        }
+    }
+]

@@ -239,5 +239,5 @@ def cancel_subscription(request, user):
     member = get_object_or_404(Member, user=request.user)
     member.delete()
     messages.success(request, 'Your subscription was successfully '\
-        'cancelled')
+        'cancelled. You will no longer be charged for this package.')
     return redirect(reverse('home'))

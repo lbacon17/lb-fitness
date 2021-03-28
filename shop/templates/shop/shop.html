@@ -9,7 +9,7 @@
     <div class="container-fluid mt-5 text-center">
         <div class="row">
             <div class="col-12">
-                <h1 class="pt-2">
+                <h1 class="my-3">
                     Shop
                 </h1>
             </div>
@@ -61,21 +61,20 @@
     <div class="container-fluid text-center px-5 my-3">
         <div class="row">
             <div class="col-12">
-                    {% if search_term %}
-                        {% if shop_items|length == 0 %}
-                            <h4 class="mb-5">No items found for "{{ search_term }}".</h4>
-                            <a href="{% url 'shop' %}" class="btn-lg btn-primary text-dec-none">View All Products</a>
-                        {% else %}
-                            <h4 class="mb-5">All items in the store containing "{{ search_term }}". {{ shop_items|length }} found.</h4>
-                        {% endif %}
+                {% if search_term %}
+                    {% if shop_items|length == 0 %}
+                        <h4 class="mb-5">No items found for "{{ search_term }}".</h4>
+                        <a href="{% url 'shop' %}" class="btn-lg btn-primary text-dec-none">View All Products</a>
                     {% else %}
-                        {% if categories %}
-                            <h4 class="mb-5">All items in the category {{ queried_category }}. {{ shop_items|length }} found.</h4>
-                        {% else %}
-                            <h4 class="mb-5">All items in the store. {{ shop_items|length }} found.</h4>
-                        {% endif %}
+                        <h4 class="mb-5">All items in the store containing "{{ search_term }}". {{ shop_items|length }} found.</h4>
                     {% endif %}
-                </h4>
+                {% else %}
+                    {% if categories %}
+                        <h4 class="mb-5">All items in the category {{ queried_category }}. {{ shop_items|length }} found.</h4>
+                    {% else %}
+                        <h4 class="mb-5">All items in the store. {{ shop_items|length }} found.</h4>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
         <div class="row">

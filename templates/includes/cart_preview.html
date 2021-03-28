@@ -41,9 +41,11 @@
         </div>
     </div>
 {% else %}
-    <p class="small mx-3 text-center">
-        There's nothing in your cart at the moment.
+    <div class="text-center mb-1">
+        <p class="small mx-3">
+            There's nothing in your cart at the moment.
+        </p>
         <hr class="mx-3">
-        <a href="{% url 'shop' %}" class="btn-sm btn-primary text-dec-none mx-5">Visit Shop</a>
-    </p>
+        <a href="{% url 'shop' %}" class="btn-sm btn-primary text-dec-none">Visit Shop</a>
+    </div>
 {% endif %}

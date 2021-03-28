@@ -36,6 +36,9 @@
                                 <a href="{% url 'edit_video' video.id %}" class="btn-primary btn-lg text-dec-none">Edit</a>
                             </div>
                             <div class="col-md-6 text-left">
+                                    <button type="button" id="modal-trigger-video-{{ video.id }}" class="btn btn-danger text-dec-none" data-toggle="modal" data-target="#video-{{ video.id }}">
+                                        Delete
+                                    </button>
                                 {% include 'videos/includes/delete_video_modal_popup.html' %}
                             </div>
                         </div>

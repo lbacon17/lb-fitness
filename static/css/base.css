@@ -27,9 +27,13 @@ body {
 }
 
 .cart-preview {
-    height: 320px;
+    height: 300px;
     overflow-x: hidden;
     overflow-y: auto;
+    margin-left: -130px;
+}
+
+.empty-cart {
     margin-left: -130px;
 }
 
