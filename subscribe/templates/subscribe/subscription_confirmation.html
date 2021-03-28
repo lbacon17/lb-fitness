@@ -10,20 +10,58 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
+    <div class="container-fluid mt-5 text-center">
         <div class="row">
             <div class="col-12">
-                <h2 class="my-5">Confirmation of subscription to {{ request.user.member.subscription_package.friendly_name }}</h2>
+                <h1 class="my-3">Confirmation of subscription to {{ request.user.member.subscription_package.friendly_name }}</h2>
             </div>
         </div>
+    </div>
+    <div class="container">
         <div class="row">
             <div class="col-12">
-                <p class="mx-3">Subscription ID: {{ subscription.subscription_id }}</p>
+                <p class="small mt-2 text-muted">Thank you for subscribing to LB Fitness. A confirmation e-mail will shortly be sent to {{ subscription.email_address }}.</p>
+                <p class="small">Your card will be charged £{{ member.subscription_package.monthly_rate }} after your initial two-week free trial, and on the same day of each month thereafter until you cancel.</p>
+                <p class="small">Please find a summary of your subscription below:</p>
             </div>
         </div>
-        <div class="row text-center">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title pt-2">Subscription ID: {{ subscription.subscription_id }}</h4>
+            </div>
+            <div class="card-body">
+                <p class="mb-3">Date: {{ subscription.date }}</p>
+                <h5>Contents</h5>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Plan</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Monthly Rate</th>
+                            </tr>
+                        </thead>
+                        <tr class="border-dark">
+                            <td>
+                                {{ member.subscription_package.friendly_name }}
+                            </td>
+                            <td>
+                                x1
+                            </td>
+                            <td>
+                                £{{ member.subscription_package.monthly_rate }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <h5>Monthly Payment: £{{ member.subscription_package.monthly_rate }}</h5>
+            </div>
+        </div>
+        <div class="row mt-5 text-center">
             <div class="col-12">
-                <a href="{% url 'home' %}" class="btn btn-lg btn-dark text-dec-none">Back to Home Page</a>
+                <a href="{% url 'home' %}" class="btn-lg btn-primary text-dec-none">Back to Homepage</a>
             </div>
         </div>
     </div>

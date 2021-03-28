@@ -9,21 +9,28 @@
     <div class="container-fluid mt-5 text-center">
         <div class="row">
             <div class="col-12">
-                <h1>
+                <h1 class="my-3">
                     Complete Subscription
                 </h1>
             </div>
         </div>
         <div class="row">
-            <h2>
-                You are subscribing to the {{ package.friendly_name }} for £{{ package.monthly_rate }} a month after your initial 2-week free trial.
-            </h2>
+            <div class="col-12">
+                <h4 class="mt-3">
+                    You are subscribing to the {{ package.friendly_name }} for £{{ package.monthly_rate }} a month.
+                </h4>
+            </div>
         </div>
     </div>
     <div class="container-fluid container-sm subscriptions-container">
-        <div class="row mt-3 px-3 text-center text-left-sm">
-            <div class="col-lg-12">
-                <form action="{% url 'get_subscription' package.id %}" method="POST" id="subscription-form" class="p-5 mx-5" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <p class="pt-3">Fill out the form below to complete your subscription.</p>
+                <p class="small text-danger">
+                    <i class="fas fa-exclamation-circle"></i> Your card will be charged £{{ package.monthly_rate }} each month after your initial two-week free trial until you cancel. You may cancel your subscription any time.
+                </p>
+                <form action="{% url 'get_subscription' package.id %}" method="POST" id="subscription-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     <fieldset class="px-3 mb-5">
                         <legend class="small w-auto">Customer Information</legend>
@@ -55,22 +62,23 @@
                         <input type="hidden" value="{{ client_secret }}" name="client_secret">
                     </fieldset>
                     <div class="row">
-                        <div class="col-sm-6 text-right">
-                            <a href="{% url 'subscribe_page' %}" class="btn btn-light">Back</a>
+                        <div class="col-12 col-sm-6 text-center text-sm-end mb-1">
+                            <a href="{% url 'subscribe_page' %}" class="btn bg-white border-dark text-dec-none">Back</a>
                         </div>
-                        <div class="col-sm-6 text-left">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
                             <button type="submit" class="btn btn-success" id="complete-subscription">Complete Subscription</button>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-12">
-                            <p class="mb-0">
-                                After your initial free two-week trial, your card will be debited £{{ package.monthly_rate }} each month for this plan.
+                            <p class="mb-0 text-danger">
+                                <i class="fas fa-exclamation-circle"></i> After your initial free two-week trial, your card will be debited £{{ package.monthly_rate }} each month for this plan.
                             </p>
                         </div>
                     </div>
                 </form>
             </div>
+            <div class="col-lg-3"></div>
         </div>
     </div>
     <div id="loading-overlay">
