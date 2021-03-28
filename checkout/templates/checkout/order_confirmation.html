@@ -7,85 +7,62 @@
     <div class="container-fluid mt-5 text-center">
         <div class="row">
             <div class="col-12">
-                <h1>Thank You For Your Order</h1>
+                <h1 class="my-3">Thank You For Your Order</h1>
             </div>
         </div>
     </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <p class="small text-muted">Thank you for ordering from LB Fitness. A confirmation e-mail will shortly be sent to {{ shop_order.email_address }}.</p>
+                <p class="small mt-2 text-muted">Thank you for ordering from LB Fitness. A confirmation e-mail will shortly be sent to {{ shop_order.email_address }}.</p>
                 <p class="small"><small>Please find a summary of your order below:</small></p>
             </div>
         </div>
-        <div class="row py-2">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title pt-2">Order #: {{ shop_order.order_number }}</h4>
+            </div>
+            <div class="card-body">
+                <p class="mb-3">Date: {{ shop_order.date }}</p>
+                <h5>Contents</h5>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Item</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Subtotal</th>
+                            </tr>
+                        </thead>
+                        {% for item in shop_order.lineitems.all %}
+                            <tr class="border-dark">
+                                <td>
+                                    {{ item.item.friendly_name }}{% if item.item.has_sizes %} - Size {{ item.item_size|upper }}{% endif %}
+                                </td>
+                                <td>
+                                    x{{ item.quantity }}
+                                </td>
+                                <td>
+                                    £{% if request.user.member.subscription_package.id == 3 %}{{ item.item.price | calc_discount_price }}{% else %}{{ item.item.price }}{% endif %} each 
+                                </td>
+                                <td>
+                                    £{% if request.user.member.subscription_package.id == 3%}{{ item.item.price | calc_subtotal:item.quantity | calc_discount_price }}{% else %}{{ item.item.price | calc_subtotal:item.quantity }}{% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <p class="mb-1">Total: £{{ shop_order.order_total }}</p>
+                <p class="mb-1">Delivery: £{% if request.user.member.subscription_package.id == 3 %}0.00{% else %}{{ shop_order.delivery_charge }}{% endif %}</p>
+                <h5>Grand Total: £{{ shop_order.grand_total }}</h5>
+            </div>
+        </div>
+        <div class="row mt-5 text-center">
             <div class="col-12">
-                <strong>Order Details</strong>
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <p class="font-weight-bold text-right">Order #:</p>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <p class="text-left">{{ shop_order.order_number }}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <p class="font-weight-bold text-right">Date:</p>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <p class="text-left">{{ shop_order.date }}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <p class="font-weight-bold text-right">
-                            Contents:
-                        </p>
-                    </div>
-                </div>
-                {% for item in shop_order.lineitems.all %}
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <p class="font-weight-bold text-right">
-                                {{ item.item.friendly_name }}{% if item.item.has_sizes %} - Size {{ item.item_size|upper }}{% endif %}
-                            </p>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <p class="text-left">
-                                x{{ item.quantity }} - £{% if request.user.member.subscription_package.id == 3 %}{{ item.item.price | calc_discount_price }}{% else %}{{ item.item.price }}{% endif %}
-                            </p>
-                        </div>
-                    </div>
-                {% endfor %}
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <p class="font-weight-bold text-right">
-                            Total:
-                        </p>                            
-                        <p class="font-weight-bold text-right">
-                            Delivery:
-                        </p>                            
-                        <p class="font-weight-bold text-right">
-                            Grand Total:
-                        </p>                            
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <p class="text-left">
-                            £{{ shop_order.order_total }}
-                        </p>
-                        <p class="text-left">
-                            {% if request.user.member.subscription_package.id == 3 %}
-                                £0.00
-                            {% else %}
-                                £{{ shop_order.delivery_charge }}
-                            {% endif %}
-                        </p>
-                        <p class="text-left">
-                            £{{ shop_order.grand_total }}
-                        </p>
-                    </div>
-                </div>
+                <a href="{% url 'home' %}" class="btn-lg btn-primary text-dec-none">Back to Homepage</a>
             </div>
         </div>
     </div>
