@@ -15,7 +15,8 @@
                 <p class="mb-2 pb-2">Username: {{ request.user.username }}</p>
                 <p class="mb-2 pb-2">E-mail address: {{ profile.default_email_address }}</p>
                 <a href="{% url 'update_profile' %}" class="btn btn-primary text-dec-none">Update Details</a>
-                <a href="{% url 'delete_account' user.id %}" class="btn btn-danger text-dec-none">Delete Account</a>
+                <button type="button" id="modal-trigger-{{ request.user }}" class="btn btn-danger text-dec-none">Delete Account</button>
+                {% include 'user_profiles/includes/delete_account_modal_popup.html' %}
             </div>
             <div class="col-12 col-lg-7">
                 <div class="card">
@@ -66,4 +67,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{% include 'user_profiles/includes/delete_account_confirmation_script.html' %}
 {% endblock %}

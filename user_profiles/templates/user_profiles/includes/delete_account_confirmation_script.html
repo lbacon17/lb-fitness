@@ -1,0 +1,10 @@
+<script type="text/javascript">
+    // Hides modal element from user's initial view
+    $('{{ request.user }}').modal('hide');
+
+    // Displays pop-up box to confirm deletion of an item
+    var modalTrigger = document.getElementById('modal-trigger-{{ request.user }}');
+    modalTrigger.addEventListener('click', function() {
+        $('#{{ request.user }}').modal('show');
+    });
+</script>
