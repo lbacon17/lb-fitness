@@ -47,14 +47,14 @@
             </div>
         </div>
     </div>
-    <div class="container search-container">
+    <div class="container search-container mt-3">
         <div class="row px-3 text-center text-left-sm">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
                 <form action="{% url 'training_videos' %}" method="GET" class="d-flex">
                     <label for="videos-search"></label>
                     <input class="form-control me-2 search-bar" id="videos-search" type="search" name="q" placeholder="Search videos" aria-label="Search" class="validate" required>
-                    <button class="btn btn-outline-success" type="submit">
+                    <button class="btn btn-outline-success border-0" type="submit">
                         <span class="icon">
                             <i class="fas fa-search"></i>
                         </span>
@@ -71,6 +71,11 @@
                     {% if videos|length == 0 %}
                         <h4 class="mb-5">No videos found containing "{{ search_term }}"</h4>
                         <a href="{% url 'training_videos' %}" class="btn-lg btn-primary text-dec-none">View All Videos</a>
+                    {% else %}
+                        <h4 class="mb-5">
+                            {{ videos|length }} video{% if videos|length != 1 %}s{% endif %} found containing "{{ search_term }}". 
+                            <a href="{% url 'training_videos' %}" class="text-dark text-dec-none">View all videos.</a>
+                        </h4>
                     {% endif %}
                 {% endif %}
             </div>
@@ -105,7 +110,7 @@
                             </div>
                         </div>
                        {% if request.user.is_superuser %}
-                            <div class="row mb-5">
+                            <div class="row mb-5 mt-2">
                                 <div class="col-12">
                                     <a href="{% url 'edit_video' video.id %}" class="btn-primary btn text-dec-none">Edit</a>
                                     <button type="button" id="modal-trigger-video-{{ video.id }}" class="btn btn-danger text-dec-none" data-toggle="modal" data-target="#video-{{ video.id }}">

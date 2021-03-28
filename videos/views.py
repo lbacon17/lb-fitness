@@ -99,7 +99,7 @@ def video_details(request, video_id):
                                 'VIP subscription to view this video.')
                 return redirect(reverse('home'))
 
-        comments = video.comments.filter(approved=True)
+        comments = video.comments.filter(approved=True).order_by('-created_on')
         unapproved_comments = video.comments.filter(approved=False)
         new_comment = None
         if request.method == 'POST':
@@ -183,11 +183,11 @@ def videos_autocomplete(request):
     if request.is_ajax():
         query = request.GET.get('term', '')
         videos = Video.objects.filter(title__icontains=query)
-        search_suggestions = []
+        video_suggestions = []
         for video in videos:
             place_json = video.title
-            search_suggestions.append(place_json)
-        data = json.dumps(search_suggestions)
+            video_suggestions.append(place_json)
+        data = json.dumps(video_suggestions)
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
 

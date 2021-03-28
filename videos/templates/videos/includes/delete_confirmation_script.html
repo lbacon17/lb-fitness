@@ -3,7 +3,7 @@
     $('#video-{{ video.id }}').modal('hide');
 
     // Displays pop-up box to confirm deletion of an item
-    var modalTrigger = document.getElementById('modal-trigger-{{ video.id }}');
+    var modalTrigger = document.getElementById('modal-trigger-video-{{ video.id }}');
     modalTrigger.addEventListener('click', function() {
         var modalPopup = document.getElementById('{{ video.id }}')
         $('#video-{{ video.id }}').modal('show');

@@ -11,22 +11,18 @@
     </div>
     <div class="container-fluid py-3">
         <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
+            <div class="col-1 col-sm-2 col-lg-3"></div>
+            <div class="col-10 col-sm-8 col-lg-6">
                 <form action="{% url 'update_comment' video.id comment.id %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ comment_form|crispy }}
-                    <div class="row">
-                        <div class="col-md-6 text-right">
-                            <a href="{% url 'video_details' video.id %}" class="btn-primary btn-lg text-dec-none">Cancel</a>
-                        </div>
-                        <div class="col-md-6 text-left">
-                            <button type="submit" class="btn-success btn-lg text-dec-none">Update Comment</button>
-                        </div>
+                    <div class="text-right">
+                        <a href="{% url 'video_details' video.id %}" class="btn bg-white border-dark">Cancel</a>
+                        <button type="submit" class="btn btn-primary text-dec-none">Update Comment</button>
                     </div>
                 </form>
             </div>
-            <div class="col-lg-3"></div>
+            <div class="col-1 col-sm-2 col-lg-3"></div>
         </div>
     </div>
 {% endblock %}

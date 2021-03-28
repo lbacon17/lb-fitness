@@ -398,5 +398,245 @@
             "image_url": "https://d3rxe6nylop6k3.cloudfront.net/catalog/product/cache/1/image/530x/9df78eab33525d08d6e5fb8d27136e95/v/e/veggie-veggie-levi-roots-pot-mf_rm203.jpg",
             "image": "vegetarian_meal_pot.png"
         }
+    },
+    {
+        "pk": 26,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "chicken_karahi_with_rice",
+            "friendly_name": "Chicken Karahi with Rice",
+            "description": "",
+            "has_sizes": false,
+            "category": 2,
+            "price": 6.00,
+            "rating": 0.00,
+            "image_url": "https://d3rxe6nylop6k3.cloudfront.net/catalog/product/cache/1/image/530x/9df78eab33525d08d6e5fb8d27136e95/b/u/bulk-mighty-spice-chicken-karahi-mf_rkm68.jpg",
+            "image": "chicken_karahi_with_rice.png"
+        }
+    },
+    {
+        "pk": 27,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "vegan_breakfast_pot",
+            "friendly_name": "Vegan Breakfast Pot",
+            "description": "",
+            "has_sizes": false,
+            "category": 2,
+            "price": 4.50,
+            "rating": 0.00,
+            "image_url": "https://d3rxe6nylop6k3.cloudfront.net/catalog/product/cache/1/image/530x/9df78eab33525d08d6e5fb8d27136e95/b/r/brit-abroad-pot-plate-mf_rm180.jpg",
+            "image": "vegan_breakfast_pot.png"
+        }
+    },
+    {
+        "pk": 28,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "extra_lean_beef_stir_fry_strips",
+            "friendly_name": "Extra Lean Beef Stir Fry Strips",
+            "description": "",
+            "has_sizes": false,
+            "category": 2,
+            "price": 5.50,
+            "rating": 0.00,
+            "image_url": "https://d3rxe6nylop6k3.cloudfront.net/catalog/product/cache/1/image/530x/9df78eab33525d08d6e5fb8d27136e95/e/x/extra-lean-beef-stir-fry-strips-150g-mf_b279_2.jpg",
+            "image": "extra_lean_beef_stir_fry_strips.png"
+        }
+    },
+    {
+        "pk": 29,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "mushroom_spinach_bolognese_pot",
+            "friendly_name": "Mushroom & Spinach Bolognese Pot",
+            "description": "",
+            "has_sizes": false,
+            "category": 2,
+            "price": 5.00,
+            "rating": 0.00,
+            "image_url": "https://d3rxe6nylop6k3.cloudfront.net/catalog/product/cache/1/image/530x/9df78eab33525d08d6e5fb8d27136e95/m/u/mushroom-ragu-pot-plate-mf_rm137.jpg",
+            "image": "mushroom_spinach_bolognese_pot.png"
+        }
+    },
+    {
+        "pk": 30,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "beef_ragu_tagliatelle_pot",
+            "friendly_name": "Beef Ragu Tagliatelle Pot",
+            "description": "",
+            "has_sizes": false,
+            "category": 2,
+            "price": 7.00,
+            "rating": 0.00,
+            "image_url": "https://d3rxe6nylop6k3.cloudfront.net/catalog/product/cache/1/image/530x/9df78eab33525d08d6e5fb8d27136e95/b/e/beef-ragu-pot-plate-mf_rm131.jpg",
+            "image": "beef_ragu_tagliatelle_pot.png"
+        }
+    },
+    {
+        "pk": 31,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "whey_protein_powder_strawberry",
+            "friendly_name": "Whey Protein Powder Strawberry (2kg)",
+            "description": "",
+            "has_sizes": false,
+            "category": 2,
+            "price": 40.00,
+            "rating": 0.00,
+            "image_url": "https://d3rxe6nylop6k3.cloudfront.net/catalog/product/cache/1/image/530x/9df78eab33525d08d6e5fb8d27136e95/p/a/pas-nutrition-100-whey-protein-strawberry-white-chocolate_1.jpg",
+            "image": "whey_protein_powder_strawberry.png"
+        }
+    },
+    {
+        "pk": 32,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "whey_protein_powder_mint_chocolate",
+            "friendly_name": "Whey Protein Powder Mint Chocolate Flavour (2kg)",
+            "description": "",
+            "has_sizes": false,
+            "category": 2,
+            "price": 40.00,
+            "rating": 0.00,
+            "image_url": "https://d3rxe6nylop6k3.cloudfront.net/catalog/product/cache/1/image/530x/9df78eab33525d08d6e5fb8d27136e95/p/a/pas-nutrition-100-whey-protein-mint-chocolate-coconut_2.jpg",
+            "image": "whey_protein_powder_mint_chocolate.png"
+        }
+    },
+    {
+        "pk": 33,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "peanut_butter_protein_bar",
+            "friendly_name": "Peanut Butter Protein Bar (10 pack)",
+            "description": "",
+            "has_sizes": false,
+            "category": 2,
+            "price": 10.00,
+            "rating": 0.00,
+            "image_url": "https://d3rxe6nylop6k3.cloudfront.net/catalog/product/cache/1/image/530x/9df78eab33525d08d6e5fb8d27136e95/m/a/maximuscle-protein-bar-peanut-a_mf_sn1255x10_3.jpg",
+            "image": "peanut_butter_protein_bar.png"
+        }
+    },
+    {
+        "pk": 34,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "cookies_cream_protein_bites",
+            "friendly_name": "Cookies & Cream Protein Bites",
+            "description": "",
+            "has_sizes": false,
+            "category": 2,
+            "price": 3.50,
+            "rating": 0.00,
+            "image_url": "https://d3rxe6nylop6k3.cloudfront.net/catalog/product/cache/1/image/530x/9df78eab33525d08d6e5fb8d27136e95/m/a/maximuscle-protein-bites-110g-cookies-_-cream-mf_sn1258_single.jpg",
+            "image": "cookies_cream_protein_bites.png"
+        }
+    },
+    {
+        "pk": 35,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "gym_juice_protein_shaker",
+            "friendly_name": "Gym Juice Protein Shaker",
+            "description": "",
+            "has_sizes": false,
+            "category": 3,
+            "price": 3.00,
+            "rating": 0.00,
+            "image_url": "https://i.pinimg.com/564x/05/47/f1/0547f15434bcce6acf310d3c5956c44e.jpg",
+            "image": "gym_juice_protein_shaker.png"
+        }
+    },
+    {
+        "pk": 36,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "platinum_protein_shaker",
+            "friendly_name": "Platinum Protein Shaker",
+            "description": "",
+            "has_sizes": false,
+            "category": 3,
+            "price": 8.00,
+            "rating": 0.00,
+            "image_url": "https://i.pinimg.com/564x/ad/1f/93/ad1f9355ea8bf1230e7ddef40a265fb0.jpg",
+            "image": "platinum_protein_shaker.png"
+        }
+    },
+    {
+        "pk": 37,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "pure_weightlifting_belt_leather_suede",
+            "friendly_name": "Pure Weightlifting Belt Leather & Suede",
+            "description": "",
+            "has_sizes": true,
+            "category": 3,
+            "price": 40.00,
+            "rating": 0.00,
+            "image_url": "https://i.pinimg.com/564x/50/98/83/50988357f87f136d728db89d577682c5.jpg",
+            "image": "gym_juice_protein_shaker.png"
+        }
+    },
+        {
+        "pk": 38,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "gladiator_weightlifting_chalk_powder",
+            "friendly_name": "Gladiator Weightlifting Chalk Powder (400g)",
+            "description": "",
+            "has_sizes": false,
+            "category": 3,
+            "price": 3.00,
+            "rating": 0.00,
+            "image_url": "https://i.pinimg.com/564x/60/50/e2/6050e26c9e7733a178704419651e9ed6.jpg",
+            "image": "gladiator_weightlifting_chalk_powder.png"
+        }
+    },
+    {
+        "pk": 39,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "resistance_band_gym_set",
+            "friendly_name": "Resistance Band Gym Set",
+            "description": "",
+            "has_sizes": false,
+            "category": 3,
+            "price": 25.00,
+            "rating": 0.00,
+            "image_url": "https://geniwo.com/wp-content/uploads/nc/products/NewProductPhoto.jpg",
+            "image": "resistance_band_gym_set.png"
+        }
+    },
+    {
+        "pk": 40,
+        "model": "shop.product",
+        "fields": {
+            "sku": "",
+            "name": "wrist_strap_weightlifting_gloves",
+            "friendly_name": "Wrist Strap Weightlifting Gloves",
+            "description": "",
+            "has_sizes": true,
+            "category": 3,
+            "price": 3.00,
+            "rating": 0.00,
+            "image_url": "https://i.pinimg.com/564x/4f/c6/6c/4fc66c73c280519cf29052a7aa0c1ccf.jpg",
+            "image": "wrist_strap_weightlifting_gloves.png"
+        }
     }
 ]
