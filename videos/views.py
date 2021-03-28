@@ -70,7 +70,7 @@ def add_video(request):
                 user = request.user
                 new_video = form.save()
                 messages.success(request, f'Video "{new_video.title}" successfully created.')
-                return redirect(reverse('training_videos'))
+                return redirect(reverse('video_details', args=[new_video.id]))
             else:
                 messages.error(request, 'Sorry, there was an error updating '\
                     'the information. Please ensure all fields are filled '\

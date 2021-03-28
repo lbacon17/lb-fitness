@@ -1,7 +1,10 @@
-<p class="font-weight-bold">Fill out the form below to complete your order.</p>
 <div class="row">
     <div class="col-lg-3"></div>
     <div class="col-lg-6">
+        <p class="font-weight-bold pt-3">Fill out the form below to complete your order.</p>
+        <p class="small text-danger">
+            <i class="fas fa-exclamation-circle"></i> Your card will be charged £{{ grand_total|floatformat:2 }}.
+        </p>
         <form action="{% url 'load_checkout' %}" method="POST" id="payment-form">
             {% csrf_token %}
             <fieldset class="px-3 mb-5">
@@ -27,12 +30,24 @@
                 <!-- Passes client secret to the view and gives us the payment intent id -->
                 <input type="hidden" value="{{ client_secret }}" name="client_secret">
             </fieldset>
-            <div class="row">
-                <div class="col-md-6 text-right">
-                    <a href="{% url 'load_cart' %}" class="btn-lg btn-dark text-dec-none">Back To Cart</a>
+            <div class="row mb-3 text-right">
+                <div class="col-6">
+                    <p class="small mb-0">Total:</p>
+                    <p class="small mb-0">Delivery:</p>
+                    <h4>Grand Total:</h4>
                 </div>
-                <div class="col-md-6 text-left">
-                    <button id="complete-order" class="btn-lg btn-success text-dec-none">
+                <div class="col-6 text-left">
+                    <p class="small mb-0">£{{ total|floatformat:2 }}</p>
+                    <p class="small mb-0">£{{ delivery|floatformat:2 }}</p>
+                    <h4>£{{ grand_total|floatformat:2 }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6 text-center text-sm-end">
+                    <a href="{% url 'load_cart' %}" class="btn bg-white border-dark text-dec-none">Back To Cart</a>
+                </div>
+                <div class="col-12 col-sm-6 text-center text-sm-start">
+                    <button id="complete-order" class="btn btn-success text-dec-none">
                         <span>Complete Order</span></button>
                 </div>
             </div>

@@ -27,6 +27,9 @@ body {
 }
 
 .cart-preview {
+    height: 320px;
+    overflow-x: hidden;
+    overflow-y: auto;
     margin-left: -130px;
 }
 

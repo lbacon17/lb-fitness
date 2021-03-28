@@ -31,7 +31,8 @@ def contact(request):
                 [user_email],
                 fail_silently=False
             )
-            messages.success(request, 'Your query was submitted successfully')
+            messages.success(request, 'Your query was submitted successfully. You will now be '\
+                'redirected back to the contact form page.')
             return redirect(reverse('contact'))
         else:
             messages.error(request, 'Your query could not be sent')

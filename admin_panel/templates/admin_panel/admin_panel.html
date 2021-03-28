@@ -5,25 +5,31 @@
     <div class="container-fluid mt-5 pt-3 text-center">
         <div class="row">
             <div class="col-12">
-                <h1>Admin Panel</h1>
+                <h1 class="my-3">Admin Panel</h1>
             </div>
         </div>
     </div>
     <div class="container-fluid py-3">
-        <div class="row">
+        <div class="row text-center">
             <div class="col-12">
+                <h4 class="mb-4">Please select one of the following actions</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
                 <p class="mb-2 p-2">
                     <a href="{% url 'add_video' %}" class="btn-lg btn-success text-dec-none">Add Video</a>
                 </p>
-                <hr>
+            </div>
+            <div class="col-lg-4">
                 <p class="mb-2 p-2">
                     <a href="{% url 'add_item' %}" class="btn-lg btn-success text-dec-none">Add Shop Item</a>
                 </p>
-                <hr>
+            </div>
+            <div class="col-lg-4">
                 <p class="mb-2 p-2">
                     <a href="" class="btn-lg btn-success text-dec-none">Add Subscription Package</a>
                 </p>
-                <hr>
             </div>
         </div>
     </div>

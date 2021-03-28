@@ -14,6 +14,7 @@ def user_profile(request):
     template = 'user_profiles/profile.html'
     context = {
         'order_history': order_history,
+        'profile': profile,
     }
     return render(request, template, context)
 
