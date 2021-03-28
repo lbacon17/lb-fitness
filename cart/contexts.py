@@ -11,8 +11,7 @@ def cart_contents(request):
     total = 0
     count = 0
     cart = request.session.get('cart', {})
-    if request.user.is_authenticated:
-        vip = Member.objects.filter(user=request.user, is_vip=True)
+    vip = Member.objects.filter(user=request.user, is_vip=True)
 
     for item_id, item_data in cart.items():
         if isinstance(item_data, int):
