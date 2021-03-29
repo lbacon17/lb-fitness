@@ -1,6 +1,26 @@
-# LB Fitness
+# **[LB Fitness](https://lb-fitness.herokuapp.com/)**
 
-# User Stories
+Welcome to LB Fitness. This application is a place for users to educate themselves about the basics of fitness...
+
+This application was inspired by one of the [Code Institute](https://codeinstitute.net/)'s project ideas: **build a fitness subscription application**.
+
+The deployed website is available [here](https://lb-fitness.herokuapp.com/).
+
+## Table of contents
+
+* [UX](#ux)
+* [Features](#features)
+* [Technologies Used](#technologies-used)
+* [Data Structure](#data-structure)
+* [Testing](#testing)
+* [Deployment](#deployment)
+* [Credits and Acknowledgements](#credits-and-acknowledgements)
+
+### UX
+
+#### Design
+
+#### User Stories
 
 **Registration, accounts and subscription**
 
@@ -45,11 +65,37 @@
 
 * As a potential customer, I want to contact the app’s with a query about the business
 
+[Back to TOC](#table-of-contents)
+
+#### Wireframes
+
+### Features 
+
 To install Django `pip3 install django`
 
 To create project in current directory `django-admin startproject lb-fitness .`
 
-# Technologies Used
+[Back to TOC](#table-of-contents)
+
+### Technologies Used
 
 Django
 Django-Allauth (for user authentication)
+
+[Back to TOC](#table-of-contents)
+
+### Data Structure
+
+[Back to TOC](#table-of-contents)
+
+### Testing
+
+[Back to TOC](#table-of-contents)
+
+### Deployment
+
+[Back to TOC](#table-of-contents)
+
+### Credits and Acknowledgements
+
+[Back to TOC](#table-of-contents)
