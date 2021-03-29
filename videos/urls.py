@@ -12,4 +12,5 @@ urlpatterns = [
     path('update_comment/<video_id>/<comment_id>', views.update_comment, name='update_comment'),
     path('delete_comment/<video_id>/<comment_id>', views.delete_comment, name='delete_comment'),
     path('approve_comment/<video_id>/<comment_id>', views.approve_comment, name='approve_comment'),
+    path('reject_comment/<video_id>/<comment_id>', views.reject_comment, name='reject_comment'),
 ]

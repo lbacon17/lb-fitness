@@ -220,6 +220,20 @@ def approve_comment(request, comment_id, video_id):
 
 
 @login_required
+def reject_comment(request, comment_id, video_id):
+    if request.user.is_superuser:
+        comment = get_object_or_404(Comment, pk=comment_id)
+        video = Video.objects.get(id=video_id)
+        comment.delete()
+        messages.success(request, 'The comment was successfully rejected.')
+        return redirect(reverse('video_details', args=[video.id]))
+    else:
+        messages.error(request, 'Sorry, you do not have permission to '\
+            'perform that action.')
+        return redirect(reverse('home'))
+
+
+@login_required
 def update_comment(request, comment_id, video_id):
     comment = get_object_or_404(Comment, pk=comment_id)
     video = get_object_or_404(Video, pk=video_id)
@@ -262,6 +276,6 @@ def delete_comment(request, comment_id, video_id):
         return redirect(reverse('video_details', args=[video.id]))
     else:
         messages.error(request, 'Sorry, you do not have permission to '\
-                         'perform that action.')
+            'perform that action.')
         return redirect(reverse('home'))
  

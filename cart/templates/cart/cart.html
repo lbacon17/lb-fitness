@@ -67,9 +67,12 @@
                                                     <i class="fas fa-plus"></i>
                                                 </button>
                                             </div>
+                                            {% if item.item.has_sizes %}
+                                                <input type="hidden" name="item_size" value="{{ item.size }}">
+                                            {% endif %}
                                         </div>
                                     </form>
-                                    <a class="update-quantity btn btn-dark text-white mt-1">Update Qty</a>
+                                    <a class="update-quantity btn btn-dark text-white mt-1">Update</a>
                                 </p>
                             </td>
                             <td class="col-md-2">

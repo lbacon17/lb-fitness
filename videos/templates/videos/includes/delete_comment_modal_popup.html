@@ -1,0 +1,33 @@
+<div class="modal fade" id="comment-{{ video.id }}-{{ comment.id }}" tabindex="-1" role="dialog" aria-labelledby="comment-{{ video.id }}-{{ comment.id }}Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="comment-{{ video.id }}-{{ comment.id }}Label">
+                    Delete Comment
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-2">
+                    {% if request.user.is_superuser %}
+                        Are you sure you want to delete this comment by {{ comment.user }} from {{ comment.created_on }}?
+                    {% else %}
+                        Are you sure you want to delete your comment from {{ comment.created_on }}?
+                    {% endif %}
+                </p>
+                <p class="small text-muted">"{{ comment.content }}"</p>
+                <p class="mb-0">
+                    <strong class="text-danger uppercase">Once deleted, you will not be able to restore the comment.</strong>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-lg btn-light text-dark cancel" data-dismiss="modal" aria-label="Close">
+                    Cancel
+                </button>
+                <a href="{% url 'delete_comment' video.id comment.id %}" class="btn-lg btn-danger text-dec-none confrm-delete">
+                    Delete
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

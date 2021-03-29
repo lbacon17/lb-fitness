@@ -120,8 +120,18 @@ main {
 .messages-container {
     position: fixed;
     top: 100px;
+    left: .5rem;
     z-index: 99999;
     overflow: visible;
+    width: 95%;
+}
+
+.toast-header {
+    font-size: 1rem;
+}
+
+.toast-body h5 {
+    font-size: 0.8rem;
 }
 
 /*-- ALLAUTH FORM FORMATTING --*/
@@ -245,6 +255,28 @@ footer a:hover {
 }
 
 /*-- MEDIA QUERIES --*/
+
+@media screen and (min-width: 320px) {
+    .messages-container {
+        width: 95%;
+        left: .25rem;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .messages-container {
+        left: .5rem;
+        width: 100%;
+    }
+
+    .toast-header {
+        font-size: 1.1rem;
+    }
+
+    .toast-body h5 {
+        font-size: 1rem;
+    }
+}
 
 @media screen and (min-width: 992px) {
     .deals-heading {

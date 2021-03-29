@@ -64,14 +64,14 @@ def update_cart(request, item_id):
                 'The maximum possible quantity is 99. Please enter a quantity '\
                 'within the accepted range.'))
         elif quantity > 0:
-            cart[item_id] = quantity
-            messages.success(request, f'Updated {item.name} from size {size.upper()}' \
-                f'to size {cart[item_id]["items_by_size"][size]}.')
+            cart[item_id]['items_by_size'][size] = quantity
+            messages.success(request, f'Updated quantity of {item.friendly_name} in '\
+                f'size {size.upper()} to to {cart[item_id]["items_by_size"][size]}.')
         else:
             del cart[item_id]['items_by_size'][size]
             if not cart[item_id]['items_by_size']:
                 cart.pop(item_id)
-            messages.success(request, f'Removed {item.name} in size {size.upper()}' \
+            messages.success(request, f'Removed {item.friendly_name} in size {size.upper()}' \
                 f'from your cart.')
     else:
         if quantity > 99:
