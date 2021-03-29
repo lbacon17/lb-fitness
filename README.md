@@ -18,7 +18,9 @@ The deployed website is available [here](https://lb-fitness.herokuapp.com/).
 
 ### UX
 
-#### Design
+#### Design
+
+The website is mainly based on Bootstrap's grid layout, and makes use of a number of Bootstrap's components and built-in classes, such as the navbar, buttons and spacing rules. The design mixes vibrant and muted colours in order to stand out to the user but remain easy on the eye and make the website as intuitive and easy to navigate as possible. To new and unauthenticated users, the site's primary purpose as a subscription application is immediately obvious with the chunky, shadowed callout text and the large call-to-action button inviting the user to subscribe.
 
 #### User Stories
 
