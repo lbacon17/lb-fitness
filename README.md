@@ -1,4 +1,4 @@
-# lb_fitness
+# LB Fitness
 
 # User Stories
 

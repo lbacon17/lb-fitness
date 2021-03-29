@@ -25,26 +25,26 @@ def add_item_to_cart(request, item_id):
             if size in cart[item_id]['items_by_size'].keys():
                 cart[item_id]['items_by_size'][size] += quantity
                 messages.success(request,
-                                 (f'Updated size {size.upper()} of {item.name}' \
-                                  f'to {cart[item_id]["items_by_size"][size]}'))
+                    f'Updated size {size.upper()} of {item.friendly_name} to ' \
+                    f'{cart[item_id]["items_by_size"][size]}')
             else:
                 cart[item_id]['items_by_size'][size] = quantity
-                messages.success(request, f'Added {item.name} in {size.upper()}')
+                messages.success(request, f'Added {quantity}x {item.friendly_name} '\
+                    f'in {size.upper()}')
         else:
             cart[item_id] = {'items_by_size': {size: quantity}}
-            messages.success(request, f'Added {quantity}x {item.name} '\
-                              f'in size {size.upper()}')
+            messages.success(request, f'Added {quantity}x {item.friendly_name} '\
+                f'in size {size.upper()}')
     else:
         if item_id in list(cart.keys()):
             cart[item_id] += quantity
-            messages.success(request, (f'Added {quantity}x '\
-                              f'{item.friendly_name} to your cart. You now '\
-                              f'have {cart[item_id]} of {item.friendly_name} '\
-                              f'in your cart'))
+            messages.success(request, f'Added {quantity}x {item.friendly_name} '\
+                f'to your cart. You now have {cart[item_id]} of '\
+                f'{item.friendly_name} in your cart')
         else:
             cart[item_id] = quantity
-            messages.success(request, (f'{cart[item_id]}x {item.friendly_name}' \
-                              f'was added to your cart'))
+            messages.success(request, f'{cart[item_id]}x {item.friendly_name}' \
+                f'was added to your cart')
     request.session['cart'] = cart
     return redirect(redirect_url)
 
@@ -60,9 +60,9 @@ def update_cart(request, item_id):
 
     if size:
         if quantity > 99:
-            messages.error(request, ('You cannot add this many units of a product. '\
+            messages.error(request, 'You cannot add this many units of a product. '\
                 'The maximum possible quantity is 99. Please enter a quantity '\
-                'within the accepted range.'))
+                'within the accepted range.')
         elif quantity > 0:
             cart[item_id]['items_by_size'][size] = quantity
             messages.success(request, f'Updated quantity of {item.friendly_name} in '\
@@ -75,9 +75,9 @@ def update_cart(request, item_id):
                 f'from your cart.')
     else:
         if quantity > 99:
-            messages.error(request, ('You cannot add this many units of a product. '\
+            messages.error(request, 'You cannot add this many units of a product. '\
                 'The maximum possible quantity is 99. Please enter a quantity '\
-                'within the accepted range.'))
+                'within the accepted range.')
         elif quantity > 0:
             cart[item_id] = quantity
             messages.success(request, f'Successfully updated quantity of '\
@@ -103,14 +103,14 @@ def remove_item_from_cart(request, item_id):
             del cart[item_id]['items_by_size'][size]
             if not cart[item_id]['items_by_size']:
                 cart.pop(item_id)
-            messages.success(request, f'Removed {item.name} in size {size.upper()}' \
-                'from your cart.')
+            messages.success(request, f'Removed {item.friendly_name} in size ' \
+                f'{size.upper()} from your cart.')
         else:
             cart.pop(item_id)
             messages.success(request, f'{item.friendly_name} was deleted from your cart.')
 
         request.session['cart'] = cart
-        return redirect(reverse('load_cart'))
+        return HttpResponse(status=200)
 
     except Exception as e:
         messages.error(request, f'There was a a problem removing the item. {e}')
