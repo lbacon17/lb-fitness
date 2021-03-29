@@ -7,6 +7,7 @@ from checkout.models import ShopOrder, OrderLineItem
 from cart.contexts import cart_contents
 
 
+@login_required
 def user_profile(request):
     """This view renders the user's profile on their profile page"""
     profile = get_object_or_404(StoreUser, user=request.user)
@@ -43,6 +44,7 @@ def update_profile(request):
     return render(request, template, context)
 
 
+@login_required
 def delete_account(request, user):
     user = request.user
     if request.user != user:
@@ -56,6 +58,7 @@ def delete_account(request, user):
         return redirect(reverse('home'))
 
 
+@login_required
 def user_order_history(request, order_number):
     shop_order = get_object_or_404(ShopOrder, order_number=order_number)
     template = 'user_profiles/order_history.html'

@@ -16,11 +16,15 @@ def user_dashboard(request, user):
     try:    
         member = get_object_or_404(Member, user=user)
         videos = Video.objects.all()
+        if member.user != request.user:
+            messages.error(request, "You do not have permission to view" \
+                "another user's dashboard.")
+            return redirect(reverse('home'))
         template = 'home/dashboard.html'
         context = {
             'videos': videos,
             'member': member,
         }
         return render(request, template, context)
-    except Member.DoesNotExist:
+    except User.DoesNotExist:
         raise Http404('User does not exist')

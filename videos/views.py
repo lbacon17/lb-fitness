@@ -55,7 +55,7 @@ def training_videos(request):
         }
         return render(request, 'videos/videos.html', context)
     else:
-        messages.error(request, 'Sorry, you are not authorised to view this page.')
+        messages.error(request, 'Sorry, you must have a subscription to view this page.')
         return redirect(reverse('home'))
 
 
@@ -97,7 +97,7 @@ def video_details(request, video_id):
                 messages.error(request, 'Sorry, this video is only available to '\
                                 'premium members. Please purchase a premium or '\
                                 'VIP subscription to view this video.')
-                return redirect(reverse('home'))
+                return redirect(reverse('training_videos'))
 
         comments = video.comments.filter(approved=True).order_by('-created_on')
         unapproved_comments = video.comments.filter(approved=False)
@@ -240,10 +240,13 @@ def update_comment(request, comment_id, video_id):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST, request.FILES, instance=comment)
         if comment_form.is_valid():
-            updated_comment = comment_form.save()
+            updated_comment = comment_form.save(commit=False)
+            updated_comment.approved = False
             updated_comment.save()
-            messages.success(request, 'Your comment was '\
-                'successfully updated.')
+            messages.success(request, 'Your comment was successfully updated. '\
+                'All edited comments must be re-approved by administrators. '\
+                'Your comment will re-appear on the page once it has been ' \
+                'approved.')
             return redirect(reverse('video_details', args=[video.id]))
         else:
             messages.error(request, 'Sorry, there was an error updating '\

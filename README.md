@@ -90,19 +90,85 @@ Forms on the website utilise the django-crispy-forms package for maximum respons
 
 #### Existing features
 
-* A responsive fixed navbar displaying with the ability to navigate to all the site's main pages, register for an account, log in/out and view the total value of the user's shopping cart
-* 
-
-
 ##### For all users
+
+* A responsive fixed navbar displaying with the ability to navigate to all the site's main pages, register for an account, log in/out and view the total value of the user's shopping cart
+    * The main navbar is accessible via a hamburger menu in the top left of the viewport on mobile and tablet devices
+* A search bar for the store in which users can input text and find items whose names contain the search string
+    * If no products are found, a button to view all products appears in the middle of the page to redirect the user back to the shop's main page
+* A call to action button on the homepage that invites the user to subscribe and takes them to the subscribe page, where they can choose one of three packages
+    * If a user selects a subscription to purchase, they must log in before being redirected to the checkout page for that subscription
+* A shop page displaying all items in store and the total number of items
+    * In the shop dropdown menu, the user can select individual categories which filters the items and only shows those belonging to the category in the link. The number of items shown updates accordingly
+* A sorting box above the shop items for the user to sort by name, price and rating, in both ascending and descending order
+* An image of each product in the store with its name, price, category and rating below. The user can click the image to be taken to that product's individual page where they can select the size (if applicable) and quantity of the item before adding it to their cart
+* A continue shopping button on each product's individual page to take the user back to the main shop page
+* An add to cart button below each product on the shop's main page that triggers a modal for the user to select size and quantity. This is more user-friendly than trying to fit a quantity form and size selector below each item.
+* A contact form that users can fill out to submit a query and receive a confirmation e-mail that their request has been received.
+* A real-time cart total that can be clicked on to bring up a preview of the items in the user's cart
+* A cart page that lists all the items in the user's cart and keeps a running subtotal, and calculates the total, delivery, grand total, and how much more the user can spend to get free delivery
+    * The user can also update the quantity of an item in their cart on this page, or remove it from their cart entirely
+* A checkout page where the user enter their billing and shipping information, and check out securely using Stripe
+* A footer that displays social media icons, copyright info and 'Contact Us' text, that takes the user back to the contact page
+* A pop up box providing user feedback depending on the action taken e.g. adding an item to the cart triggers a success message that a specified quantity of an item in a certain size was added to the user's cart
+* Validation errors that appear in red if a field in a form is not filled out correctly
+* A 404 page that is rendered if the user enters an invalid URL
+* An automatic redirect to the login page using the @login_required decorator if the user attempts to access a URL that only logged in users can see
+* An automatic redirect to the home page if the user attempts to access a URL that they are not authorised to view
 
 ##### For registered users
 
+* A user dashboard where the user can see their current subscriptions (if any)
+* A profile page where the user can view and update their account details and their order history, and delete their account
+* A link in each order of the user's order history that takes the user to a page where they can view an order in more detail
+* A form for updating the user's account details
+* A checkbox when checking out with a susbcription or shop order that the user can check to save their information to their profile for future orders
+
 ##### For members (paid subscribers)
+
+* A videos page where the user can view the training videos available to members
+    * Each video comes with a title, duration, rating and description
+* Certain videos are only available to premium members, depending on the boolean value of the premium field in the Video model
+    * Basic plan members are redirected back to the main videos page if attempting to manually access a URL for a premium video with an error message that they must purchase a premium or VIP package to be able to view these
+* A search bar at the top of the videos page in which users can input text and find videos whose titles or descriptions contain the search string
+    * A filter is in place so that the search will never return premium videos to basic members
+* A sorting box above the videos for the member to sort by title, length and rating, in both ascending and descending order
+* An individual page for each video, including a comments section for members to leave comments and interact with other members
+    * Comments must be approved by an administrator and are visible to other members once approved
+    * Before the comments thread, the number of total comments is shown and updates in real time when a comment is approved or deleted
+* The opportunity for users to edit and delete their approved comments
+    * If a member edits their comment, it must be approved again before others can see it
+* VIP members receive 50% off in the store and free delivery on all orders
+    * On the shop page, an item's usual price is struck through with a line and the VIP's discounted price is shown
 
 ##### For administrators (superusers)
 
-#### Feature left to implement
+* A button to add videos or store items on the videos and shop pages respsectively
+* An admin panel page where the administrator can also perform the above two actions
+* The ability to approve or reject comments made by other users
+* The ability to edit or delete comments made by other users, in case of inappropriate content
+* A modal trigger that asks the administrator to confirm whether they wish to delete or reject a comment, with a cancel button in case they mistakenly selected this option
+
+#### Features left to implement
+
+* Pagination for shop products, videos, comments and user order history to limit the number of items on each page so that the user doesn't have to scroll too far to locate a record
+    * The user could also choose how many search results they would like per page, e.g. 20, 50, 100
+* The ability for users to freeze, unfreeze, upgrade or downgrade subscriptions
+    * Freezing a subscription would simply set the active field in the Subscription model to false, and the user would not have access to the materials in this time
+    * Unfreezing the subscription would set the active field back to true, and the user would be able to access the materials again
+* A product review system on each product page where users could leave a descriptive review and a rating of a product
+    * These would be laid out in the same way as video comments, with an administrator having to approve or reject a review
+    * Each review could also have like/dislike buttons so that users could sort reviews by helpfulness 
+* A forum where users can interact with each other, share their progress and even engage in general chat
+    * This is a more comfortable space for genuine user interaction than the comments section of a video
+* A like and dislike button on each video comment that members can click to show their approval or disapproval at another person's comment
+    * It could then be possible to sort comments on a video by the number of likes received
+* A recurring payment system where paid subscribers are automatically charged at the end of each billing cycle
+* The ability to publicly view other user/member profiles and their contribution history
+    * Other users/members may wish to hide potentially sensitive data such as e-mail addresses from other users, so they could have the option to not allow this to be seen by others
+* A private messaging function that would enable users to communicate with each other on the app itself
+* An FAQs page that a user could read before potentially submitting a contact form with a query already asked many times
+* A more personalised and interesting custom 404 page
 
 [Back to TOC](#table-of-contents)
 

@@ -134,9 +134,7 @@
 {% block postloadjs %}
 {{ block.super }}
 <script src="{% static 'videos/js/video_rating.js' %}"></script>
-{% for video in videos %}
     {% include 'videos/includes/delete_confirmation_script.html' %}
-{% endfor %}
     <script type="text/javascript">
         // enables video sorting. Credit to Boutique Ado project that provides the basis for this logic
         $('#sort-videos').change(function() {
