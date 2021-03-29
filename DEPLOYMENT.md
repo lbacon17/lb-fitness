@@ -70,6 +70,13 @@
         * ```origin https://github.com/githubusername/repository_name.git (fetch)```
         * ```origin https://github.com/githubusername/repository_name.git (push)```
 
+1. If you haven't done so already, create a .gitignore file in Gitpod with ```touch .gitignore``` and add:
+    * ```env.py```
+    * ```*.sqlite3```
+    *```.pyc```
+    *```__pycache__/```
+    * These will not be included in any commits. **Do not push these files to GitHub as your secret keys will be publicly available and compromise the security of your app.**
+
 1. In your Heroku dashboard, go to the Deploy tab and select GitHub as your deployment method, typing in your GitHub repository name to connect it to Heroku
 
 1. In the Automatic Deploys section, click the Enable Automatic Deploys button so that your code is automatically deployed to Heroku each time you push it to GitHub.
