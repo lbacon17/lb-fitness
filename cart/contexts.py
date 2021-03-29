@@ -11,7 +11,10 @@ def cart_contents(request):
     total = 0
     count = 0
     cart = request.session.get('cart', {})
-    vip = Member.objects.filter(user=request.user, is_vip=True)
+    vip = None
+
+    if request.user.is_authenticated:
+        vip = Member.objects.filter(user=request.user, is_vip=True)
 
     for item_id, item_data in cart.items():
         if isinstance(item_data, int):
@@ -74,6 +77,7 @@ def cart_contents(request):
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
         'free_delivery_gap': free_delivery_gap,
         'grand_total': grand_total,
+        'vip': vip,
     }
 
     return context
