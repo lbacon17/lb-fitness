@@ -143,7 +143,7 @@ Forms on the website utilise the django-crispy-forms package for maximum respons
 
 ##### For administrators (superusers)
 
-* A button to add videos or store items on the videos and shop pages respsectively
+* A button to add videos or store items on the videos and shop pages respectively
 * An admin panel page where the administrator can also perform the above two actions
 * The ability to approve or reject comments made by other users
 * The ability to edit or delete comments made by other users, in case of inappropriate content
@@ -174,25 +174,87 @@ Forms on the website utilise the django-crispy-forms package for maximum respons
 
 ### Technologies Used
 
-Django
-Django-Allauth (for user authentication)
+**Backend**
+* [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
+
+**Frontend**
+* [HTML](https://en.wikipedia.org/wiki/HTML)
+* [CSS](https://en.wikipedia.org/wiki/CSS)
+* [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
+
+The following frameworks, libraries and packages were also used:
+
+**Web frameworks**
+
+* [Django](https://www.djangoproject.com/): the app's core web framework
+* [Stripe](https://www.stripe.com/): an API framework for secure payment processing
+* [Amazon Web Services (AWS)](https://aws.amazon.com/): for cloud-based storage of static and media files, namely [S3](https://aws.amazon.com/s3/) and [IAM](https://aws.amazon.com/iam/)
+
+**Databases**
+
+* [Postgres](https://www.postgresql.org/): a server-based RDBMS
+
+**Dependencies**
+
+* [django-allauth](https://django-allauth.readthedocs.io/en/latest/): for user authentication
+* [django-crispy-forms](https://django-crispy-forms.readthedocs.io/en/latest/): for elegant and responsive rendering of forms on the front end
+* [Django Countries](https://djangopackages.org/grids/g/countries/): for the implementation of a dropdown menu containing all recognised countries and territories
+* [django-storages](https://django-storages.readthedocs.io/en/latest/): to connect Django to S3
+* [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html/): a SDK by AWS for Python that allows Django to connect to S3
+* [dj-database-url](https://pypi.org/project/dj-database-url/): to enable use of Postgres
+* [psycopg2-binary](https://pypi.org/project/psycopg2-binary/): a database adapter to connect Postgres to Python
+* [dj-stripe](https://dj-stripe.readthedocs.io/en/master/): for the implementation of Stripe models within the Django framework
+* [Gunicorn](https://gunicorn.org/): a WSGI server that acts as the application's server when it is deployed to Heroku
+* [JSON](https://www.json.org/json-en.html): for local data storage and easy loading of data to the Django admin 
+* [Pillow](https://pillow.readthedocs.io/en/stable/): to enable the use of the image field in the database
+* [Coverage](https://coverage.readthedocs.io/en/coverage-5.5/): to determine how much of the application's code has been tested
+* [pytz](https://pypi.org/project/pytz/): for cross-timezone synchronisation
+
+**Frontend libraries and frameworks**
+* [jQuery](https://jquery.com): to simplify DOM manipulation and event-handling
+* [jQuery UI](https://jqueryui.com/): for autocomplete options in the site's search bar
+* [Bootstrap](https://getbootstrap.com/): for site responsiveness and clean, intuitive layout
+* [Google Fonts](https://fonts.google.com/): to import font families to be used for the application's front end
+* [Font Awesome](https://fontawesome.com/): for responsive icons that let users initiate actions 
+* [Favicon](https://favicon.io/): to include a favicon within the browser tab
+* [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools): to test responsiveness, inspect the role of each element and 
+class and experiment in real time with new style rules and their effect on the site's layout and structure
+* [Google reCAPTCHA](https://www.google.com/recaptcha/about/): for determination of human access to the application
+
+**Software hosting and cloud platforms**
+* [Heroku](https://www.heroku.com/): for the project's live deployment
+* [GitHub](https://github.com/lbacon17/lb_fitness): to create a repository for the project and link it to Heroku to be deployed
+* [Gitpod](https://gitpod.io): to manage the project's necessary files and write the code for the project
+
+**Design tools**
+* [Am I responsive](http://ami.responsivedesign.is/): for testing and screenshots of the website's responsive design
+
+**Validators**
+* [PEP8](http://pep8online.com/): Python
+* [JSHint](https://jshint.com/): JavaScript
+* [Jigsaw](https://jigsaw.w3.org/): CSS
+* [W3C](https://validator.w3.org/): HTML
+
+**Other**
+* [Django Secret Key Generator](https://miniwebtool.com/django-secret-key-generator/): for the app's secret key
 
 [Back to TOC](#table-of-contents)
 
-### Data Structure
+### Data Structure
+
+The project uses Postgres as its database to store data in SQL format for the live site, which is visible in the Django admin panel. The data exists in a relational model.
 
 [Back to TOC](#table-of-contents)
 
-### Testing
+### Testing
+
+To read about the testing process, please see the separate [TESTING.md](TESTING.md) file.
 
 [Back to TOC](#table-of-contents)
 
 ### Deployment
 
-To install Django `pip3 install django`
-
-To create project in current directory `django-admin startproject lb-fitness .`
-
+To read about the deployment process, please see the separate [DEPLOYMENT.md](DEPLOYMENT.md) file.
 
 [Back to TOC](#table-of-contents)
 
