@@ -36,9 +36,10 @@ def cache_checkout_data(request):
 
 def subscribe_page(request):
     """This view renders the different subscription packages a user can buy."""
-    if request.user.member:
-        messages.error(request, 'You already have a subscription.')
-        return redirect(reverse('home'))
+    if request.user.is_authenticated:
+        if request.user.member:
+            messages.error(request, 'You already have a subscription.')
+            return redirect(reverse('home'))
     packages = Package.objects.all()
     context = {
         'packages': packages,
