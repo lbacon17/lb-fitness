@@ -65,18 +65,58 @@ I tried various JavaScript solutions to remedy this, but none of them had any ef
 * As a user, I want to try out a subscription to a fitness app to see if it’s right for me
     * On the homepage banner underneath the navbar, I can see that all subscriptions offer a two-week free trial
     * I click the subscribe button and read the features of each plan to decide which one is right for me
+        * If I try to get a plan without being logged in, I'm redirected to the login page where I can enter my details
     * After I've chosen a plan, I click on it, enter my customer and payment details and check out securely
+    * On the checkout page, it tells me that I will only be charged at the end of the two-week trial period and am able to cancel at any time if it's not for me
+    * I receive a confirmation e-mail of my subscription details, and can see my subscription in the user dashboard
 * As a user, I want to subscribe in order to access content that will help get me in shape and make me feel healthier
-    * 
-* As a member, I want to be able to access material only available to paid subscribers.
+    * I choose a subscription, enter my details and receive confirmation
+    * On the homepage, I can view my user dashboard or user profile and see my subscription in there, with details of what plan I'm subscribed to
+    * Within the details is a link to the video content I'm able to view now I'm subscribed
+* As a member, I want to be able to access material only available to paid subscribers
+    * I navigate to the videos page to access the material and can read the details of each video
+    * I can play each video on the page, or click on the video's title to be taken to the video's individual page where the video takes up more screen real estate
+    * I also have the option of viewing each video in full screen mode
 * As a member, I want to comment on and give feedback on the material available to me, and potentially interact with other members in this space.
+    * I navigate to a video's page and write a comment in the comments section
+    * After I click on submit, I'm notified that my comment is pending moderation and will not appear until approved by an administrator
+        * This gives me more confidence that users will not be able to post spam in the comments section, as these comments will be rejected
+    * Once my comment is approved, I can see it in the comments section and the number of comments has updated
 * As a member, I want to edit and delete my comments.
+    * I navigate to the video's page where I've left a comment, click the Edit button and enter my new message
+    * After I click on submit, I'm notified that my comment must be re-approved by an administrator
+        * This makes sense because otherwise users who wanted to spam the comments section could circumnavigate the rules by editing their own comments that had been approved
+    * I can delete my comment by clicking on the Delete button, which triggers a pop-up asking me to confirm its deletion
+        * If I accidentally clicked delete, I click Cancel and the pop-up closes
+        * If I'm sure I want to delete my comment, I click Delete again and my comment has now disappeared
 * As a member on the most expensive plan, I want to be able to buy items from the store at a discounted price as a reward for my loyalty.
+    * I can see that one of the features of the VIP plan is a 50% discount and free delivery on all store orders
+    * I subscribe to the VIP plan, navigate to my dashboard and see confirmation that I can store items at a dscount
+    * I use the navbar to visit the Shop page and can see the usual price of each item is crossed out with a discounted price available
+    * I add a few items to my cart and the total is half of what it would usually be
+    * If I go to the checkout page, the total amount my card will be charged is 50% of the usual price and I can see delivery has remained at £0.00, even if my order is under £50
 * As a user, I want to be able to log in and out of my account
-* As a user, I want to be able to update my account details such as my username, email address and password
+    * When I land on the homepage, I click Login in the navbar, enter my details and log in
+    * If I want to log out, I click the My Acccount dropdown menu in the navbar, select log out and confirm that I want to sign out
+        * If I accidentally clicked this link, I have the option of the Keep me signed in button, which returns me to the homepage
+* As a user, I want to be able to update my account details such as my email address and password
+    * I click the My Account dropdown menu in the navbar and select My Profile
+    * On my profile page, I have the option to change my password or update my details
+        * To change my password, I enter my current password and a new password, click confirm and can log in with my new password
+        * If I click Update Details, I can change the e-mail address I use for orders and also enter my default delivery information so I don't have to enter this each time when checking out
 * As a user, I want to be able to view my order history and save my delivery and payment details
+    * I navigate to my profile page and can see a table with my order history that includes my order number, the date of the order and the amount I paid
+    * If I click on an individual order number, I can view further details such as the contents of the order
+    * If I haven't placed any orders yet, the table tells me that I don't have any order history
 * As a member, I want to be able to cancel my subscription
+    * I go to my dashboard or profile page and click the Cancel Susbcription button, which triggers a pop-up box asking me to confirm
+    * If I accidentally clicked Cancel, I click the Back button to safely dismiss the pop-up box
+        * Note that this button is named Back rather than Cancel, because the action here is to cancel the subscription, so having two buttons with the word cancel could potentially confuse the user
+    * To confirm cancellation, I click Cancel Subscription again and I am notified that my subscription has been cancelled
 * As a user, I’ve decided this app isn’t for me and want to delete my account
+    * I go to my profile page and click the Delete Account button, which triggers a pop-up box
+    * If I accidentally clicked on this button, I can dismiss the pop-up by clicking Cancel
+    * Otherwise I click Delete Account again, and am notified that my account has been deleted and am logged out of the app
 
 **Purchasing and checkout**
 

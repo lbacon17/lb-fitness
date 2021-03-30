@@ -17,11 +17,11 @@
                         <h2 class="mb-2 pt-2">My Subscriptions</h2>
                     </div>
                     <div class="card-body">
-                        {% if member.subscription_package %}
-                            <p class="card-text">{{ member.subscription_package.friendly_name }}</p>
-                            <p class="small"><span>You are currently to subscribed to the {{ member.subscription_package.friendly_name }} paying £{{ member.subscription_package.monthly_rate }} per month.</span></p>
+                        {% if request.user.member %}
+                            <p class="card-text">{{ request.user.member.subscription_package.friendly_name }}</p>
+                            <p class="small"><span>You are currently to subscribed to the {{ request.user.member.subscription_package.friendly_name }} paying £{{ request.user.member.subscription_package.monthly_rate }} per month.</span></p>
                             <p><a href="{% url 'training_videos' %}" class="btn-lg btn-dark text-dec-none">View Training Videos</a></p>
-                            {% if member.subscription_package.id == 3 %}
+                            {% if request.user.member.subscription_package.id == 3 %}
                                 <p class="my-3">As a VIP, you get 50% off all items in our store!</p>
                                 <a href="{% url 'shop' %}" class="btn-lg btn-success text-dec-none">Go To Shop</a>
                             {% endif %}
@@ -30,8 +30,8 @@
                         {% endif %}
                     </div>
                     <div class="card-footer py-3">
-                        {% if member.subscription_package %}
-                            <button type="button" id="modal-trigger-{{ member.subscription_package }}" class="btn btn-danger text-dec-none">
+                        {% if request.user.member.subscription_package %}
+                            <button type="button" id="modal-trigger-{{ request.user.member.subscription_package }}" class="btn btn-danger text-dec-none" data-bs-toggle="modal" data-bs-target="#{{ request.user.member.subscription_package }}">
                                 Cancel Subscription
                             </button>
                             {% include 'home/includes/cancel_subscription_modal_popup.html' %}

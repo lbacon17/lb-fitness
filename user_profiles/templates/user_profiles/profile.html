@@ -13,9 +13,10 @@
         <div class="row my-3 py-3">
             <div class="col-12 col-lg-4 mb-5">
                 <p class="mb-2 pb-2">Username: {{ request.user.username }}</p>
-                <p class="mb-2 pb-2">E-mail address: {{ profile.default_email_address }}</p>
-                <a href="{% url 'update_profile' %}" class="btn btn-primary text-dec-none">Update Details</a>
-                <button type="button" id="modal-trigger-{{ request.user }}" class="btn btn-danger text-dec-none">Delete Account</button>
+                <p class="mb-2 pb-2">E-mail address: {% if profile.default_email_address %}{{ profile.default_email_address }}{% else %}{{ request.user.email }}{% endif %}</p>
+                <a href="{% url 'update_profile' %}" class="btn-sm btn-primary text-dec-none">Update Details</a>
+                <a href="{% url 'account_change_password' %}" class="btn-sm btn-dark text-dec-none">Change Password</a>
+                <button type="button" id="modal-trigger-{{ request.user }}" class="btn-sm btn-danger border-0 text-dec-none">Delete Account</button>
                 {% include 'user_profiles/includes/delete_account_modal_popup.html' %}
             </div>
             <div class="col-12 col-lg-7">

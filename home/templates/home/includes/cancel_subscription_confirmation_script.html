@@ -1,10 +1,10 @@
 <script type="text/javascript">
     // Hides modal element from user's initial view
-    $('{{ member.subscription_package }}').modal('hide');
+    $('{{ request.user.member.subscription_package }}').modal('hide');
 
     // Displays pop-up box to confirm subscription cancellation
-    var modalTrigger = document.getElementById('modal-trigger-{{ member.subscription_package }}');
+    var modalTrigger = document.getElementById('modal-trigger-{{ request.user.member.subscription_package }}');
     modalTrigger.addEventListener('click', function() {
-        $('#{{ member.subscription_package }}').modal('show');
+        $('#{{ request.user.member.subscription_package }}').modal('show');
     });
 </script>

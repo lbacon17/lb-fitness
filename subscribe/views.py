@@ -36,9 +36,9 @@ def cache_checkout_data(request):
 
 def subscribe_page(request):
     """This view renders the different subscription packages a user can buy."""
-    # if request.user.member.subscription_package:
-    #     messages.error(request, 'You already have a subscription.')
-    #     return redirect(reverse('home'))
+    if request.user.member:
+        messages.error(request, 'You already have a subscription.')
+        return redirect(reverse('home'))
     packages = Package.objects.all()
     context = {
         'packages': packages,
@@ -76,9 +76,13 @@ def add_package_to_cart(request, package_id):
 @login_required
 def get_subscription(request, package_id):
     """This view renders the subscription form for the user to fill out"""
-    """before completing payment. Credit to ckz870 / Boutique Ado."""
+    """before completing payment. Credit to ckz8780 / Boutique Ado."""
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+
+    if request.user.member:
+        messages.error(request, 'You already have a subscription.')
+        return redirect(reverse('home'))
 
     package = get_object_or_404(Package, pk=package_id)
     if request.method == "POST":
@@ -130,13 +134,13 @@ def get_subscription(request, package_id):
                             'the subscription in our database. Please try '\
                             'again later.')
                         subscription.delete()
-                        return redirect(reverse('get_subscription'))
+                        return redirect(reverse('subscribe_page'))
                 except Package.DoesNotExist:
                     messages.error(request, 'We were unable to locate '\
                         'the subscription in our database. Please try '\
                         'again later.')
                     subscription.delete()
-                    return redirect(reverse('get_subscription'))
+                    return redirect(reverse('subscribe_page'))
 
             request.session['save_member_info'] = 'save-member-info' in request.POST
             return redirect(reverse('subscription_confirmation',
