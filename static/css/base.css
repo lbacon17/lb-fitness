@@ -22,6 +22,9 @@ body {
 }
 
 .shop-search-form {
+    position: fixed;
+    top: 9px;
+    right: 25vw;
     width: 40vw;
     margin-right: -10px;
 }
@@ -319,15 +322,11 @@ footer a:hover {
 
 @media screen and (min-width: 768px) {
     .shop-search-form {
-        position: relative;
-        top: auto;
-        right: 15vw;
+        right: 20vw;
         width: auto;
     }
     
     .cart-preview-dropdown {
-        position: relative;
-        top: auto;
         margin-right: -15px;
     }
 
@@ -351,6 +350,9 @@ footer a:hover {
     }
     
     .cart-preview-dropdown {
+        position: relative;
+        right: 8vw;
+        top: auto;
         margin-right: -30px;
     }
     
