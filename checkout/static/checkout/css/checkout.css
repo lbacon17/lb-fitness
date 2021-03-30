@@ -63,3 +63,44 @@ select option[value=""] {
     margin: 0;
     height: 100%;
 }
+
+
+/*-- ORDER CONFIRMATION STYLING --*/
+
+.card-title {
+    font-size: 1rem;
+}
+
+table {
+    font-size: 0.5rem;
+}
+
+.card-body p,
+.card-footer {
+    font-size: 0.75rem;
+}
+
+.card-body h5,
+.card-footer h5 {
+    font-size: 1rem;
+}
+
+@media screen and (min-width: 576px) {
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    .card-body p,
+    .card-footer {
+        font-size: 1rem;
+    }
+
+    .card-body h5,
+    .card-footer h5 {
+        font-size: 1.2rem;
+    }
+
+    table {
+        font-size: 0.75rem;
+    }
+}
