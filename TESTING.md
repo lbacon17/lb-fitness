@@ -58,8 +58,14 @@ I tried various JavaScript solutions to remedy this, but none of them had any ef
 * As a first-time visitor, I want to immediately understand app's main purpose
     * As soon as I land on the homepage I can see the app provides training advice and merchandise, and the big call-to-action button lets me know its main offering is a subscription service
 * As a user, I want to create a free account for a fitness app
-    * I 
+    * The green button on the homepage tells me that having an account is free of charge, and I can also see the Register button in the navbar
+    * I click on one of these buttons, enter a username, e-mail address and password and click Sign Up
+    * An e-mail immediately arrives in my inbox with a link to confirm my e-mail address, so I click on the link and confirm
+    * I'm now able to log into my account using my login details
 * As a user, I want to try out a subscription to a fitness app to see if it’s right for me
+    * On the homepage banner underneath the navbar, I can see that all subscriptions offer a two-week free trial
+    * I click the subscribe button and read the features of each plan to decide which one is right for me
+    * After I've chosen a plan, I click on it, enter my customer and payment details and check out securely
 * As a user, I want to subscribe in order to access content that will help get me in shape and make me feel healthier
     * 
 * As a member, I want to be able to access material only available to paid subscribers.

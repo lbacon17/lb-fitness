@@ -52,7 +52,6 @@ form.addEventListener('submit', function (ev) {
         'client_secret': clientSecret,
         'save_user_info': saveUserInfo,
     };
-
     var url = '/checkout/cache_checkout_data/';
 
     $.post(url, postData).done(function() {

@@ -82,7 +82,7 @@ form.addEventListener('submit', function (ev) {
                     postal_code: $.trim(form.postcode.value),
                     state: $.trim(form.county_or_region.value),
                 }
-            }
+            },
         }).then(function(result) {
             if (result.error) {
                 var errorElement = document.getElementById('card-errors');

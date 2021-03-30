@@ -24,44 +24,51 @@
                         <h4>{{ request.user }}'s Store Order History</h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Order Number</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Total</th>
-                                        <th scope="col">Delivering To</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="small">
-                                    {% for order in order_history %}
+                        {% if order_history %}
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
                                         <tr>
-                                            <th scope="row">
-                                                <p class="font-size-xs"><a href="{% url 'user_order_history' order.order_number %}" class="font-weight-bold text-dec-none">{{ order.order_number|truncatechars:6 }} (click to see full details)</a></p>
-                                            </th>
-                                            <td class="small">{{ order.date }}</td>
-                                            <td class="small">£{{ order.grand_total }}</td>
-                                            <td>
-                                                <ul class="list-inline list-unstyled text-left pl-3">
-                                                    <li class="small list-inline-item">{{ order.full_name }}</li>
-                                                    <li class="small list-inline-item">{{ order.address_line1 }}</li>
-                                                    {% if order.address_line2 %}
-                                                        <li class="small list-inline-item">{{ order.address_line2 }}</li>
-                                                    {% endif %}
-                                                    <li class="small list-inline-item">{{ order.town_or_city }}</li>
-                                                    {% if order.county_or_region %}
-                                                        <li class="small list-inline-item">{{ order.county_or_region }}</li>
-                                                    {% endif %}
-                                                    <li class="small list-inline-item">{{ order.postcode }}</li>
-                                                    <li class="small list-inline-item">{{ order.country }}</li>
-                                                </ul>
-                                            </td>
+                                            <th scope="col">Order Number</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col">Delivering To</th>
                                         </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody class="small">
+                                        {% for order in order_history %}
+                                            <tr>
+                                                <th scope="row">
+                                                    <p class="font-size-xs"><a href="{% url 'user_order_history' order.order_number %}" class="font-weight-bold text-dec-none">{{ order.order_number|truncatechars:6 }} (click to see full details)</a></p>
+                                                </th>
+                                                <td class="small">{{ order.date }}</td>
+                                                <td class="small">£{{ order.grand_total }}</td>
+                                                <td>
+                                                    <ul class="list-inline list-unstyled text-left pl-3">
+                                                        <li class="small list-inline-item">{{ order.full_name }}</li>
+                                                        <li class="small list-inline-item">{{ order.address_line1 }}</li>
+                                                        {% if order.address_line2 %}
+                                                            <li class="small list-inline-item">{{ order.address_line2 }}</li>
+                                                        {% endif %}
+                                                        <li class="small list-inline-item">{{ order.town_or_city }}</li>
+                                                        {% if order.county_or_region %}
+                                                            <li class="small list-inline-item">{{ order.county_or_region }}</li>
+                                                        {% endif %}
+                                                        <li class="small list-inline-item">{{ order.postcode }}</li>
+                                                        <li class="small list-inline-item">{{ order.country }}</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <h5>You have not placed any orders yet.</h5>
+                            <p class="mt-2 mb-0">
+                                <a href="{% url 'shop' %}" class="btn btn-success text-dec-none">Shop Now</a>
+                            </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

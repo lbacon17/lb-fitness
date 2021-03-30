@@ -18,7 +18,7 @@ def user_dashboard(request, username):
     user = get_object_or_404(User, username=request.user)
     videos = Video.objects.all()
     if user.username != username:
-        messages.error(request, "You do not have permission to view" \
+        messages.error(request, "You do not have permission to view " \
             "another user's dashboard.")
         return redirect(reverse('home'))
     template = 'home/dashboard.html'
