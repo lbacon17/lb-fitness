@@ -181,10 +181,13 @@ I tried various JavaScript solutions to remedy this, but none of them had any ef
     * I receive a confirmation e-mail containing the contents of my query and assurance that the site owner will answer me as soon as possible
     * I'm also redirected back to the Contact page with a notification that my query has been sent and the form has been cleared
 * As a user of the app, I want to read about its owner and find out more about the business
+    * I click on the About link in the navbar and can read further information about the site and the app's story
 
 **Administrator**
 
 * As an administrator, I want to add a product to the store
+    * I navigate to the Shop page and click the Add Item button next to the sorting menu
+    * I enter the details of the new product in the form, making sure to fill out all fields correctly, and click Add Product 
 * As an administrator, I want to edit a product’s specifications or update its details
 * As an administrator, I want to delete a product from the store
 * As an administrator, I want to add a video to the site that is accessible to members
