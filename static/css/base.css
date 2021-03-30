@@ -263,6 +263,20 @@ footer a:hover {
     text-decoration: none;
 }
 
+/*-- BACK TO TOP BUTTON --*/
+
+.back-to-top-button {
+    height: 42px;
+    width: 42px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px
+}
+
+.back-to-top-link {
+    cursor: pointer;
+}
+
 /*-- MEDIA QUERIES --*/
 
 @media screen and (min-width: 320px) {

@@ -130,6 +130,11 @@
         </p>
         <p class="copyright-text">LB Fitness Ltd. &#169; <span id="year"></span>. All rights reserved | <a href="{% url 'contact' %}" class="text-dec-none">Contact Us</a></p>
     </footer>
+    <div class="back-to-top-button">
+        <a class="back-to-top-link d-flex h-100">
+            <i class="fas fa-chevron-circle-up"></i>
+        </a>
+    </div>
     {% block postloadjs %}
     <script type="text/javascript">
         // Cwitches between each deal banner every 1 second
@@ -145,6 +150,11 @@
             timeOut: 0,
             extendedTimeOut: 0,
         };
+
+        // Returns user to top of page when clicking on back to top button
+        $('.back-to-top-link').click(function(e) {
+            window.scrollTo(0,0);
+        })
 
         // Prevents input of consecutive whitespaces in textarea fields
         $('textarea').on('keydown', function (e) {
