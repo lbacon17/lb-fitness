@@ -22,7 +22,7 @@
                                     <a href="{% url 'home' %}" class="btn-lg btn-dark text-dec-none">
                                         <i class="fas fa-chevron-left"></i> Back to homepage
                                     </a>
-                                    <a href="{% url 'shop_all' %}" class="btn-lg btn-success text-dec-none">
+                                    <a href="{% url 'shop' %}" class="btn-lg btn-success text-dec-none">
                                         <i class="fas fa-shopping-basket"></i> Go Shopping
                                     </a>
                                     <a href="{% if request.user.member %}{% url 'subscribe_page' %}{% else %}{% url 'dashboard' user.id %}{% endif %}" class="btn-lg btn-primary text-dec-none">
