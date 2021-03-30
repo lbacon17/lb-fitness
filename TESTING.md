@@ -240,25 +240,88 @@ Smooth scroll behaviour is not supported on Safari, meaning the page jumps right
 During testing the following bugs were noted:
 
 * **Bug**: logged in users were able to access other user's dashboards, profile pages and training material without a subscription by typing in the relevant URL path.
-* **Fix **: I used various if statements to handle these errors, the overarching theme being Django checking that the user's ID or username matches the parameter passed into the URL. If it doesn't, it will throw an error and redirect the user to the homepage.
+* **Fix **: I used various if statements to handle these errors, the overarching theme being Django checking that the user's ID or username matches the parameter passed into the URL. If it doesn't, it will throw an error and redirect the user to the homepage. Here is an example in the user_dashboard view that shows what happens when a user tries to access a dashboard that does not belong to them:
 
-* **Bug** 
-* **Fix **
+```
+    @login_required
+    def user_dashboard(request, username):
+        """This view renders the individual user's dashboard when logged in"""
+        user = get_object_or_404(User, username=request.user)
+        videos = Video.objects.all()
+        if user.username != username:
+            messages.error(request, "You do not have permission to view " \
+                "another user's dashboard.")
+            return redirect(reverse('home'))
+```
 
-* **Bug** 
-* **Fix **
+* **Bug**: an ImportError occured due to a circular import, where the models file in the members app was importing the Package model from the subscribe app, while the models file in the subscribe app was importing the Member model from members.
+* **Fix**: I resolved this issue by moving ```from members.models import Member``` inside the Subscription model, as it was only needed there.
 
-* **Bug** 
-* **Fix **
+* **Bug**: when trying to get select a subscription, the app wouldn't recognise which subscription was selected when checking out, and the subscription details would in turn not render on the user's dashboard, and the user would not gain access to the subscription material 
+* **Fix**: to resolve the issue, I made the process of selecting a subscription package identical to the process of adding item to the shopping cart, except this wouldn't be rendered on the page. The solution was two-fold:
+    1. First, I created the add_package_to_cart view and wrapped the Get Plan buttons on the subscription page in a form whose action was to call that view
+    1. This caused the issue of redirecting to the same page due to the presence of a hidden input field with the redirect_url name. To solve the issue, I changed its value to the get_subscription view, passing in the package ID as an argument:
 
-* **Bug** 
-* **Fix **
+    ```
+        <form action="{% url 'add_package_to_cart' package.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn-lg btn-success text-dec-none" value="Get Plan">
+            <input type="hidden" name="redirect_url" value="{% url 'get_subscription' package.id %}">
+        </form>
+    ```
 
-* **Bug** 
-* **Fix **
+* **Bug**: trying to prevent users from accessing the subscribe page was problematic, as using the request.user.member path would throw an error when a non-susbcriber tried to access the page. Using an ```if request.user.is_authenticated``` statement only helped users not logged in see the page, but the same error would be returned when they logged in to get a subscription. 
+* **Fix**: I used the filter method to fetch an object from member that only returned the existing user's username in the user field. If it returned a result, that would mean the user already had a subscription, so a code block would run that redirected the user back to the homepage. If the member variable doesn't exist, the user is free to purchase a subscription.
 
-* **Bug** 
-* **Fix **
+```
+    if request.user.is_authenticated:
+        member = Member.objects.filter(user=request.user)
+        if member:
+            messages.error(request, 'You already have a subscription.')
+            return redirect(reverse('home'))
+        else:
+            context = {
+                'packages': packages,
+                'member': member,
+            }
+            return render(request, 'subscribe/subscribe.html', context)
+```
+
+* **Bug**: if a user clicked on a subscription to purchase, it was added to their cart, but if they left the page and went back to select another subscription, the original subscription remained in the cart and the user was charged for both. Although the quantity of a subscription is always set to 1, there was nothing to stop one of each package being stored in the cart.
+* **Fix**: to solve the issue, I stored the cart information in a variable at the start of the add_package_to_cart to cart view and made an if statement where the app would look for the cart, and clear it if it existed. This meant that each time the user clicked on a subscription package, anything already in the subscription cart was removed.
+
+```
+    @login_required
+def add_package_to_cart(request, package_id):
+    package = get_object_or_404(Package, pk=package_id)
+    quantity = 1
+    redirect_url = request.POST.get('redirect_url')
+    subscription_cart = request.session.get('subscription_cart', {})
+    if subscription_cart:
+        subscription_cart.clear()
+        if package_id in list(subscription_cart.keys()):
+            subscription_cart[package_id] += quantity
+        else:
+            subscription_cart[package_id] = quantity
+    else:
+        if package_id in list(subscription_cart.keys()):
+            subscription_cart[package_id] += quantity
+        else:
+            subscription_cart[package_id] = quantity
+
+    request.session['subscription_cart'] = subscription_cart
+    return redirect(reverse('get_subscription', args=[package.id]))
+```
+
+* **Bug**: I created a separate Stripe webhook handler for the subscribe app called StripeWH_Handler_Subscribe, but this caused an internal server error.
+* **Fix**: the error seemed to be caused by the double underscore, so I simply re-named the handler to StripeWH_HandlerSubscribe, which solved the issue.
+
+* **Bug**: When updating the quantity of an item with sizes in the shopping cart, the size would disappear after the update.
+* **Fix**: After some research, I discovered that the hidden input field with the name of "item_size" was missing from the quantity form. Inserting it solved the issue.
+
+### Unsolved Bugs
+
+* 
 
 [Back to TOC](#table-of-contents)
 

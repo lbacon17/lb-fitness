@@ -36,11 +36,18 @@ def cache_checkout_data(request):
 
 def subscribe_page(request):
     """This view renders the different subscription packages a user can buy."""
+    packages = Package.objects.all()
     if request.user.is_authenticated:
-        if request.user.member:
+        member = Member.objects.filter(user=request.user)
+        if member:
             messages.error(request, 'You already have a subscription.')
             return redirect(reverse('home'))
-    packages = Package.objects.all()
+        else:
+            context = {
+                'packages': packages,
+                'member': member,
+            }
+            return render(request, 'subscribe/subscribe.html', context)
     context = {
         'packages': packages,
     }
@@ -81,7 +88,8 @@ def get_subscription(request, package_id):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
-    if request.user.member:
+    member = Member.objects.filter(user=request.user)
+    if member:
         messages.error(request, 'You already have a subscription.')
         return redirect(reverse('home'))
 
