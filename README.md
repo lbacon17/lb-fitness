@@ -34,6 +34,7 @@ Forms on the website utilise the django-crispy-forms package for maximum respons
 
 **Registration, accounts and subscription**
 
+* As a first-time visitor, I want to immediately understand the app's main purpose
 * As a user, I want to subscribe in order to access content that will help get me in shape and make me feel healthier
 * As a user, I want to try out a subscription to a fitness app to see if it’s right for me
 * As a user, I want to create a free account for a fitness app
