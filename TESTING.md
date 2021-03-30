@@ -158,20 +158,28 @@ I tried various JavaScript solutions to remedy this, but none of them had any ef
 
 **Searching, reading and sorting**
 
-* As a user, I want to be able to search for products in the store using keywords so that I can potentially purchase some
+* As a user, I want to be able to search for products in the store using keywords so that I can potentially purchase some and see the number of results my query returned
     * I enter a search term in the search field within the navbar and am redirected to the shop page that displays all the results containing my search parameter along with the number of items found
     * If my search query returned no items, I can click a button to view all the shop's products so I don't have to come off the shop page or scroll back to the top of the screen to enter another query
 * As a user, I want to be able to filter products in the store according to category
     * In the Shop dropdown menu, I navigate to the cateogry I want to browse and click on it
     * The page now only displays items in the selected category, and tells me how many currently exist
-* As a member, I want to be able to search for material that I have access to so that I can easily find what I'm looking for
-    * I navigate to the Videos page
-* As a user or member, I want to be able to see my search results
-* As a user or member, I want to be able to see the number of results
+* As a member, I want to be able to search for material that I have access to so that I can easily find what I'm looking for and see the number of results my query returned
+    * I navigate to the Videos page, enter a search term in the search bar above the videos and am shown all the videos that contain my search parameter along with the number of items found, with a button to view all videos
+    * If my search query returned no items, I can either click a button to view all videos or enter another query in the search bar
 * As a user, I want to be able to sort products according to different criteria such as name and price, so that I can find what I want easier or see what has the most recommendations
+    * I navigate to the Shop page, selecting either all items or a certain category, and click the Sort by.. dropdown menu to see my sorting options
+    * I select what criteria I want to sort by and the page automatically re-orders the items for me
 * As a member, I want to be able to sort videos according to different criteria such as length and rating
+    * I navigate to the Videos page and click the Sort by.. dropdown menu to see my sorting options
+    * I select what criteria I want to sort by and the page automatically re-orders the items for me
 * As a user, I want to be able to read about a product’s individual details
+    * I navigate to the Shop page and click on a product's image, where I can see its name, price, rating and the category it belongs to
+        * In future versions of this app, this page would also contain a product description to give the user more information
 * As a user, I want to contact the site owner with a question and recieve a confirmation e-mail that my query has been received
+    * I click on Contact in the navbar to navigate to the Contact page and fill out the contact form, entering my name, e-mail address, the subject of my query and a message, and click Submit
+    * I receive a confirmation e-mail containing the contents of my query and assurance that the site owner will answer me as soon as possible
+    * I'm also redirected back to the Contact page with a notification that my query has been sent and the form has been cleared
 * As a user of the app, I want to read about its owner and find out more about the business
 
 **Administrator**
