@@ -22,17 +22,21 @@
             <h3 class="mb-3">Take me somewhere else</h3>
             <p class="mt-2">
                 <a href="{% url 'home' %}" class="btn btn-dark text-dec-none mb-2">
-                    <i class="fas fa-chevron-left" aria-hidden="true"></i>Home</a>
+                    <i class="fas fa-chevron-left"></i>Home</a>
                 <a href="{% url 'shop' %}" class="btn btn-success text-dec-none mb-2">
-                    <i class="fas fa-shopping-basket" aria-hidden="true"></i> Go Shopping
+                    <i class="fas fa-shopping-basket"></i> Go Shopping
                 </a>
-                <a href="{% url 'subscribe_page' %}" class="btn btn-primary text-dec-none mb-2">
-                    
-                        <i class="fas fa-user-plus" aria-hidden="true"></i> Subscribe
-                    
-                </a>
+                {% if request.user.member %}
+                    <a href="{% url 'dashboard' user.username %}" class="btn btn-primary text-dec-none mb-2">
+                        <i class="fas fa-clipboard-list"></i> User Dashboard
+                    </a>
+                {% else %}
+                    <a href="{% url 'subscribe_page' %}" class="btn btn-primary text-dec-none mb-2">
+                        <i class="fas fa-user-plus"></i> Subscribe
+                    </a>
+                {% endif %}
                 <a href="{% url 'contact' %}" class="btn btn-warning text-dec-none mb-2">
-                    <i class="fas fa-envelope-open-text" aria-hidden="true"></i> Contact Us
+                    <i class="fas fa-envelope-open-text"></i> Contact Us
                 </a>
             </p>
         </div>

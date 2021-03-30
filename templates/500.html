@@ -5,42 +5,40 @@
     <div class="container-fluid mt-5 text-center">
         <div class="row">
             <div class="col-12">
-                <div class="error-404-container">
-                    <div class="error-404-message">
-                        <h1 class="error-404-heading text-danger pt-5 mt-5">
-                            <i class="fas fa-exclamation-circle fa-5x"></i>
-                            <span class="error-404-text">Oops!</span>
-                            <br>
-                            <p class="my-5 px-5">
-                                <h5>
-                                    An error occured. Please try again later.
-                                </h5>
-                            </p>
-                            <div class="redirect-links text-dark">
-                                <h3 class="mb-3">Take me somewhere else</h3>
-                                <p class="mt-2">
-                                    <a href="{% url 'home' %}" class="btn-lg btn-dark text-dec-none">
-                                        <i class="fas fa-chevron-left"></i> Back to homepage
-                                    </a>
-                                    <a href="{% url 'shop' %}" class="btn-lg btn-success text-dec-none">
-                                        <i class="fas fa-shopping-basket"></i> Go Shopping
-                                    </a>
-                                    <a href="{% if request.user.member %}{% url 'subscribe_page' %}{% else %}{% url 'dashboard' user.id %}{% endif %}" class="btn-lg btn-primary text-dec-none">
-                                        {% if request.user.member %}
-                                            <i class="fas fa-user-plus"></i> Subscribe
-                                        {% else %}
-                                            <i class="fas fa-clipboard-list"></i> User Dashboard
-                                        {% endif %}
-                                    </a>
-                                    <a href="{% url 'contact' %}" class="btn-lg btn-warning text-dec-none">
-                                        <i class="fas fa-envelope-open-text"></i> Contact Us
-                                    </a>
-                                </p>
-                            </div>
-                        </h1>
-                    </div>
-                </div>
+                <h1 class="error-404-heading text-danger mt-5">
+                    <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+                    <span class="error-404-text">Oops!</span>
+                </h1>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h5 class="text-danger mb-sm-3">
+                    An error occured. Please try again later.
+                </h5>
+            </div>
+        </div>
+        <div class="redirect-links text-dark">
+            <h3 class="mb-3">Take me somewhere else</h3>
+            <p class="mt-2">
+                <a href="{% url 'home' %}" class="btn btn-dark text-dec-none mb-2">
+                    <i class="fas fa-chevron-left"></i>Home</a>
+                <a href="{% url 'shop' %}" class="btn btn-success text-dec-none mb-2">
+                    <i class="fas fa-shopping-basket"></i> Go Shopping
+                </a>
+                {% if request.user.member %}
+                    <a href="{% url 'dashboard' user.username %}" class="btn btn-primary text-dec-none mb-2">
+                        <i class="fas fa-clipboard-list"></i> User Dashboard
+                    </a>
+                {% else %}
+                    <a href="{% url 'subscribe_page' %}" class="btn btn-primary text-dec-none mb-2">
+                        <i class="fas fa-user-plus"></i> Subscribe
+                    </a>
+                {% endif %}
+                <a href="{% url 'contact' %}" class="btn btn-warning text-dec-none mb-2">
+                    <i class="fas fa-envelope-open-text"></i> Contact Us
+                </a>
+            </p>
         </div>
     </div>
 {% endblock %}
