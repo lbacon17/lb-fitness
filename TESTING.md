@@ -22,6 +22,10 @@ This file documents the testing process of the project.
 
 #### CSS
 
+The code was passed through the [Jigsaw](https://jigsaw.w3.org/) validator. No errors were found.
+
+![Jigsaw validation](/libraries/code_validation/css_validation_jigsaw.png)
+
 #### HTML
 
 [Back to TOC](#table-of-contents)
