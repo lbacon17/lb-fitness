@@ -24,6 +24,13 @@ body {
     margin-right: -10px;
 }
 
+.cart-preview-dropdown {
+    position: fixed;
+    top: 16px;
+    right: 0;
+    font-size: 0.5rem;
+}
+
 #ui-id-1 {
     z-index: 99999;
     margin-top: 2px;
@@ -260,6 +267,13 @@ footer a:hover {
     }
 }
 
+@media screen and (min-width: 414px) {
+    .cart-preview-dropdown {
+        top: 12px;
+        font-size: 0.75rem;
+    }
+}
+
 @media screen and (min-width: 576px) {
     .messages-container {
         left: .5rem;
@@ -287,6 +301,14 @@ footer a:hover {
     }
 }
 
+@media screen and (max-width: 540px) {
+    .cart-preview-dropdown {
+        top: 8px;
+        right: 10px;
+        font-size: 1rem;
+    }
+}
+
 @media screen and (min-width: 768px) {
     .cart-preview-dropdown {
         margin-right: -15px;
@@ -308,6 +330,7 @@ footer a:hover {
 
 @media screen and (min-width: 992px) {
     .cart-preview-dropdown {
+        position: relative;
         margin-right: -30px;
     }
     
@@ -327,20 +350,6 @@ footer a:hover {
     }
 }
 
-@media screen and (max-width: 414px) {
-    .cart-preview-dropdown {
-        top: 16px;
-        font-size: 0.5rem;
-    }
-}
-
-@media screen and (max-width: 540px) {
-    .cart-preview-dropdown {
-        top: 12px;
-        font-size: .75rem;
-    }
-}
-
 @media screen and (max-width: 991px) {
     .navbar-brand {
         position: fixed;
@@ -352,11 +361,5 @@ footer a:hover {
         position: fixed;
         top: 8px;
         right: 25vw;
-    }
-
-    .cart-preview-dropdown {
-        position: fixed;
-        top: 8px;
-        right: 10px;
     }
 }
