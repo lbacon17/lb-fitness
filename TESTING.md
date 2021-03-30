@@ -187,14 +187,42 @@ I tried various JavaScript solutions to remedy this, but none of them had any ef
 
 * As an administrator, I want to add a product to the store
     * I navigate to the Shop page and click the Add Item button next to the sorting menu
-    * I enter the details of the new product in the form, making sure to fill out all fields correctly, and click Add Product 
+    * I enter the details of the new product in the form, making sure to fill out all fields correctly, and click Add Product
+    * I receive a notification that the product has been successfully added and am redirected to the new product's page, where I can see its details
+    * I can also add a product via the Admin Panel, by selecting this from the My Profile dropdown menu and clicking the Add Store Item button
 * As an administrator, I want to edit a product’s specifications or update its details
+    * I navigate to the Shop page and click the Edit button by the product I want to update
+    * I fill out the product form making the necessary changes and click Update Item
+    * I receive a notification that the details have been successfully updated, and am redirected back to the product's page
 * As an administrator, I want to delete a product from the store
+    * I navigate to the Shop page and click the Delete button by the product I want to delete
+    * A pop-up box appears and I can click Cancel in case I accidentally selected this action, which will safely take me back to the page I was on
+    * If I am sure I want to delete this product, I confirm this action by clicking Delete again, and receive a notification that the item has been successfully deleted from the store before being redirected to the main Shop page
 * As an administrator, I want to add a video to the site that is accessible to members
+    * I navigate to the Videos page and click the Add Video button next to the sorting menu
+    * I enter the details of the new video in the form, making sure to fill out all fields correctly, and click Upload Video
+    * I receive a notification that the video has been successfully added and am redirected to the new video's page, where I can see its details
+    * I can also add a video via the Admin Panel, by selecting this from the My Profile dropdown menu and clicking the Add Training Video button
 * As an administrator, I want to edit a video's details such as replacing its actual file, updating its title or description or fixing an incorrect value for its duration
+    * I navigate to the Videos page and click the Edit button by the video I want to update
+    * I fill out the form making the necessary changes and click Update Video
+    * I receive a notification that the information has been successfully updated, and am redirected back to the main Videos page
 * As an administrator, I want to categorise videos so that some are only accessible to premium members
+    * I navigate to the form to add or update a video, and select the Premium checkbox at the bottom of the form
+    * If checked, this video will only be available to members on the Premium or VIP plans - members on the Basic plan will not be able to see it won't show up in their search results
+        * If they try to access the video by its URL, they will be redirected with an error message that they must upgrade their subscription to view this content
 * As an administrator, I want to delete a video from the database
+    * I navigate to the Videos page and click the Delete button by the video I want to delete
+    * A pop-up box appears and I can click Cancel in case I accidentally selected this action, which will safely take me back to the page I was on
+    * If I am sure I want to delete this video, I confirm this action by clicking Delete again, and receive a notification that the video has been successfully deleted before being redirected to the Videos page
 * As an administrator, I want to be able to approve or reject comments on videos by users so that all content on the site remains appropriate and makes for an enjoyable experience for all members
+    * I navigate to a video's individual page where, if a user has made a comment, it will appear at the top of the comments section under the Comments pending approval heading
+    * To approve the comment, I click approve and receive a notification that the comment was successfully approved
+        * The comment now appears in the comments section and the comment counter is incremented by one
+    * To reject the comment, I click Reject, which triggers a pop-up asking me to confirm the rejection of the comment
+    * If I accidentally clicked Reject, I can click Cancel which dismisses the pop-up and takes me back to the video's page
+    * To confirm rejection, I click Reject again and receive a notification that the comment was successfully rejected
+        * The comment now no longer exists in the database and will never appear anywhere
 
 [Back to TOC](#table-of-contents)
 

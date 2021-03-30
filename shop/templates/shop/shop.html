@@ -15,13 +15,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <h1>Favourites: {% for favourite in favourites %}{{ favourite }}{% endfor %}</h1>
-            </div>
-        </div>
-    </div> -->
     <div class="container-fluid sorting-container">
         <div class="row mt-3 px-3 text-center text-left-sm">
             <div class="col-12">
@@ -148,19 +141,6 @@
                                 {% include 'shop/includes/delete_item_modal_popup.html' %}
                             </div>
                         {% endif %}
-                        <!-- {% if user.is_authenticated %}
-                            <div class="row">
-                                <div class="col">
-                                    <form action="{% url 'favourite_item' item.id %}" method="POST">
-                                        {% csrf_token %}
-                                        <button type="submit" class="favourite-item">
-                                            <i class="far fa-heart"></i>
-                                        </button>
-                                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                                    </form>
-                                </div>
-                            </div>
-                        {% endif %} -->
                     </div>
                 </div>
             {% endfor %}
