@@ -57,7 +57,7 @@
                 {% if search_term %}
                     {% if shop_items|length == 0 %}
                         <h4 class="mb-5">No items found for "{{ search_term }}".</h4>
-                        <a href="{% url 'shop' %}" class="btn-lg btn-primary text-dec-none">View All Products</a>
+                        <a href="{% url 'shop' %}" class="btn-sm btn btn-primary text-dec-none">View All Products</a>
                     {% else %}
                         <h4 class="mb-5">All items in the store containing "{{ search_term }}". {{ shop_items|length }} found.</h4>
                     {% endif %}

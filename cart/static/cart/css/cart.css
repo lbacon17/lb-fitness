@@ -1,0 +1,36 @@
+.cart-table-heading,
+.cart-table-cell,
+.input-group input,
+.decrease-qty,
+.increase-qty {
+    font-size: 0.5rem;
+}
+
+.update-quantity {
+    font-size: 0.85rem;
+}
+
+.remove-item {
+    font-size: 0.8rem;
+}
+
+@media screen and (min-width: 576px) {
+    .cart-table-heading,
+    .cart-table-cell {
+        font-size: 0.75rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .cart-table-heading,
+    .cart-table-cell,
+    .input-group input,
+    .decrease-qty,
+    .increase-qty {
+        font-size: 1rem;
+    }
+
+    .remove-item {
+        font-size: 0.875rem;
+    }
+}
