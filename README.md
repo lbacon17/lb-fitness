@@ -1,5 +1,7 @@
 # **[LB Fitness](https://lb-fitness.herokuapp.com/)**
 
+![](libraries/readme_images/site_responsiveness.png)
+
 Welcome to LB Fitness. This application is a place for users to educate themselves about the basics of fitness...
 
 This application was inspired by one of the [Code Institute](https://codeinstitute.net/)'s project ideas: **build a fitness subscription application**.
