@@ -136,15 +136,15 @@
 <script src="{% static 'videos/js/video_rating.js' %}"></script>
     {% include 'videos/includes/delete_confirmation_script.html' %}
     <script type="text/javascript">
-        // enables video sorting. Credit to Boutique Ado project that provides the basis for this logic
+        // Enables video sorting. Credit to Chris Z. (ckz8780) for supplying the basis for this logic in Boutique Ado
         $('#sort-videos').change(function() {
             var selector = $(this);
             var currentUrl = new URL(window.location);
 
-            var selectedVal = selector.val()
+            var selectedVal = selector.val();
             if (selectedVal != "reset") {
-                var sort = selectedVal.split("_")[0] // "price etc."
-                var direction = selectedVal.split("_")[1]; // "asc" or "desc"
+                var sort = selectedVal.split("_")[0];
+                var direction = selectedVal.split("_")[1];
 
                 currentUrl.searchParams.set("sort", sort); // sort=price
                 currentUrl.searchParams.set("direction", direction); //direction=asc

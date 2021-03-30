@@ -154,7 +154,7 @@
         // Returns user to top of page when clicking on back to top button
         $('.back-to-top-link').click(function(e) {
             window.scrollTo(0,0);
-        })
+        });
 
         // Prevents input of consecutive whitespaces in textarea fields
         $('textarea').on('keydown', function (e) {
@@ -184,8 +184,8 @@
         $('#year').text(new Date().getFullYear());
 
         $(function () {
-            $('[data-bs-toggle="tooltip"]').tooltip()
-        })
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
     </script>
     {% endblock %}
 </body>

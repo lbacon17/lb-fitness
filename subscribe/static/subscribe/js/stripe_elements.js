@@ -64,7 +64,7 @@ form.addEventListener('submit', function (ev) {
                     email: $.trim(form.email_address.value),
                     address: {
                         line1: $.trim(form.address_line1.value),
-                        line1: $.trim(form.address_line2.value),
+                        line2: $.trim(form.address_line2.value),
                         city: $.trim(form.town_or_city.value),
                         country: $.trim(form.country.value),
                         state: $.trim(form.county_or_region.value),
@@ -101,5 +101,5 @@ form.addEventListener('submit', function (ev) {
         });
     }).fail(function() {
         location.reload();
-    })
+    });
 });

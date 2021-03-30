@@ -78,9 +78,9 @@
             var selector = $(this);
             var currentUrl = new URL(window.location);
 
-            var selectedVal = selector.val()
+            var selectedVal = selector.val();
             if (selectedVal != "reset") {
-                var sort = selectedVal.split("_")[0] // "price etc."
+                var sort = selectedVal.split("_")[0]; // "price etc."
                 var direction = selectedVal.split("_")[1]; // "asc" or "desc"
 
                 currentUrl.searchParams.set("sort", sort); // sort=price

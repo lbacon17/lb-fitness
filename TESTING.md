@@ -20,13 +20,17 @@ This file documents the testing process of the project.
 
 #### JavaScript
 
+The code was passed through the [JSHint](https://jshint.com/) validator. No errors were found.
+
+![JSHint validation](/libraries/code_validation_js_validation_jshint.png)
+
 #### CSS
 
 The code was passed through the [Jigsaw](https://jigsaw.w3.org/) validator. No errors were found.
 
 ![Jigsaw validation](/libraries/code_validation/css_validation_jigsaw.png)
 
-#### HTML
+#### HTML
 
 [Back to TOC](#table-of-contents)
 
@@ -52,8 +56,7 @@ The application was tested in the following browsers:
 
 The application proved itself highly compatible with all browsers and performance was consistent across the board. Only one minor issue was noted:
 
-Smooth scroll behaviour is not supported on Safari, meaning the page jumps right back to the top when the return to top button is clicked as opposed to a smooth scrolling motion. This is due to Safari not supporting the scroll-behavior: smooth CSS property.
-I tried various JavaScript solutions to remedy this, but none of them had any effect, and some even hindered the app's performance. As this is a relatively minor issue, I decided not to take any further action at this stage.
+Smooth scroll behaviour is not supported on Safari, meaning the page jumps right back to the top when the return to top button is clicked as opposed to a smooth scrolling motion. This is due to Safari not supporting the scroll-behavior: smooth CSS property. I tried various JavaScript solutions to remedy this, but none of them had any effect. As this is a minor issue, I decided to take no further action at this stage.
 
 [Back to TOC](#table-of-contents)
 
@@ -233,6 +236,29 @@ I tried various JavaScript solutions to remedy this, but none of them had any ef
 [Back to TOC](#table-of-contents)
 
 ### Issues and Bugs
+
+During testing the following bugs were noted:
+
+* **Bug**: logged in users were able to access other user's dashboards, profile pages and training material without a subscription by typing in the relevant URL path.
+* **Fix **: I used various if statements to handle these errors, the overarching theme being Django checking that the user's ID or username matches the parameter passed into the URL. If it doesn't, it will throw an error and redirect the user to the homepage.
+
+* **Bug** 
+* **Fix **
+
+* **Bug** 
+* **Fix **
+
+* **Bug** 
+* **Fix **
+
+* **Bug** 
+* **Fix **
+
+* **Bug** 
+* **Fix **
+
+* **Bug** 
+* **Fix **
 
 [Back to TOC](#table-of-contents)
 

@@ -147,7 +147,7 @@
         $('.update-quantity').click(function(e) {
             var quantity_form = $(this).prev('.quantity-form');
             quantity_form.submit();
-        })
+        });
 
         // Removes item from cart and reloads page
         $('.remove-item').click(function(e) {
@@ -161,6 +161,6 @@
              .done(function() {
                  location.reload();
              });
-        })
+        });
     </script>
 {% endblock %}

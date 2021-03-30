@@ -25,27 +25,27 @@ function handleStarSelect(size) {
 function handleSelect(selection) {
     switch(selection){
         case 'first': {
-            handleStarSelect(1)
-            return
+            handleStarSelect(1);
+            return;
         }
         case 'second': {
-            handleStarSelect(2)
-            return
+            handleStarSelect(2);
+            return;
         }
         case 'third': {
-            handleStarSelect(3)
-            return
+            handleStarSelect(3);
+            return;
         }
         case 'fourth': {
-            handleStarSelect(4)
-            return
+            handleStarSelect(4);
+            return;
         }
         case 'fifth': {
-            handleStarSelect(5)
-            return
+            handleStarSelect(5);
+            return;
         }
         default: {
-            handleStarSelect(0)
+            handleStarSelect(0);
         }
     }
 }
@@ -65,7 +65,7 @@ function getNumericValue(stringValue) {
     } else {
         numericValue = 0;
     }
-    return numericValue
+    return numericValue;
 }
 
 if (one) {
@@ -73,18 +73,18 @@ if (one) {
 
     ratingStars.forEach(item=> item.addEventListener('mouseover', (event)=>{
         handleSelect(event.target.id);
-    }))
+    }));
 
     ratingStars.forEach(item=> item.addEventListener('click', (event)=>{
         const val = event.target.id;
 
-        let isSubmit = false
+        let isSubmit = false;
         ratingForm.addEventListener('submit', e=>{
             e.preventDefault();
             if (isSubmit) {
-                return
+                return;
             }
-            isSubmit = true
+            isSubmit = true;
             const videoId = e.target.id;
             const val_num = getNumericValue(val);
             $.ajax({
@@ -96,14 +96,12 @@ if (one) {
                     'val': val_num
                 },
                 success: function(response) {
-                    console.log(response);
-                    ratingConfirmation.innerHTML = `<h1 class="text-success">Successfully rated video as ${response.rating} stars.</h1>`
+                    ratingConfirmation.innerHTML = `<h6 class="text-success">Successfully rated video as ${response.rating} stars.</h6>`;
                 },
                 error: function(error) {
-                    console.log(error);
-                    ratingConfirmation.innerHTML = `<h1 class="text-danger">An error occurred. Please try again</h1>`
+                    ratingConfirmation.innerHTML = `<h6 class="text-danger">An error occurred. Please try again</h6>`;
                 }
-            })
-        })
-    }))
+            });
+        });
+    }));
 }

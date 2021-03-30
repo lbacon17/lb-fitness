@@ -10,9 +10,9 @@
         $('#video-{{ video.id }}').modal('show');
     });
 
-    // var modalCommentTrigger = document.getElementById('modal-trigger-comment-{{ video.id }}-{{ comment.id }}');
-    // modalCommentTrigger.addEventListener('click', function() {
-    //     var modalCommentPopup = document.getElementById('comment-{{ video.id }}-{{ comment.id }}');
-    //     $('#comment-{{ video.id }}-{{ comment.id }}').modal('show');
-    // })
+    var modalCommentTrigger = document.getElementById('modal-trigger-comment-{{ video.id }}-{{ comment.id }}');
+    modalCommentTrigger.addEventListener('click', function() {
+        var modalCommentPopup = document.getElementById('comment-{{ video.id }}-{{ comment.id }}');
+        $('#comment-{{ video.id }}-{{ comment.id }}').modal('show');
+    });
 </script>
