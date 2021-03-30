@@ -22,7 +22,7 @@ This file documents the testing process of the project.
 
 The code was passed through the [JSHint](https://jshint.com/) validator. No errors were found.
 
-![JSHint validation](/libraries/code_validation_js_validation_jshint.png)
+![JSHint validation](/libraries/code_validation/js_validation_jshint.png)
 
 #### CSS
 
@@ -321,7 +321,14 @@ def add_package_to_cart(request, package_id):
 
 ### Unsolved Bugs
 
-* 
+* **Bug**: VIP users receive a 50% shop discount and free delivery in the app. Currently, all store items show the discounted price and the cart's total is calculated correctly, yet after checking out, the full price is shown in the order confirmation and shows up like this in the admin panel. The user is also charged for delivery if the order is under £50. However, the correct amount is shown in the Stripe payment history.
+    * I have tried many things to fix this bug, most notably trying to halve the aggregated lineitems total in the ShopOrder model if the user is a VIP, and adding an is_vip field to the Member model, but this has not worked. The one solution that succeeded in halving the price for VIPs also halved the price for other users, as the if condition was actually just checking that a VIP existed in the database, rather than if that user was a VIP. Trying to match the VIP and the user also threw 404 errors when trying to load the shopping cart and check out, and I decided that implementing any of these alternatives would make the app worse.
+
+* **Bug**: I have implemented the ability to rate a video and store the video's rating in the database, but not yet been able to work out an average value of all the ratings for a video. For example, if one user is logged in and rates a video as 4 stars, the video's rating will be saved in the database as 4. However, if another user then rates the video as 2 stars, the app changes the rating to 2 rather than calculate the average of 3. In other words, the app only saves the most recent rating. 
+    * The closest I came to saving this issue worked out the average rating across all videos in the app, rather than just one. I have still decided to leave this component in as I feel that it is a nice feature for the site to have and makes it more user-friendly. I would also like to implement this for the shop's products in future iterations. Unfortunately, time did not allow this before the submission deadline.
+
+* **Bug**: Payment intents don't succeed when the user checks out with a subscription, but do when they check out from the store. Each checkout requires a separate endpoint, and Stripe sends webhooks to all endpoints by default. Although the payment intent doesn't succeed with Stripe, the subscription still appears in the Django admin with the correct amount, and the user gains access to the subscription material.
+    * Several tutor sessions did not manage to resolve this issue. Although this would obviously be an issue if this were a real store, I feel it is better to leave this issue unsolved in the testing phase to demonstrate the app's functionality and the possibility to give a user further access to the site when completing a purchase.
 
 [Back to TOC](#table-of-contents)
 

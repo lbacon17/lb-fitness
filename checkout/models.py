@@ -37,8 +37,6 @@ class ShopOrder(models.Model):
         self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         vip = Member.objects.filter(is_vip=True)
         user = User.objects.filter(username=self.store_user)
-        print(vip)
-        print(user)
         if vip == user:
             self.order_total = Decimal(self.order_total * settings.VIP_DISCOUNT_PERCENTAGE / 100)
 
