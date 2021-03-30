@@ -327,6 +327,20 @@ footer a:hover {
     }
 }
 
+@media screen and (max-width: 414px) {
+    .cart-preview-dropdown {
+        top: 16px;
+        font-size: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .cart-preview-dropdown {
+        top: 12px;
+        font-size: .75rem;
+    }
+}
+
 @media screen and (max-width: 991px) {
     .navbar-brand {
         position: fixed;
