@@ -20,9 +20,9 @@ Phone #: {{ shop_order.phone_number }}
 Address:
 
 {{ shop_order.address_line1 }}
-{{ shop_order.address_line2 }}
+{% if shop_order.address_line2 %}{{ shop_order.address_line2 }}{% endif %}
 {{ shop_order.town_or_city }}
-{{ shop_order.county_or_region }}
+{% if shop_order.county_or_region %}{{ shop_order.county_or_region }}{% endif %}
 {{ shop_order.postcode }}
 {{ shop_order.country }}
 

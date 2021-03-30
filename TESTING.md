@@ -121,19 +121,51 @@ I tried various JavaScript solutions to remedy this, but none of them had any ef
 **Purchasing and checkout**
 
 * As a user, I want to purchase fitness-related products such as training gear and prepared healthy meals that reflect my lifestyle
+    * I click the Shop dropdown menu in the navbar and select All Items, where I can view all products in the store and see how many exist
+    * Below each product, I can click the add to cart button and confirm what quantity - and size, if the item has sizes - of the item I want to add to my cart
 * As a user, I want to be able to select and adjust the quantity or size of a product that I’m about to purchase
+    * In addition to the above, I can click on a product's image to be taken to the product's individual page where I can select my desired size and quantity
+    * I click the add to cart button and receive a notification that the item was added to my cart, and in what size and quantity
 * As a user, I want to view the items in my shopping cart
+    * In the top-right corner of the screen, if I click on the dropdown menu, I can see a preview of my cart that lists the quantity and size of each item
+    * If I click on one of them, I am taken to the cart page where I can view my cart in full screen mode
+* As a user, I want to be able to adjust the quantity of an item in my cart on the cart page itself
+    * On the cart page, I adjust the quantity of an item using the + and - buttons in the Quantity column
+    * Once I've selected the desired quantity, I click the Update button and receive a notification that the quantity has been successfully updated
+* As a user, I want to be able to remove an item from my cart
+    * On the cart page, I click the x button in the row of the item I want to remove, and receive a notification that the item has been removed from my cart
 * As a user, I want to be able to see real-time updates of the value of my shopping cart and a preview of its items without having to visit the cart page
+    * I can see the cart total in the top right of my screen
+    * Each time I add an item to the cart, the total automatically updates, adding on the price of the item that I selected
 * As a user, I want to be able to make a purchase from the store using my credit card and easily enter my payment details
+    * From the Cart page, I navigate to the Checkout page where I'm informed how much my card will be charged
+    * I enter my delivery and payment information and enter my payment details before checking out
 * As a user, I want to be able to save my information when making a purchase, so I don’t have to fill out the form again on my next purchase
+    * When filling out the form on the Checkout page, I click the checkbox at the bottom of the order form to save my delivery information to my profile
+    * After the order has gone through, I navigate to my profile page, click on Update Details and can see that the form is pre-filled with the data I entered on the order form
 * As a user, I want to feel confident that my personal and payment information is safe and secure 
+    * If I enter incorrect payment details when checking out, the app will return an error informing me that my card details are invalid and prevent the order from processing
+    * If I check out again, I have to re-enter my card details so that I know they have not been stored anywhere 
 * As a user, I want to see confirmation of my order after completing a purchase.
+    * After I my order has been processed, I am redirected to an order confirmation page where I can see the details of my order
+    * This page does does not automatically redirect after a given time so I can stay on it as long as I like and take my time reading about my order, with a button to take me back to the homepage once I'm done
+    * Even once I've left this page, I can go to my profile page and locate the order in my order history
+        * As the orders are ordered by date, starting with the newest, my order should be at the top of the table
+        * If I click on the order number, I can view the details of the order again 
 * As a user, I want to receive a confirmation e-mail after making a purchase.
+    * After successfully checking out, I receive an automated e-mail confirming my order that contains the contents of my order and delivery information
+    * The e-mail is sent to the e-mail address I entered when checking out, so I will receive this e-mail if this is a valid e-mail address that belongs to me
 
 **Searching, reading and sorting**
 
 * As a user, I want to be able to search for products in the store using keywords so that I can potentially purchase some
+    * I enter a search term in the search field within the navbar and am redirected to the shop page that displays all the results containing my search parameter along with the number of items found
+    * If my search query returned no items, I can click a button to view all the shop's products so I don't have to come off the shop page or scroll back to the top of the screen to enter another query
+* As a user, I want to be able to filter products in the store according to category
+    * In the Shop dropdown menu, I navigate to the cateogry I want to browse and click on it
+    * The page now only displays items in the selected category, and tells me how many currently exist
 * As a member, I want to be able to search for material that I have access to so that I can easily find what I'm looking for
+    * I navigate to the Videos page
 * As a user or member, I want to be able to see my search results
 * As a user or member, I want to be able to see the number of results
 * As a user, I want to be able to sort products according to different criteria such as name and price, so that I can find what I want easier or see what has the most recommendations
