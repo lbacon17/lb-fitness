@@ -11,7 +11,7 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-12 col-md-6 mb-3">
                 <div class="card h-100">
                     <div class="card-header">
                         <h2 class="mb-2 pt-2">My Subscriptions</h2>
@@ -20,10 +20,10 @@
                         {% if request.user.member %}
                             <p class="card-text">{{ request.user.member.subscription_package.friendly_name }}</p>
                             <p class="small"><span>You are currently to subscribed to the {{ request.user.member.subscription_package.friendly_name }} paying £{{ request.user.member.subscription_package.monthly_rate }} per month.</span></p>
-                            <p><a href="{% url 'training_videos' %}" class="btn-lg btn-dark text-dec-none">View Training Videos</a></p>
+                            <p><a href="{% url 'training_videos' %}" class="btn btn-dark text-dec-none">View Training Videos</a></p>
                             {% if request.user.member.subscription_package.id == 3 %}
                                 <p class="my-3">As a VIP, you get 50% off all items in our store!</p>
-                                <a href="{% url 'shop' %}" class="btn-lg btn-success text-dec-none">Go To Shop</a>
+                                <a href="{% url 'shop' %}" class="btn btn-success text-dec-none">Go To Shop</a>
                             {% endif %}
                         {% else %}
                             <p class="card-text">You do not have any active subscriptions.</p>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="card-footer py-3">
                         {% if request.user.member.subscription_package %}
-                            <button type="button" id="modal-trigger-{{ request.user.member.subscription_package }}" class="btn btn-danger text-dec-none" data-bs-toggle="modal" data-bs-target="#{{ request.user.member.subscription_package }}">
+                            <button type="button" id="modal-trigger-{{ request.user.member.subscription_package }}" class="btn btn-danger text-dec-none border-0" data-bs-toggle="modal" data-bs-target="#{{ request.user.member.subscription_package }}">
                                 Cancel Subscription
                             </button>
                             {% include 'home/includes/cancel_subscription_modal_popup.html' %}
@@ -43,29 +43,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-12 col-md-6">
                 <div class="card h-100">
                     <div class="card-header">
                         <h2 class="mb-2 pt-2">My Orders</h2>
                     </div>
                     <div class="card-body">
-
+                        <p class="card-text">You can view your order history in your profile page.</p>
                     </div>
                     <div class="card-footer">
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-header">
-                        <h2 class="mb-2 pt-2">My Profile</h2>
-                    </div>
-                    <div class="card-body">
-
-                    </div>
-                    <div class="card-footer">
-
+                        <a href="{% url 'user_profile' %}" class="btn btn-success text-dec-none">Go to Profile</a>
                     </div>
                 </div>
             </div>
