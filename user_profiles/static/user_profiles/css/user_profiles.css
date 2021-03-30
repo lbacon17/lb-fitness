@@ -1,0 +1,41 @@
+h3 {
+    font-size: 0.6rem;
+}
+
+.card-header h4 {
+    font-size: 1rem;
+}
+
+table {
+    font-size: 0.5rem;
+}
+
+@media screen and (min-width: 414px) {
+    table {
+        font-size: 0.75rem;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    table {
+        font-size: 0.875rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    h3 {
+        font-size: calc(1.3rem + .6vw);
+    }
+
+    .card-header h4 {
+        font-size: 1.25rem;
+    }
+
+    table {
+        font-size: 1rem;
+    }
+}

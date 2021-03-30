@@ -21,28 +21,28 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12 col-md-6">
+                            <div class="col-6">
                                 <p class="font-weight-bold text-right">Order #:</p>
                             </div>
-                            <div class="col-12 col-md-6">
+                            <div class="col-6">
                                 <p class="text-left">{{ shop_order.order_number }}</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-md-6">
+                            <div class="col-6">
                                 <p class="font-weight-bold text-right">Date:</p>
                             </div>
-                            <div class="col-12 col-md-6">
+                            <div class="col-6">
                                 <p class="text-left">{{ shop_order.date }}</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-md-6">
+                            <div class="col-6">
                                 <p class="font-weight-bold text-right">
                                     Contents:
                                 </p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 {% for item in shop_order.lineitems.all %}
                                     <div class="row">
                                         <div class="col-12 col-md-6 text-left">
@@ -58,10 +58,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <p class="font-weight-bold text-right">Customer Details:</p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <ul class="list-unstyled text-left">
                                     <li class="small mb-1">{{ shop_order.full_name }}</li>
                                     <li class="small mb-1">{{ shop_order.address_line1 }}</li>
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-md-6">
+                            <div class="col-6">
                                 <p class="font-weight-bold text-right">
                                     Total:
                                 </p>
@@ -89,7 +89,7 @@
                                     Grand Total:
                                 </p>
                             </div>
-                            <div class="col-12 col-md-6">
+                            <div class="col-6">
                                 <p class="text-left">£{{ shop_order.order_total }}</p>
                                 <p class="text-left">£{% if request.user.member.subscription_package.id == 3 %}0.00{% else %}{{ shop_order.delivery_charge }}{% endif %}</p>
                                 <p class="text-left">£{{ shop_order.grand_total }}</p>
