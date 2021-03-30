@@ -49,20 +49,4 @@
         </div>
     </div>
 </div>
-<div id="loading-overlay">
-    <h1 class="loading-spinner">
-        <span class="icon">
-            <i class="fas fa-spinner fa-spin fa-3x"></i>
-        </span>
-    </h1>
-</div>
-{% endblock %}
-
-{% block postloadjs %}
-    {{ block.super }}
-    <script>
-        function onSubmit(token) {
-            document.getElementById("contact-form").submit();
-        }
-    </script>
 {% endblock %}

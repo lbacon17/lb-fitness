@@ -92,7 +92,7 @@
                             <div class="col">
                                 <p class="lead mb-0">
                                     {% if request.user.member.subscription_package.id == 3 %}
-                                        <strike>£{{ item.price }}</strike> £{{ item.set_discount_price|floatformat:2 }}
+                                        <del>£{{ item.price }}</del> £{{ item.set_discount_price|floatformat:2 }}
                                     {% else %}
                                         £{{ item.price }}
                                     {% endif %}

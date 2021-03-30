@@ -18,7 +18,9 @@
             {% if request.user.member.subscription_package %}
                 <div class="col-12 col-md-6">
                     <div class="video-container">
-                        <video src="{{ video.video_file.url }}" alt="{{ video.title }}" class="img-thumbnail" controls preload type="video/mp4"></video>
+                        <video src="{{ video.video_file.url }}" class="img-thumbnail" controls preload type="video/mp4">
+                            {{ video.title }}
+                        </video>
                     </div>
                     <div class="row">
                         <div class="col text-left">
@@ -39,7 +41,7 @@
                         </div>
                     </div>
                     {% if request.user.is_superuser %}
-                        <p">
+                        <p>
                             <a href="{% url 'edit_video' video.id %}" class="btn btn-primary text-dec-none">Edit</a>
                             <button type="button" id="modal-trigger-video-{{ video.id }}" class="btn btn-danger text-dec-none" data-toggle="modal" data-target="#video-{{ video.id }}">
                                 Delete

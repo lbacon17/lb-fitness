@@ -53,7 +53,7 @@
             <div class="col-lg-6">
                 <form action="{% url 'training_videos' %}" method="GET" class="d-flex">
                     <label for="videos-search"></label>
-                    <input class="form-control me-2 search-bar" id="videos-search" type="search" name="q" placeholder="Search videos" aria-label="Search" class="validate" required>
+                    <input class="form-control me-2 search-bar validate" id="videos-search" type="search" name="q" placeholder="Search videos" aria-label="Search" required>
                     <button class="btn btn-outline-success border-0" type="submit">
                         <span class="icon">
                             <i class="fas fa-search"></i>
@@ -88,7 +88,8 @@
                             <a href="{% url 'video_details' video.id %}" class="text-dark text-dec-none">{{ video.title }}</a>
                         </h5>
                         <div class="video-container">
-                            <video src="{{ video.video_file.url }}" alt="{{ video.title }}" class="img-thumbnail" controls preload type="video/mp4">
+                            <video src="{{ video.video_file.url }}" class="img-thumbnail" controls preload type="video/mp4">
+                                {{ video.title }}
                             </video>
                         </div>
                         <div class="row">

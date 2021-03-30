@@ -32,6 +32,10 @@ The code was passed through the [Jigsaw](https://jigsaw.w3.org/) validator. No e
 
 #### HTML
 
+The code was passed through the [W3](https://validator.w3.org/) validator. The validator returned several errors and warnings, all of which related to the use of template tags as attribute values. The validator also threw a fatal error when checking the profile template due to the presence of a for loop within a table element. After thorough checking, there were no errors in the HTML itself and nothing to harm the site's performance.
+
+As the causes of the warnings enhance rather than hinder the application's performance, and it would not be possible to connect the back and front end of the application without them, these can be ignored.
+
 [Back to TOC](#table-of-contents)
 
 ### Responsiveness
