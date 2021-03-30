@@ -38,6 +38,16 @@
                     <li><a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a></li>
                 </ul>
             </li>
+        {% else %}
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="authentication-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Login/Register
+                </a>
+                <ul class="dropdown-menu bg-warning" aria-labelledby="authentication-dropdown">
+                    <li><a href="{% url 'account_login' %}" class="dropdown-item">Login</a></li>
+                    <li><a href="{% url 'account_signup' %}" class="dropdown-item">Register</a></li>
+                </ul>
+            </li>
         {% endif %}
     </ul>
 </div>
@@ -51,32 +61,23 @@
     </button>
 </form>
 <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-    {% if request.user.is_authenticated %}
-        <li class="nav-item {% if grand_total %}dropdown{% endif %}">
-            <a href="#" {% if grand_total %}class="nav-link text-dark dropdown-toggle" id="cart-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"{% else %}class="nav-link text-dark"{% endif %}>
-                <i class="fas fa-shopping-cart fa-lg"></i>
-                <small>
-                    {% if total > 0 %}
-                        £{{ total|floatformat:2 }}
-                    {% else %}
-                        £0.00
-                    {% endif %}
-                </small>
-            </a>
-            {% if grand_total %}
-            <ul class="dropdown-menu {% if items_in_cart %}cart-preview{% else %}empty-cart{% endif %}" aria-labelledby="cart-dropdown">
-                <li>
-                    {% include 'includes/cart_preview.html' %}
-                </li>
-            </ul>
-            {% endif %}
-        </li>
-    {% else %}
-        <li class="list-inline-item">
-            <a href="{% url 'account_login' %}" class="nav-link">Login</a>
-        </li>
-        <li class="list-inline-item">
-            <a href="{% url 'account_signup' %}" class="nav-link">Register</a>
-        </li>
-    {% endif %}
+    <li class="nav-item {% if grand_total %}dropdown{% endif %}">
+        <a href="#" {% if grand_total %}class="nav-link text-dark dropdown-toggle" id="cart-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"{% else %}class="nav-link text-dark"{% endif %}>
+            <i class="fas fa-shopping-cart fa-lg"></i>
+            <small>
+                {% if total > 0 %}
+                    £{{ total|floatformat:2 }}
+                {% else %}
+                    £0.00
+                {% endif %}
+            </small>
+        </a>
+        {% if grand_total %}
+        <ul class="dropdown-menu {% if items_in_cart %}cart-preview{% else %}empty-cart{% endif %}" aria-labelledby="cart-dropdown">
+            <li>
+                {% include 'includes/cart_preview.html' %}
+            </li>
+        </ul>
+        {% endif %}
+    </li>
 </ul>

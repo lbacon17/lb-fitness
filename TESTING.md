@@ -12,19 +12,21 @@ This file documents the testing process of the project.
 * [Testing User stories](#testing-user-stories)
 * [Issues and bugs](#issues-and-bugs)
 
+## [Back to README](README.md)
+
 ### Validation
 
-#### Python
+#### Python
 
 #### JavaScript
 
-#### CSS
+#### CSS
 
-### HTML
+#### HTML
 
 [Back to TOC](#table-of-contents)
 
-### Responsiveness
+### Responsiveness
 
 The website was tested in Google Chrome using the Viewport Resizer extension, Chrome DevTools and the Responsive Design Checker.
 
@@ -51,7 +53,7 @@ I tried various JavaScript solutions to remedy this, but none of them had any ef
 
 [Back to TOC](#table-of-contents)
 
-### Testing User stories
+### Testing User stories
 
 **Registration, accounts and subscription**
 
