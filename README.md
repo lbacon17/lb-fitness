@@ -272,7 +272,27 @@ class and experiment in real time with new style rules and their effect on the s
 
 The project uses Postgres as a relational database to store data in SQL format for the live site, which is visible in the Django admin panel. 
 
-A number of models in the project allow for interaction with the database
+A number of models in the project allow for interaction with the database. An example of relational data at play is as follows (unfortunately I was not left with enough time to design a visualised relational schema):
+
+* A registered user's user ID is used in the user field of the store user model when they register.
+* When the user places an order, the shop order model takes the user's data to populate its store user field with the user's username and attach the order to the user's profile. The order exists in the database as having been placed by this user.
+    * Note that if the user deletes their profile, this field is set to null as the order should always exist in the database.
+* The order line item model interacts with the shop order model using its shop_order field to create an instance of each item in the user's cart and calculate the total cost.
+* If the user checks the 'save user info' box upon checkout, the store user model will get the information from the shop order model and store each entry as the value of its relevant field, namely default_email_address, default_phone_number, default_address_line1 etc.
+* When the user next places an order, the shop order model grabs the user's data from the store user model to pre-populate the checkout form with the stored information.
+* If a user decides to purchase a subscription, a member instance is created with the user's username, which is attached to the member model.
+    * The user field of the member model can only be a user's username, and not anybody else's.
+    * If the user deletes their profile, this record will no longer exist as it is not possible to be a member (a paid subscriber) without being a registered user of the app.
+* The subscription_packages field of the member model grabs the package information from the susbcribe_package table to determine which package the user has selected.
+    * The set_vip function within this model relies on this data, as it will overrule the default value of false and set it to true if it sees that the user has selected the VIP plan.
+    * This in turn sets a discount price instead of the ordinary value in the price field of the shop_product table.
+* When a subscription is purchased, an instance of the subscription model is generated that looks for the user field in the member model to attach the user's profile to that particular subscription
+    * Similar to the order model, this field is set to null if the user deletes their account or cancels their subscription, as we still want a record of this subscription to exist.
+* The amount_due field in the subscription calculates the charge to the user based on the monthly_rate field in the package model.
+* In the video model, the premium field decides whether a certain tier of user is able to access a video based on their subscription package.
+    * If it is set to true, user's on the basic plan will not be able to see it, so the training videos model works on a condition that, if the user has this package, it will filter out the videos with a premium value of True before passing the queryset to the front end.
+    * Otherwise it will show the user all video objects.
+* Finally, when a user makes a comment on a video, the comment model takes the user's username for its user field so the user's username is attached to that comment and other users can see who wrote it.
 
 [Back to TOC](#table-of-contents)
 
