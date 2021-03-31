@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     # Other
     'crispy_forms',
     'storages',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -234,3 +235,15 @@ else:
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
+
+GRAPH_MODELS = {
+    'app_labels': ['home', 'subscribe', 'shop', 'about','contact',
+                   'cart', 'members', 'videos', 'user_profiles',
+                   'checkout', 'admin_panel', ],
+}

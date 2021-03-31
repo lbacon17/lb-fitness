@@ -270,7 +270,9 @@ class and experiment in real time with new style rules and their effect on the s
 
 ### Data Structure
 
-The project uses Postgres as its database to store data in SQL format for the live site, which is visible in the Django admin panel. The data exists in a relational model.
+The project uses Postgres as a relational database to store data in SQL format for the live site, which is visible in the Django admin panel. 
+
+A number of models in the project allow for interaction with the database
 
 [Back to TOC](#table-of-contents)
 
