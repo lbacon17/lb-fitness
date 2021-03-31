@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{% static 'videos/css/videos.css' %}">
 {% endblock %}
 
+{% block extra_title %}&#8212;Video Details: {{ video.title }}{% endblock %}
+
 {% block content %}
     <div class="container-fluid mt-5 text-center">
         <div class="row">
@@ -70,5 +72,4 @@
 {% block postloadjs %}
 {{ block.super }}
     <script src="{% static 'videos/js/video_rating.js' %}"></script>
-    {% include 'videos/includes/delete_confirmation_script.html' %}
 {% endblock %}

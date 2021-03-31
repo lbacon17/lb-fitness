@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{% static 'user_profiles/css/user_profiles.css' %}">
 {% endblock %}
 
+{% block extra_title %}&#8212;My Profile ({{ request.user }}){% endblock %}
+
 {% block content %}
     <div class="container-fluid mt-5 py-3 text-center">
         <div class="row">
@@ -34,56 +36,94 @@
                 </div>
             </div>
             <div class="col-12 col-lg-7">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>{{ request.user }}'s Store Order History</h4>
-                    </div>
-                    <div class="card-body">
-                        {% if order_history %}
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Order Number</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Total</th>
-                                            <th scope="col">Delivering To</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="small">
-                                        {% for order in order_history %}
-                                            <tr>
-                                                <th scope="row">
-                                                    <p class="font-size-xs"><a href="{% url 'user_order_history' order.order_number %}" class="font-weight-bold text-dec-none">{{ order.order_number|truncatechars:6 }} (click to see full details)</a></p>
-                                                </th>
-                                                <td class="small">{{ order.date }}</td>
-                                                <td class="small">£{{ order.grand_total }}</td>
-                                                <td>
-                                                    <ul class="list-inline list-unstyled text-left pl-3">
-                                                        <li class="small list-inline-item">{{ order.full_name }}</li>
-                                                        <li class="small list-inline-item">{{ order.address_line1 }}</li>
-                                                        {% if order.address_line2 %}
-                                                            <li class="small list-inline-item">{{ order.address_line2 }}</li>
-                                                        {% endif %}
-                                                        <li class="small list-inline-item">{{ order.town_or_city }}</li>
-                                                        {% if order.county_or_region %}
-                                                            <li class="small list-inline-item">{{ order.county_or_region }}</li>
-                                                        {% endif %}
-                                                        <li class="small list-inline-item">{{ order.postcode }}</li>
-                                                        <li class="small list-inline-item">{{ order.country }}</li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>{{ request.user }}'s Store Order History</h4>
                             </div>
-                        {% else %}
-                            <h5>You have not placed any orders yet.</h5>
-                            <p class="mt-2 mb-0">
-                                <a href="{% url 'shop' %}" class="btn btn-success text-dec-none">Shop Now</a>
-                            </p>
-                        {% endif %}
+                            <div class="card-body">
+                                {% if order_history %}
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Order Number</th>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">Total</th>
+                                                    <th scope="col">Delivering To</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="small">
+                                                {% for order in order_history %}
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <p class="font-size-xs"><a href="{% url 'user_order_history' order.order_number %}" class="font-weight-bold text-dec-none">{{ order.order_number|truncatechars:6 }} (click to see full details)</a></p>
+                                                        </th>
+                                                        <td class="small">{{ order.date }}</td>
+                                                        <td class="small">£{{ order.grand_total }}</td>
+                                                        <td>
+                                                            <ul class="list-inline list-unstyled text-left pl-3">
+                                                                <li class="small list-inline-item">{{ order.full_name }}</li>
+                                                                <li class="small list-inline-item">{{ order.address_line1 }}</li>
+                                                                {% if order.address_line2 %}
+                                                                    <li class="small list-inline-item">{{ order.address_line2 }}</li>
+                                                                {% endif %}
+                                                                <li class="small list-inline-item">{{ order.town_or_city }}</li>
+                                                                {% if order.county_or_region %}
+                                                                    <li class="small list-inline-item">{{ order.county_or_region }}</li>
+                                                                {% endif %}
+                                                                <li class="small list-inline-item">{{ order.postcode }}</li>
+                                                                <li class="small list-inline-item">{{ order.country }}</li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <h5>You have not placed any orders yet.</h5>
+                                    <p class="mt-2 mb-0">
+                                        <a href="{% url 'shop' %}" class="btn btn-success text-dec-none">Shop Now</a>
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <div class="card h-100">
+                           <div class="card-header">
+                               <h2 class="mb-2 pt-2">My Subscriptions</h2>
+                           </div>
+                           <div class="card-body">
+                               {% if request.user.member %}
+                                   <p class="card-text">{{ request.user.member.subscription_package.friendly_name }}</p>
+                                   <p class="small"><span>You are currently to subscribed to the {{ request.user.member.subscription_package.friendly_name }} paying £{{ request.user.member.subscription_package.monthly_rate }} per month.</span></p>
+                                   <p><a href="{% url 'training_videos' %}" class="btn btn-dark text-dec-none">View Training Videos</a></p>
+                                   {% if request.user.member.subscription_package.id == 3 %}
+                                       <p class="my-3">As a VIP, you get 50% off all items in our store!</p>
+                                       <a href="{% url 'shop' %}" class="btn btn-success text-dec-none">Go To Shop</a>
+                                   {% endif %}
+                               {% else %}
+                                   <p class="card-text">You do not have any active subscriptions.</p>
+                               {% endif %}
+                           </div>
+                           <div class="card-footer py-3">
+                               {% if request.user.member.subscription_package %}
+                                   <button type="button" id="modal-trigger-{{ request.user.member.subscription_package }}" class="btn btn-danger text-dec-none border-0" data-bs-toggle="modal" data-bs-target="#{{ request.user.member.subscription_package }}">
+                                       Cancel Subscription
+                                   </button>
+                                   {% include 'home/includes/cancel_subscription_modal_popup.html' %}
+                               {% else %}
+                                   <a href="{% url 'subscribe_page' %}" class="btn-lg btn-success text-dec-none">
+                                       Subscribe Now
+                                   </a>
+                               {% endif %}
+                           </div>
+                       </div>
                     </div>
                 </div>
             </div>

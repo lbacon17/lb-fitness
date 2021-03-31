@@ -340,7 +340,7 @@ def add_package_to_cart(request, package_id):
 
 ### Unsolved Bugs
 
-* **Bug**: VIP users receive a 50% shop discount and free delivery in the app. Currently, all store items show the discounted price and the cart's total is calculated correctly, yet after checking out, the full price is shown in the order confirmation and shows up like this in the admin panel. The user is also charged for delivery if the order is under £50. However, the correct amount is shown in the Stripe payment history.
+* **Bug**: VIP users receive a 50% shop discount and free delivery in the app. Currently, all store items show the discounted price and the cart's total is calculated correctly, yet after checking out, the full price is shown in the order confirmation and shows up like this in the admin panel. The user is also charged for delivery if the order is under £50. However, the correct amount is shown in the Stripe payment history. VIP users may also not receive a confirmation e-mail for their order.
     * I have tried many things to fix this bug, most notably trying to halve the aggregated lineitems total in the ShopOrder model if the user is a VIP, and adding an is_vip field to the Member model, but this has not worked. The one solution that succeeded in halving the price for VIPs also halved the price for other users, as the if condition was actually just checking that a VIP existed in the database, rather than if that user was a VIP. Trying to match the VIP and the user also threw 404 errors when trying to load the shopping cart and check out, and I decided that implementing any of these alternatives would make the app worse.
 
 * **Bug**: I have implemented the ability to rate a video and store the video's rating in the database, but not yet been able to work out an average value of all the ratings for a video. For example, if one user is logged in and rates a video as 4 stars, the video's rating will be saved in the database as 4. However, if another user then rates the video as 2 stars, the app changes the rating to 2 rather than calculate the average of 3. In other words, the app only saves the most recent rating. 
@@ -352,6 +352,8 @@ def add_package_to_cart(request, package_id):
 * **Bug**: The autocomplete feature for video searching does not yet work, despite being implemented in the same way as the search feature for the site's store. Unfortunately, I have not had time to fix this.
 
 * **Bug**: When registering for the site, a message pops up notifying the user a confirmation e-mail has been sent, but uses the error toast due to the classification, when it should be a success. However, this appears to be a built-in Django view.
+
+* **Bug**: At the very last minute, the form on the contact page started behaving unreliably and returned the message: "ReCAPTCHA couldn't find user-provided function: onSubmit". It was too late to attempt a fix to this issue, which had been working seamlessly up until that point. For testing purposes, removing any reCAPTCHA links in the code should enable successful form submission and the recept of a confirmation e-mail.
 
 [Back to TOC](#table-of-contents)
 

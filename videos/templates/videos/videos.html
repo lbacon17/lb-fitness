@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{% static 'videos/css/videos.css' %}">
 {% endblock %}
 
+{% block extra_title %}&#8212;Videos{% endblock %}
+
 {% block content %}
     <div class="container-fluid mt-5 text-center">
         <div class="row">
@@ -137,7 +139,6 @@
     {% for video in videos %}
         <script src="{% static 'videos/js/video_rating.js' %}"></script>
     {% endfor %}
-    {% include 'videos/includes/delete_confirmation_script.html' %}
     <script type="text/javascript">
         // Enables video sorting. Credit to Chris Z. (ckz8780) for supplying the basis for this logic in Boutique Ado
         $('#sort-videos').change(function() {
