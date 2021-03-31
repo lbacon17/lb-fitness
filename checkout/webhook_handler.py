@@ -15,7 +15,7 @@ class StripeWH_Handler:
 
     def __init__(self, request):
         self.request = request
-    
+
     def _send_confirmation_email(self, shop_order):
         customer_email = shop_order.email_address
         subject = render_to_string(
@@ -23,8 +23,9 @@ class StripeWH_Handler:
             {'shop_order': shop_order})
         body = render_to_string(
             'checkout/confirmation_emails/shop_confirmation_body.txt',
-            {'shop_order': shop_order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-        
+            {'shop_order': shop_order,
+             'contact_email': settings.DEFAULT_FROM_EMAIL})
+
         send_mail(
             subject,
             body,
@@ -32,13 +33,13 @@ class StripeWH_Handler:
             [customer_email],
             fail_silently=False
         )
-    
+
     def handle_event(self, event):
         """Handles an unknown or unexpected webhook event"""
         return HttpResponse(
             content=f'Unhandled webhook received: {event["type"]}',
             status=200)
-    
+
     def handle_payment_intent_succeeded(self, event):
         """Handles the payment_intent.succeeded webhook from Stripe"""
         intent = event.data.object
@@ -90,14 +91,14 @@ class StripeWH_Handler:
                 shop_order_exists = True
                 break
             except ShopOrder.DoesNotExist:
-                attempt +=1
+                attempt += 1
                 time.sleep(1)
-        
+
         if shop_order_exists:
             self._send_confirmation_email(shop_order)
             return HttpResponse(
                 content=(f'Webhook received: {event["type"]} | SUCCESS: '
-                'Verified order already in database'), status=200)
+                         f'Verified order already in database'), status=200)
         else:
             shop_order = None
             try:
@@ -137,12 +138,12 @@ class StripeWH_Handler:
                     if shop_order:
                         shop_order.delete()
                         return HttpResponse(
-                            content=f'Webhook received: {event["type"]} | ERROR {e}',
-                            status=500)
+                            content=f'Webhook received: {event["type"]} |'
+                            'ERROR {e}', status=500)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: '
             f'Created order in webhook.', status=200)
-        
+
     def handle_payment_intent_payment_failed(self, event):
         return HttpResponse(
             content=f'Payment failed! Webhook received: {event["type"]}',

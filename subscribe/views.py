@@ -29,8 +29,8 @@ def cache_checkout_data(request):
         })
         return HttpResponse(status=200)
     except Exception as e:
-        messages.error(request, ('There was an issue processing' \
-            'your payment. Please try again later.'))
+        messages.error(request, 'There was an issue processing '
+                       'your payment. Please try again later.')
         return HttpResponse(content=e, status=400)
 
 
@@ -62,7 +62,7 @@ def add_package_to_cart(request, package_id):
     subscription_cart = request.session.get('subscription_cart', {})
     if subscription_cart:
         # This block handles the event that a user selects one
-        # subscription packages, then goes back and selects a 
+        # subscription packages, then goes back and selects a
         # different package. Each time the user selects a package
         # the cart is emptied before the new one is added so the
         # user is not charged for multiple subscriptions
@@ -136,27 +136,28 @@ def get_subscription(request, package_id):
                     else:
                         # Subscription packages do not have sizes or any other
                         # differentiating data, so package_data should always
-                        # return an integer. In the unlikely event that it doesn't
-                        # the app throws this error, resets the cart and redirects
-                        # the user
-                        messages.error(request, 'We were unable to locate '\
-                            'the subscription in our database. Please try '\
-                            'again later.')
+                        # return an integer. In the unlikely event that it
+                        # doesn't, the app throws this error, resets the cart
+                        # and redirects the user
+                        messages.error(request, 'We were unable to locate '
+                                       'the subscription in our database. '
+                                       'Please try again later.')
                         subscription.delete()
                         return redirect(reverse('subscribe_page'))
                 except Package.DoesNotExist:
-                    messages.error(request, 'We were unable to locate '\
-                        'the subscription in our database. Please try '\
-                        'again later.')
+                    messages.error(request, 'We were unable to locate '
+                                   'the subscription in our database. '
+                                   'Please try again later.')
                     subscription.delete()
                     return redirect(reverse('subscribe_page'))
 
             request.session['save_member_info'] = 'save-member-info' in request.POST
             return redirect(reverse('subscription_confirmation',
-                                     args=[subscription.subscription_id]))
+                                    args=[subscription.subscription_id]))
         else:
-            messages.error(request, 'There was an error submitting the form. Please '\
-                'ensure that you have filled out all fields correctly.')
+            messages.error(request, 'There was an error submitting the form. '
+                           'Please ensure that you have filled out all fields '
+                           'correctly.')
     else:
         subscription_cart = request.session.get('subscription_cart', {})
         if not subscription_cart:
@@ -189,12 +190,13 @@ def get_subscription(request, package_id):
             except Member.DoesNotExist:
                 subscription_form = SubscriptionForm()
         else:
-            messages.error(request, 'You must have an account to get a subscription.')
+            messages.error(request, 'You must have an account to get a '
+                           'subscription.')
             return redirect(reverse('home'))
 
     if not stripe_public_key:
-        messages.warning(request, ('Your Stripe public key is missing. Please '\
-            'ensure that you have set this in your environment.'))
+        messages.warning(request, 'Your Stripe public key is missing. Please '
+                         'ensure that you have set this in your environment.')
 
     template = 'subscribe/get_subscription.html'
     context = {
@@ -251,6 +253,7 @@ def cancel_subscription(request, user):
     """This view cancels a user's subscription by detaching its user"""
     member = get_object_or_404(Member, user=request.user)
     member.delete()
-    messages.success(request, 'Your subscription was successfully '\
-        'cancelled. You will no longer be charged for this package.')
+    messages.success(request, 'Your subscription was successfully '
+                     'cancelled. You will no longer be charged for '
+                     'this package.')
     return redirect(reverse('home'))

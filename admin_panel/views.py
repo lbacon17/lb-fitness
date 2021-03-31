@@ -11,6 +11,6 @@ def admin_panel(request):
                 add_item = request.GET['add_item'].selected
         return render(request, 'admin_panel/admin_panel.html')
     else:
-        messages.error(request, 'Sorry, you do not have permission to view '\
-            'this page.')
+        messages.error(request, 'Sorry, you do not have permission to view '
+                       'this page.')
         return redirect(reverse('home'))

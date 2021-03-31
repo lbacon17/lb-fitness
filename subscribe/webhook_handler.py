@@ -53,7 +53,7 @@ class StripeWH_HandlerSubscribe:
         for field, value in shipping_details.address.items():
             if value == '':
                 shipping_details.address[field] = None
-        
+
         member = None
         username = intent.metadata.username
         if username != 'AnonymousUser':
@@ -131,8 +131,8 @@ class StripeWH_HandlerSubscribe:
                     else:
                         subscription.delete()
                         return HttpResponse(
-                            content=f'Webhook received: {event["type"]} | ERROR {e}',
-                            status=500)
+                            content=f'Webhook received: {event["type"]} | '
+                            'ERROR {e}', status=500)
             except Exception as e:
                 if subscription:
                     subscription.delete()

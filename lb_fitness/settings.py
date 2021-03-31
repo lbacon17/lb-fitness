@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 DEBUG = 'DEVELOPMENT' in os.environ
 # DEBUG = True
 
-ALLOWED_HOSTS = ['lb-fitness.herokuapp.com', 'localhost',]
+ALLOWED_HOSTS = ['lb-fitness.herokuapp.com', 'localhost', ]
 
 
 # Application definition

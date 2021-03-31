@@ -40,7 +40,8 @@ def training_videos(request):
                 query = request.GET['q']
                 user = request.user
                 if not query:
-                    messages.error(request, "You didn't enter any search terms")
+                    messages.error(request, "You didn't enter any search "
+                                   "terms")
                     return redirect(reverse('training_videos'))
 
                 queries = Q(title__icontains=query) | Q(name__icontains=query) | Q(description__icontains=query)
@@ -55,7 +56,8 @@ def training_videos(request):
         }
         return render(request, 'videos/videos.html', context)
     else:
-        messages.error(request, 'Sorry, you must have a subscription to view this page.')
+        messages.error(request, 'Sorry, you must have a subscription to view '
+                       'this page.')
         return redirect(reverse('home'))
 
 
@@ -69,16 +71,18 @@ def add_video(request):
             if form.is_valid():
                 user = request.user
                 new_video = form.save()
-                messages.success(request, f'Video "{new_video.title}" successfully created.')
+                messages.success(request, f'Video "{new_video.title}" '
+                                 'successfully created.')
                 return redirect(reverse('video_details', args=[new_video.id]))
             else:
-                messages.error(request, 'Sorry, there was an error updating '\
-                    'the information. Please ensure all fields are filled '\
-                    'out correctly.')
+                messages.error(request, 'Sorry, there was an error updating '
+                               'the information. Please ensure all fields '
+                               'are filled out correctly.')
         else:
             form = VideoForm()
     else:
-        messages.error(request, 'Sorry, you do not have permission to view this page.')
+        messages.error(request, 'Sorry, you do not have permission to view '
+                       'this page.')
         return redirect(reverse('home'))
     template = 'videos/add_video.html'
     context = {
@@ -94,9 +98,10 @@ def video_details(request, video_id):
             Video.objects.annotate(average_rating=Avg('rating')), pk=video_id)
         if video.premium:
             if request.user.member.subscription_package.id == 1:
-                messages.error(request, 'Sorry, this video is only available to '\
-                                'premium members. Please purchase a premium or '\
-                                'VIP subscription to view this video.')
+                messages.error(request, 'Sorry, this video is only available '
+                               'to premium members. Please purchase a '
+                               'premium or VIP subscription to view this '
+                               'video.')
                 return redirect(reverse('training_videos'))
 
         comments = video.comments.filter(approved=True).order_by('-created_on')
@@ -109,13 +114,14 @@ def video_details(request, video_id):
                 new_comment.video = video
                 new_comment.user = request.user
                 new_comment.save()
-                messages.success(request, 'Your comment was successfully '\
-                    'submitted. It will appear beside the video once it '\
-                    'has been approved by an administrator.')
+                messages.success(request, 'Your comment was successfully '
+                                 'submitted. It will appear beside the '
+                                 'video once it has been approved by an '
+                                 'administrator.')
             else:
-                messages.error(request, 'Thre was an issue submitting your '\
-                    'comment. Please ensure you have filled out the form '\
-                    'correctly.')
+                messages.error(request, 'Thre was an issue submitting your '
+                               'comment. Please ensure you have filled '
+                               'out the form correctly.')
         else:
             comment_form = CommentForm()
 
@@ -129,7 +135,8 @@ def video_details(request, video_id):
         }
         return render(request, template, context)
     else:
-        messages.error(request, 'Sorry, you are not authorised to view this page.')
+        messages.error(request, 'Sorry, you are not authorised to view this '
+                       'page.')
         return redirect(reverse('home'))
 
 
@@ -144,17 +151,18 @@ def edit_video(request, video_id):
             user = request.user
             if form.is_valid():
                 form.save()
-                messages.success(request, 'The video information was '\
-                    'successfully updated.')
+                messages.success(request, 'The video information was '
+                                 'successfully updated.')
                 return redirect(reverse('training_videos'))
             else:
-                messages.error(request, 'Sorry, there was an error updating '\
-                    'the information. Please ensure all fields are filled '\
-                    'out correctly.')
+                messages.error(request, 'Sorry, there was an error updating '
+                               'the information. Please ensure all fields '
+                               'are filled out correctly.')
         else:
             form = VideoForm(instance=video)
     else:
-        messages.error(request, 'Sorry, you do not have permission to view this page.')
+        messages.error(request, 'Sorry, you do not have permission to view '
+                       'this page.')
         return redirect(reverse('home'))
 
     template = 'videos/edit_video.html'
@@ -214,8 +222,8 @@ def approve_comment(request, comment_id, video_id):
         messages.success(request, 'Successfully approved comment.')
         return redirect(reverse('video_details', args=[video.id]))
     else:
-        messages.error(request, 'Sorry, you do not have permission to perform '\
-                        'this action.')
+        messages.error(request, 'Sorry, you do not have permission to '
+                       'perform this action.')
         return redirect(reverse('home'))
 
 
@@ -228,8 +236,8 @@ def reject_comment(request, comment_id, video_id):
         messages.success(request, 'The comment was successfully rejected.')
         return redirect(reverse('video_details', args=[video.id]))
     else:
-        messages.error(request, 'Sorry, you do not have permission to '\
-            'perform that action.')
+        messages.error(request, 'Sorry, you do not have permission to '
+                       'perform that action.')
         return redirect(reverse('home'))
 
 
@@ -243,15 +251,15 @@ def update_comment(request, comment_id, video_id):
             updated_comment = comment_form.save(commit=False)
             updated_comment.approved = False
             updated_comment.save()
-            messages.success(request, 'Your comment was successfully updated. '\
-                'All edited comments must be re-approved by administrators. '\
-                'Your comment will re-appear on the page once it has been ' \
-                'approved.')
+            messages.success(request, 'Your comment was successfully updated.'
+                             ' All edited comments must be re-approved by '
+                             'administrators. Your comment will re-appear '
+                             'on the page once it has been approved.')
             return redirect(reverse('video_details', args=[video.id]))
         else:
-            messages.error(request, 'Sorry, there was an error updating '\
-                'your comment. Please ensure everything is filled out '\
-                'correctly.')
+            messages.error(request, 'Sorry, there was an error updating '
+                           'your comment. Please ensure everything is '
+                           'filled out correctly.')
             return redirect(reverse('video_details', args=[video.id]))
     else:
         comment_form = CommentForm(instance=comment)
@@ -263,6 +271,7 @@ def update_comment(request, comment_id, video_id):
         'video': video,
     }
     return render(request, template, context)
+
 
 @login_required
 def delete_comment(request, comment_id, video_id):
@@ -278,7 +287,6 @@ def delete_comment(request, comment_id, video_id):
         messages.success(request, 'Your comment was successfully deleted.')
         return redirect(reverse('video_details', args=[video.id]))
     else:
-        messages.error(request, 'Sorry, you do not have permission to '\
-            'perform that action.')
+        messages.error(request, 'Sorry, you do not have permission to '
+                       'perform that action.')
         return redirect(reverse('home'))
- 

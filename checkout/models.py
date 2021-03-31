@@ -13,7 +13,9 @@ from decimal import Decimal
 
 class ShopOrder(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
-    store_user = models.ForeignKey(StoreUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='shop_orders')
+    store_user = models.ForeignKey(StoreUser, on_delete=models.SET_NULL,
+                                   null=True, blank=True,
+                                   related_name='shop_orders')
     date = models.DateTimeField(auto_now_add=True)
     full_name = models.CharField(max_length=60, null=False, blank=False)
     email_address = models.EmailField(max_length=254, null=False, blank=False)
@@ -24,27 +26,35 @@ class ShopOrder(models.Model):
     county_or_region = models.CharField(max_length=50, null=True, blank=True)
     postcode = models.CharField(max_length=10, null=False, blank=False)
     country = CountryField(blank_label='Country *', null=False, blank=False)
-    delivery_charge = models.DecimalField(max_digits=6, decimal_places=2, null=False, default=0)
-    order_total = models.DecimalField(max_digits=8, decimal_places=2, null=False, default=0)
-    grand_total = models.DecimalField(max_digits=8, decimal_places=2, null=False, default=0)
+    delivery_charge = models.DecimalField(max_digits=6, decimal_places=2,
+                                          null=False, default=0)
+    order_total = models.DecimalField(max_digits=8, decimal_places=2,
+                                      null=False, default=0)
+    grand_total = models.DecimalField(max_digits=8, decimal_places=2,
+                                      null=False, default=0)
     shopping_cart = models.TextField(null=False, blank=False, default='')
-    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
+    stripe_pid = models.CharField(max_length=254, null=False, blank=False,
+                                  default='')
 
     def _generate_order_number(self):
         return uuid.uuid4().hex.upper()
 
     def update_cart_total(self):
-        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
+        self.order_total = (self.lineitems.aggregate
+                            (Sum('lineitem_total'))['lineitem_total__sum'] or
+                            0)
         vip = Member.objects.filter(is_vip=True)
         user = User.objects.filter(username=self.store_user)
         if vip == user:
-            self.order_total = Decimal(self.order_total * settings.VIP_DISCOUNT_PERCENTAGE / 100)
+            self.order_total = (Decimal(self.order_total *
+                                settings.VIP_DISCOUNT_PERCENTAGE / 100))
 
         if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
             if vip == user:
                 self.delivery_charge = 0
             else:
-                self.delivery_charge = Decimal(settings.STANDARD_DELIVERY_CHARGE)
+                self.delivery_charge = (Decimal(
+                                        settings.STANDARD_DELIVERY_CHARGE))
         else:
             self.delivery_charge = 0
         self.grand_total = self.order_total + self.delivery_charge
@@ -61,12 +71,14 @@ class ShopOrder(models.Model):
 
 class OrderLineItem(models.Model):
     shop_order = models.ForeignKey(ShopOrder, null=False, blank=False,
-        on_delete=models.CASCADE, related_name='lineitems')
-    item = models.ForeignKey(Product, null=False, blank=False, on_delete = models.CASCADE)
+                                   on_delete=models.CASCADE,
+                                   related_name='lineitems')
+    item = models.ForeignKey(Product, null=False, blank=False,
+                             on_delete=models.CASCADE)
     item_size = models.CharField(max_length=2, null=True, blank=True)
     quantity = models.IntegerField(null=False, blank=False, default=0)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2,
-        null=False, blank=False)
+                                         null=False, blank=False)
 
     def save(self, *args, **kwargs):
         self.lineitem_total = self.item.price * self.quantity

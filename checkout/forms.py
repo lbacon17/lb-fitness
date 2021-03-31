@@ -6,8 +6,8 @@ class ShopOrderForm(forms.ModelForm):
     class Meta:
         model = ShopOrder
         fields = ('full_name', 'email_address', 'phone_number',
-            'address_line1', 'address_line2', 'town_or_city',
-            'county_or_region', 'postcode', 'country',)
+                  'address_line1', 'address_line2', 'town_or_city',
+                  'county_or_region', 'postcode', 'country',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

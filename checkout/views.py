@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.shortcuts import (render, redirect, reverse, get_object_or_404,
+                              HttpResponse)
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
@@ -29,8 +30,8 @@ def cache_checkout_data(request):
         })
         return HttpResponse(status=200)
     except Exception as e:
-        messages.error(request, ('There was an issue processing' \
-            'your payment. Please try again later.'))
+        messages.error(request, 'There was an issue processing'
+                       'your payment. Please try again later.')
         return HttpResponse(content=e, status=400)
 
 
@@ -61,7 +62,7 @@ def load_checkout(request):
             for item_id, item_data in cart.items():
                 try:
                     item = Product.objects.get(id=item_id)
-                    # creates a line item for items without sizes
+                    # creates a line item for items without sizes
                     if isinstance(item_data, int):
                         order_line_item = OrderLineItem(
                             shop_order=shop_order,
@@ -80,25 +81,25 @@ def load_checkout(request):
                             )
                             order_line_item.save()
                 except Product.DoesNotExist:
-                    messages.error(request, ('We were unable to locate one '\
-                        'of the items in your cart in our database. '\
-                        'Please call our customer services team on 01234.'))
+                    messages.error(request, 'We were unable to locate one '
+                                   'of the items in your cart in our database.'
+                                   ' Please contact our customer services.')
                     shop_order.delete()
                     return redirect(reverse('load_cart'))
             request.session['save_user_info'] = 'save-user-info' in request.POST
             return redirect(reverse('order_confirmation',
-                                     args=[shop_order.order_number]))
+                            args=[shop_order.order_number]))
         else:
-            messages.error(request, ('We were unable to process your order. '\
-                                      'Please ensure you have filled out all '\
-                                      'fields in the form correctly.'))
+            messages.error(request, 'We were unable to process your order. '
+                           'Please ensure you have filled out all '
+                           'fields in the form correctly.')
     else:
         cart = request.session.get('cart', {})
         if not cart:
-            messages.error(request, 'Your cart is currently empty. Please add '\
-                            'at least one item to be able to check out.')
+            messages.error(request, 'Your cart is currently empty. Please add '
+                           'at least one item to be able to check out.')
             return redirect(reverse('shop'))
-        
+
         shopping_cart = cart_contents(request)
         total = shopping_cart['grand_total']
         stripe_total = round(total * 100)
@@ -129,9 +130,9 @@ def load_checkout(request):
         else:
             shop_order_form = ShopOrderForm()
     if not stripe_public_key:
-        messages.warning(request, ('Your Stripe public key is missing. Please '\
-            'ensure that you have set this in your environment.'))
-    
+        messages.warning(request, 'Your Stripe public key is missing. Please '
+                         'ensure that you have set this in your environment.')
+
     template = 'checkout/checkout.html'
     context = {
         'shop_order_form': shop_order_form,
@@ -163,17 +164,17 @@ def order_confirmation(request, order_number):
                 'default_country': shop_order.country,
             }
             store_user_form = StoreUserForm(user_profile_data,
-                                              instance=user_profile)
+                                            instance=user_profile)
             if store_user_form.is_valid():
                 store_user_form.save()
 
-    messages.success(request, f'Your order has been processed. Your order '\
-        f'number is {order_number}. We will send a confirmation e-mail to '\
-        f'{shop_order.email_address}.')
-    
+    messages.success(request, f'Your order has been processed. Your order '
+                     f'number is {order_number}. We will send a confirmation '
+                     f'e-mail to {shop_order.email_address}.')
+
     if 'cart' in request.session:
         del request.session['cart']
-    
+
     template = 'checkout/order_confirmation.html'
     context = {
         'shop_order': shop_order,

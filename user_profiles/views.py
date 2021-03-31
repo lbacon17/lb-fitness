@@ -27,13 +27,13 @@ def update_profile(request):
         form = StoreUserForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Your profile information was updated '\
-            '   successfully.')
+            messages.success(request, 'Your profile information was updated '
+                             'successfully.')
             return redirect(reverse('user_profile'))
         else:
-            messages.error(request, 'There was an error submitting your '\
-                'information. Please check that you have filled out all '\
-                'fields correctly.')
+            messages.error(request, 'There was an error submitting your '
+                           'information. Please check that you have '
+                           'filled out all fields correctly.')
     else:
         form = StoreUserForm(instance=profile)
 
@@ -48,13 +48,13 @@ def update_profile(request):
 def delete_account(request, user):
     user = request.user
     if request.user != user:
-        messages.error(request, 'Sorry, you do not have permission to view '\
-            'this page.')
+        messages.error(request, 'Sorry, you do not have permission to view '
+                       'this page.')
         return redirect(reverse('home'))
     else:
         user.delete()
-        messages.success(request, 'Your profile was delete. You will now be '\
-            'logged out and redirected to the homepage.')
+        messages.success(request, 'Your profile was deleted. You will now be '
+                         'logged out and redirected to the homepage.')
         return redirect(reverse('home'))
 
 

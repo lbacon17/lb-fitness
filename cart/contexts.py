@@ -6,7 +6,8 @@ from members.models import Member
 
 
 def cart_contents(request):
-    """This view calculates the cart's total cost by iterating through its contents"""
+    """This view calculates the cart's total cost by iterating through"""
+    """its contents"""
     items_in_cart = []
     total = 0
     count = 0

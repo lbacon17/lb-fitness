@@ -18,6 +18,8 @@ This file documents the testing process of the project.
 
 #### Python
 
+The code was passed through the [PEP8](https://pep8online.com/) validator. Four built-in lines in the settings file returned errors, these cannot be changed.
+
 #### JavaScript
 
 The code was passed through the [JSHint](https://jshint.com/) validator. No errors were found.

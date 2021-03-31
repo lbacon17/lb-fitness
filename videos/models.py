@@ -14,10 +14,11 @@ class Video(models.Model):
     name = models.CharField(max_length=254, null=False, blank=False)
     description = models.TextField(null=False, blank=False)
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00,
-        null=True, blank=True, validators=[MaxValueValidator(5),
-        MinValueValidator(0)])
-    length = models.DurationField(null=False, blank=False, 
-        default=timedelta(minutes=0))
+                                 null=True, blank=True,
+                                 validators=[MaxValueValidator(5),
+                                             MinValueValidator(0)])
+    length = models.DurationField(null=False, blank=False,
+                                  default=timedelta(minutes=0))
     video_file = models.FileField()
 
     def __str__(self):
@@ -26,10 +27,12 @@ class Video(models.Model):
 
 class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rated_video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='ratings')
-    rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00,
-        null=True, blank=True, validators=[MaxValueValidator(5),
-        MinValueValidator(0)])
+    rated_video = models.ForeignKey(Video, on_delete=models.CASCADE,
+                                    related_name='ratings')
+    rating = models.DecimalField(max_digits=3, decimal_places=2,
+                                 default=0.00, null=True, blank=True,
+                                 validators=[MaxValueValidator(5),
+                                             MinValueValidator(0)])
 
 
 class Comment(models.Model):
@@ -37,8 +40,11 @@ class Comment(models.Model):
     class Meta:
         verbose_name_plural = 'Comments'
 
-    video = models.ForeignKey(Video, null=False, blank=False, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    video = models.ForeignKey(Video, null=False, blank=False,
+                              on_delete=models.CASCADE,
+                              related_name='comments')
+    user = models.ForeignKey(User, null=True, blank=True,
+                             on_delete=models.SET_NULL)
     content = models.TextField(null=False, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)

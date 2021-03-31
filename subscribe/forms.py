@@ -5,11 +5,11 @@ from .models import Subscription
 class SubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
-        fields = ('full_name','email_address', 'cardholder_name',
+        fields = ('full_name', 'email_address', 'cardholder_name',
                   'phone_number', 'address_line1', 'address_line2',
                   'town_or_city', 'county_or_region', 'postcode',
                   'country',)
-    
+
     def __init__(self, *args, **kwargs):
         """
         Add placeholders and classes, remove auto-generated

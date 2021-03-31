@@ -35,7 +35,8 @@ class MembershipForm(forms.ModelForm):
 
         def save(self, package_id):
             package = get_object_or_404(Package, pk=package_id)
-            user_membership = Member.objects.create(user=user, package=self.package)
+            user_membership = Member.objects.create(user=user,
+                                                    package=self.package)
             user_membership.save()
             user = super().save(commit=False)
             user.save()
