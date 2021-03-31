@@ -9,7 +9,7 @@ body {
     background-color: #fafafa;
 }
 
-/*-- navbar components --*/
+/*-- NAVBAR COMPONENTS --*/
 
 .navbar-nav .nav-item .nav-link {
     font-family: 'RocknRoll One', sans-serif;
@@ -61,7 +61,7 @@ body {
     font-size: 0.7rem;
 }
 
-/*-- main body --*/
+/*-- MAIN BODY --*/
 
 .deals-heading {
     display: none;
@@ -123,7 +123,7 @@ main {
     text-decoration: none;
 }
 
-/*-- cart page --*/
+/*-- CART PAGE --*/
 
 .update-quantity,
 .remove-item {

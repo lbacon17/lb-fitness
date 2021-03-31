@@ -162,7 +162,6 @@ def get_subscription(request, package_id):
         subscription_cart = request.session.get('subscription_cart', {})
         if not subscription_cart:
             messages.error(request, "You didn't select a subscription")
-            # return redirect(reverse('subscribe_page'))
 
         current_cart = subscription_cart_contents(request)
         grand_total = current_cart['grand_total']
@@ -216,8 +215,6 @@ def subscription_confirmation(request, subscription_id):
     member = Member.objects.get(user=request.user)
     subscription.member = member
     subscription.save()
-    # fix_bug = Subscription.objects.filter(member=None)
-    # fix_bug.update(member=1)
 
     if save_member_info:
         member_data = {

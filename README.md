@@ -178,6 +178,7 @@ I used [Balsamiq](https://balsamiq.com/wireframes/) to design wireframes for thi
 
 * Pagination for shop products, videos, comments and user order history to limit the number of items on each page so that the user doesn't have to scroll too far to locate a record
     * The user could also choose how many search results they would like per page, e.g. 20, 50, 100
+* The ability for users to add store items to their favourites and have these rendered on the shop page.
 * The ability for users to freeze, unfreeze, upgrade or downgrade subscriptions
     * Freezing a subscription would simply set the active field in the Subscription model to false, and the user would not have access to the materials in this time
     * Unfreezing the subscription would set the active field back to true, and the user would be able to access the materials again
