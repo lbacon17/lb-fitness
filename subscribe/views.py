@@ -161,7 +161,9 @@ def get_subscription(request, package_id):
     else:
         subscription_cart = request.session.get('subscription_cart', {})
         if not subscription_cart:
+            print('hello')
             messages.error(request, "You didn't select a subscription")
+            return redirect(reverse('subscribe_page'))
 
         current_cart = subscription_cart_contents(request)
         grand_total = current_cart['grand_total']

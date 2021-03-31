@@ -351,6 +351,8 @@ def add_package_to_cart(request, package_id):
 
 * **Bug**: The autocomplete feature for video searching does not yet work, despite being implemented in the same way as the search feature for the site's store. Unfortunately, I have not had time to fix this.
 
+* **Bug**: When registering for the site, a message pops up notifying the user a confirmation e-mail has been sent, but uses the error toast due to the classification, when it should be a success. However, this appears to be a built-in Django view.
+
 [Back to TOC](#table-of-contents)
 
 [Back to README](README.md)
