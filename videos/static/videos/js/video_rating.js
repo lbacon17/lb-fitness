@@ -1,9 +1,9 @@
 // gets each rating star
-var one = document.getElementById("first-{{ video.id }}");
-var two = document.getElementById("second-{{ video.id }}");
-var three = document.getElementById("third-{{ video.id }}");
-var four = document.getElementById("fourth-{{ video.id }}");
-var five = document.getElementById("fifth-{{ video.id }}");
+var one = document.getElementById("first");
+var two = document.getElementById("second");
+var three = document.getElementById("third");
+var four = document.getElementById("fourth");
+var five = document.getElementById("fifth");
 
 var ratingForm = document.querySelector('.rating-form');
 var ratingConfirmation = document.getElementById('rating-confirmation');
@@ -24,23 +24,23 @@ function handleStarSelect(size) {
 // determines how many stars to check
 function handleSelect(selection) {
     switch(selection){
-        case 'first-{{ video.id }}': {
+        case 'first': {
             handleStarSelect(1);
             return;
         }
-        case 'second-{{ video.id }}': {
+        case 'second': {
             handleStarSelect(2);
             return;
         }
-        case 'third-{{ video.id }}': {
+        case 'third': {
             handleStarSelect(3);
             return;
         }
-        case 'fourth-{{ video.id }}': {
+        case 'fourth': {
             handleStarSelect(4);
             return;
         }
-        case 'fifth-{{ video.id }}': {
+        case 'fifth': {
             handleStarSelect(5);
             return;
         }
@@ -52,15 +52,15 @@ function handleSelect(selection) {
 
 function getNumericValue(stringValue) {
     let numericValue;
-    if (stringValue === 'first-{{ video.id }}') {
+    if (stringValue === 'first') {
         numericValue = 1;
-    } else if (stringValue === 'second-{{ video.id }}') {
+    } else if (stringValue === 'second') {
         numericValue = 2;
-    } else if (stringValue === 'third-{{ video.id }}') {
+    } else if (stringValue === 'third') {
         numericValue = 3;
-    } else if (stringValue === 'fourth-{{ video.id }}') {
+    } else if (stringValue === 'fourth') {
         numericValue = 4;
-    } else if (stringValue === 'fifth-{{ video.id }}') {
+    } else if (stringValue === 'fifth') {
         numericValue = 5;
     } else {
         numericValue = 0;

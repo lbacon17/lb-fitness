@@ -125,7 +125,7 @@
     * Click Add Statement followed by Generate Policy
     * Copy the policy from the pop-up box into the Bucket Policy Editor
     * Add "/*' onto the end of the Resource key value to allow access to all the resources in the bucket
-        * The ARN should be have the format ```arn:aws:s3:::bucket-name```
+        * The ARN should have the format ```arn:aws:s3:::bucket-name```
     * Click save changes
     * In the Access control list section under Permissions, go to Public Access and set the check the List permission in the Everyone field
 

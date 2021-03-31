@@ -71,37 +71,4 @@
 {{ block.super }}
     <script src="{% static 'videos/js/video_rating.js' %}"></script>
     {% include 'videos/includes/delete_confirmation_script.html' %}
-    <script type="text/javascript">
-        // enables video sorting. Credit to Boutique Ado project that provides the basis for this logic
-        $('#sort-videos').change(function() {
-            var selector = $(this);
-            var currentUrl = new URL(window.location);
-
-            var selectedVal = selector.val();
-            if (selectedVal != "reset") {
-                var sort = selectedVal.split("_")[0]; // "price etc."
-                var direction = selectedVal.split("_")[1]; // "asc" or "desc"
-
-                currentUrl.searchParams.set("sort", sort); // sort=price
-                currentUrl.searchParams.set("direction", direction); //direction=asc
-
-                window.location.replace(currentUrl);
-            } else {
-                currentUrl.searchParams.delete("sort");
-                currentUrl.searchParams.delete("direction");
-
-                window.location.replace(currentUrl);
-            }
-        });
-
-        // Offers autocomplete suggestions for search bar on input of first 2 chars
-        $(function() {
-            $('#videos-search').autocomplete({
-                source: "{% url 'videos_autocomplete' %}",
-                minLength: 2,
-            });
-        });
-
-        $('textarea').attr('rows', '5');
-    </script>
 {% endblock %}

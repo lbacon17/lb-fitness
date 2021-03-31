@@ -2,7 +2,7 @@
 
 ![](libraries/readme_images/site_responsiveness.png)
 
-Welcome to LB Fitness. This application exists to give users actionable fitness advice by providing subscription-based content, and also gives them the opportunity to buy merchandise. It offers subscriptions suitable to both beginners and more experienced, advanced individuals and aims to create a community of users who are passionate about fitness. With this application, members will have a platform to comment on its content, offer an exchange of opinions and monitor each other's progress.
+Welcome to LB Fitness. This application exists to give users actionable fitness advice by providing subscription-based content, and also gives them the opportunity to buy merchandise. It offers subscriptions suitable to both beginners and more experienced, advanced individuals and aims to create a community of users who are passionate about fitness. With this application, members will have a platform to comment on its content, offer an exchange of opinions, and monitor each other's progress.
 
 The website serves the following core purposes:
 
@@ -46,7 +46,7 @@ The website is mainly based on Bootstrap's grid layout, and makes use of a numbe
 
 Datasets consist of one item per row on extra small screens, one or two items per row on small screens, 2 or 3 items per row on medium screens, 3 items per row on large screens, and 3 or 4 items per row on extra large screens. Any page or app with potentially varying amounts of data is fully responsive at all screen sizes and the site's structural integrity is not harmed. Data pertaining to user history or key information is formatted in a table to make information easily accessible to the user.
 
-User feedback is clear, with messages appearing in a card at the top left of the screen (top centre on mobile devices with reduced font-sizes for optimal user-friendliness). The user is immediately notified of the nature of the message by the background colour of the card title - a green colour indicates a success message i.e. the user has successfully performed and completed an action, a red colour indicates an error message, yellow indicates a warning to the user and blue simply indicates some information that the user may wish to be aware of. All messages are dismissible with a click of the 'x' in the top-right corner of the card, so that the user does not have to keep reading the message once it has been acknowledged.
+User feedback is clear, with messages appearing in a card at the top left of the screen (top centre on mobile devices with reduced font sizes for optimal user-friendliness). The user is immediately notified of the nature of the message by the background colour of the card title - a green colour indicates a success message i.e. the user has successfully performed and completed an action, a red colour indicates an error message, yellow indicates a warning to the user and blue simply indicates some information that the user may wish to be aware of. All messages are dismissible with a click of the 'x' in the top-right corner of the card, so that the user does not have to keep reading the message once it has been acknowledged.
 
 All delete actions initiated by the user that will result in data being permanently deleted trigger a modal pop-up box, asking the user to confirm that they really want to delete something in the event that they mistakenly clicked that button. The user can select cancel, marked with a more neutral grey background, if they do not wish to delete a piece of data, or confirm, which will initiate the deletion process. Note that this does not apply to a user removing an item from their shopping cart, as the item will still be retrievable in the store and the user can re-add it if they wish. Asking the user to confirm every individual action may frustrate them and unnecessarily slow down their navigation of the app. All buttons that perform a delete action have a red background.
 
@@ -262,6 +262,8 @@ class and experiment in real time with new style rules and their effect on the s
 
 **Other**
 * [Django Secret Key Generator](https://miniwebtool.com/django-secret-key-generator/): for the app's secret key
+* [Temp Mail](https://temp-mail.org/): for temporary e-mail addresses to assign test users
+* [Grammarly](https://www.grammarly.com/): for checking for typos and grammatical errors in the README, TESTING and DEPLOYMENT files
 
 [Back to TOC](#table-of-contents)
 

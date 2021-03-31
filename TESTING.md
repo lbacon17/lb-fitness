@@ -113,7 +113,7 @@ Smooth scroll behaviour is not supported on Safari, meaning the page jumps right
         * If I'm sure I want to delete my comment, I click Delete again and my comment has now disappeared
 * As a member on the most expensive plan, I want to be able to buy items from the store at a discounted price as a reward for my loyalty.
     * I can see that one of the features of the VIP plan is a 50% discount and free delivery on all store orders
-    * I subscribe to the VIP plan, navigate to my dashboard and see confirmation that I can store items at a dscount
+    * I subscribe to the VIP plan, navigate to my dashboard and see confirmation that I can store items at a discount
     * I use the navbar to visit the Shop page and can see the usual price of each item is crossed out with a discounted price available
     * I add a few items to my cart and the total is half of what it would usually be
     * If I go to the checkout page, the total amount my card will be charged is 50% of the usual price and I can see delivery has remained at £0.00, even if my order is under £50
@@ -131,7 +131,7 @@ Smooth scroll behaviour is not supported on Safari, meaning the page jumps right
     * If I click on an individual order number, I can view further details such as the contents of the order
     * If I haven't placed any orders yet, the table tells me that I don't have any order history
 * As a member, I want to be able to cancel my subscription
-    * I go to my dashboard or profile page and click the Cancel Susbcription button, which triggers a pop-up box asking me to confirm
+    * I go to my dashboard or profile page and click the Cancel Subscription button, which triggers a pop-up box asking me to confirm
     * If I accidentally clicked Cancel, I click the Back button to safely dismiss the pop-up box
         * Note that this button is named Back rather than Cancel, because the action here is to cancel the subscription, so having two buttons with the word cancel could potentially confuse the user
     * To confirm cancellation, I click Cancel Subscription again and I am notified that my subscription has been cancelled
@@ -169,8 +169,8 @@ Smooth scroll behaviour is not supported on Safari, meaning the page jumps right
     * If I enter incorrect payment details when checking out, the app will return an error informing me that my card details are invalid and prevent the order from processing
     * If I check out again, I have to re-enter my card details so that I know they have not been stored anywhere 
 * As a user, I want to see confirmation of my order after completing a purchase.
-    * After I my order has been processed, I am redirected to an order confirmation page where I can see the details of my order
-    * This page does does not automatically redirect after a given time so I can stay on it as long as I like and take my time reading about my order, with a button to take me back to the homepage once I'm done
+    * After my order has been processed, I am redirected to an order confirmation page where I can see the details of my order
+    * This page does not automatically redirect after a given time so I can stay on it as long as I like and take my time reading about my order, with a button to take me back to the homepage once I'm done
     * Even once I've left this page, I can go to my profile page and locate the order in my order history
         * As the orders are ordered by date, starting with the newest, my order should be at the top of the table
         * If I click on the order number, I can view the details of the order again 
@@ -184,7 +184,7 @@ Smooth scroll behaviour is not supported on Safari, meaning the page jumps right
     * I enter a search term in the search field within the navbar and am redirected to the shop page that displays all the results containing my search parameter along with the number of items found
     * If my search query returned no items, I can click a button to view all the shop's products so I don't have to come off the shop page or scroll back to the top of the screen to enter another query
 * As a user, I want to be able to filter products in the store according to category
-    * In the Shop dropdown menu, I navigate to the cateogry I want to browse and click on it
+    * In the Shop dropdown menu, I navigate to the category I want to browse and click on it
     * The page now only displays items in the selected category, and tells me how many currently exist
 * As a member, I want to be able to search for material that I have access to so that I can easily find what I'm looking for and see the number of results my query returned
     * I navigate to the Videos page, enter a search term in the search bar above the videos and am shown all the videos that contain my search parameter along with the number of items found, with a button to view all videos
@@ -283,7 +283,7 @@ During testing the following bugs were noted:
         </form>
     ```
 
-* **Bug**: trying to prevent users from accessing the subscribe page was problematic, as using the request.user.member path would throw an error when a non-susbcriber tried to access the page. Using an ```if request.user.is_authenticated``` statement only helped users not logged in see the page, but the same error would be returned when they logged in to get a subscription. 
+* **Bug**: trying to prevent users from accessing the subscribe page was problematic, as using the request.user.member path would throw an error when a non-subscriber tried to access the page. Using an ```if request.user.is_authenticated``` statement only helped users not logged in see the page, but the same error would be returned when they logged in to get a subscription. 
 * **Fix**: I used the filter method to fetch an object from member that only returned the existing user's username in the user field. If it returned a result, that would mean the user already had a subscription, so a code block would run that redirected the user back to the homepage. If the member variable doesn't exist, the user is free to purchase a subscription.
 
 ```
@@ -331,6 +331,9 @@ def add_package_to_cart(request, package_id):
 
 * **Bug**: When updating the quantity of an item with sizes in the shopping cart, the size would disappear after the update.
 * **Fix**: After some research, I discovered that the hidden input field with the name of "item_size" was missing from the quantity form. Inserting it solved the issue.
+
+* **Bug**: On a couple of occasions, deleting an item from the store crashed the entire app, and no page was accessible.
+* **Fix**: It is not clear what causes this issue, but it is solved by opening DevTools and clearing site data.
 
 ### Unsolved Bugs
 
