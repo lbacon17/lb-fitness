@@ -2,5 +2,23 @@
 {% load static %}
 
 {% block content %}
-
+    <div class="container-fluid mt-5 text-center">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="my-3">About LB Fitness</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-12">
+                <p>
+                    LB Fitness is a fictional fitness subscription application founded by Louis Bacon in 2021. It provides its members with top-quality training content and advice to help them achieve their fitness goals, and sells merchandise to help you look and feel great!
+                </p>
+                <p>
+                    Look out for more information coming soon. In the meantime, don't hesitate to <a href="{% url 'contact' %}" class="text-dark text-dec-none">contact us</a>!
+                </p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

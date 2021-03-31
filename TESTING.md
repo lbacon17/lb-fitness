@@ -18,19 +18,24 @@ This file documents the testing process of the project.
 
 #### Python
 
-The code was passed through the [PEP8](https://pep8online.com/) validator. Four built-in lines in the settings file returned errors, these cannot be changed.
+The code was passed through the [PEP8](https://pep8online.com/) validator. The vast majority of the code passed through with no issues. Some files had lines that exceeded 80 characters but were impossible to break up. As these don't affect the performance of the app, I decided to leave these as they are. Four built-in Django lines in the settings file relating to password validators also returned errors for being too long. As these should not be changed, I left these as they are. 
+
+![Python validation](/libraries/code_validation/python/python_validation_pep8_01.png)
+![Python validation errors 1](/libraries/code_validation/python/python_validation_pep8_02.png)
+![Python validation errors 2](/libraries/code_validation/python/python_validation_pep8_03.png)
+![Python validation errors 3](/libraries/code_validation/python/python_validation_pep8_04.png)
 
 #### JavaScript
 
 The code was passed through the [JSHint](https://jshint.com/) validator. No errors were found.
 
-![JSHint validation](/libraries/code_validation/js_validation_jshint.png)
+![JSHint validation](/libraries/code_validation/js/js_validation_jshint.png)
 
 #### CSS
 
 The code was passed through the [Jigsaw](https://jigsaw.w3.org/) validator. No errors were found.
 
-![Jigsaw validation](/libraries/code_validation/css_validation_jigsaw.png)
+![Jigsaw validation](/libraries/code_validation/css/css_validation_jigsaw.png)
 
 #### HTML
 
