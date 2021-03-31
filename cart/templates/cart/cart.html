@@ -26,7 +26,7 @@
                     <thead>
                         <tr>
                             <th scope="col" class="cart-table-heading px-0">Item</th>
-                            <th scope="col" class="cart-table-heading px-0"></th>
+                            <th scope="col" class="cart-table-heading px-0 d-none d-md-inline"></th>
                             <th scope="col" class="cart-table-heading px-0">Price</th>
                             <th scope="col" class="cart-table-heading px-0">Quantity</th>
                             <th scope="col" class="cart-table-heading px-0">Subtotal</th>
@@ -35,7 +35,7 @@
                     </thead>
                     {% for item in items_in_cart %}
                         <tr class="border-dark">
-                            <td class="col-md-2 px-0">
+                            <td class="col-2 col-md-2 px-0">
                                 <p class="mb-1 cart-table-cell">{{ item.item.friendly_name }}</p>
                                 <p class="small cart-table-cell">Size: {% if item.item.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
                             </td>
@@ -46,7 +46,7 @@
                                     <img src="{{ MEDIA_URL }}noimage.png" alt="{{ item.item.friendly_name }}" class="img-fluid">
                                 {% endif %}
                             </td>
-                            <td class="col-md-2 px-0">
+                            <td class="col-2 col-md-2 px-0">
                                 <p class="mb-1 cart-table-cell">
                                     {% if request.user.member.subscription_package.id == 3 %}
                                         £{{ item.item.price | calc_discount_price }}
@@ -55,7 +55,7 @@
                                     {% endif %}
                                 </p>
                             </td>
-                            <td class="col-md-3 px-0">
+                            <td class="col-4 col-md-3 px-0">
                                 <p class="mb-1 cart-table-cell">
                                     <form method="POST" class="quantity-form" action="{% url 'update_cart' item.item_id %}">
                                         {% csrf_token %}
@@ -79,7 +79,7 @@
                                     <a class="update-quantity btn btn-dark text-white mt-1">Update</a>
                                 </p>
                             </td>
-                            <td class="col-md-2 px-0">
+                            <td class="col-2 col-md-2 px-0">
                                 <p class="cart-table-cell">
                                     {% if request.user.member.subscription_package.id == 3 %}
                                         £{{ item.item.price | calc_subtotal:item.quantity | calc_discount_price }}
@@ -88,7 +88,7 @@
                                     {% endif %}
                                 </p>
                             </td>
-                            <td class="col-md-1 px-0">
+                            <td class="col-2 col-md-1 px-0">
                                 <a id="remove_{{ item.item_id }}" class="remove-item bg-danger text-white btn-sm" data-item_size="{{ item.size }}">
                                     <i class="fas fa-times" data-bs-toggle="tooltip" title="Remove item {{ item.item.friendly_name }}{% if item.item.has_sizes %} Size {{ item.size|upper }}{% endif %}"></i>
                                 </a>

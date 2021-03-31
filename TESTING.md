@@ -335,6 +335,9 @@ def add_package_to_cart(request, package_id):
 * **Bug**: On a couple of occasions, deleting an item from the store crashed the entire app, and no page was accessible.
 * **Fix**: It is not clear what causes this issue, but it is solved by opening DevTools and clearing site data.
 
+* **Bug**: On some pages, when closing the modal pop-up with one of the buttons, the background remained faded out and all links and buttons were inaccessible. You needed to refresh the page to be able to use it again.
+* **Fix**: I solved the issue by replacing the ```data-dimiss```, ```data-toggle``` and ```data-target``` attributes with ```data-bs-dismiss```, ```data-bs-toggle``` and ```data-bs-target```.
+
 ### Unsolved Bugs
 
 * **Bug**: VIP users receive a 50% shop discount and free delivery in the app. Currently, all store items show the discounted price and the cart's total is calculated correctly, yet after checking out, the full price is shown in the order confirmation and shows up like this in the admin panel. The user is also charged for delivery if the order is under £50. However, the correct amount is shown in the Stripe payment history.

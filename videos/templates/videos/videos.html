@@ -114,7 +114,7 @@
                             <div class="row mb-5 mt-2">
                                 <div class="col-12">
                                     <a href="{% url 'edit_video' video.id %}" class="btn-primary btn text-dec-none">Edit</a>
-                                    <button type="button" id="modal-trigger-video-{{ video.id }}" class="btn btn-danger text-dec-none" data-toggle="modal" data-target="#video-{{ video.id }}">
+                                    <button type="button" id="modal-trigger-video-{{ video.id }}" class="btn btn-danger text-dec-none" data-bs-toggle="modal" data-bs-target="#video-{{ video.id }}">
                                         Delete
                                     </button>
                                     {% include 'videos/includes/delete_video_modal_popup.html' %}
@@ -134,7 +134,9 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<script src="{% static 'videos/js/video_rating.js' %}"></script>
+    {% for video in videos %}
+        <script src="{% static 'videos/js/video_rating.js' %}"></script>
+    {% endfor %}
     {% include 'videos/includes/delete_confirmation_script.html' %}
     <script type="text/javascript">
         // Enables video sorting. Credit to Chris Z. (ckz8780) for supplying the basis for this logic in Boutique Ado

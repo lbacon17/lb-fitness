@@ -1,18 +1,18 @@
 <script type="text/javascript">
     // Hides modal element from user's initial view
-    $('#video-{{ video.id }}').modal('hide');
-    $('#comment-{{ video.id }}-{{ comment.id }}').modal('hide');
+    // $('#video-{{ video.id }}').modal('hide');
+    // $('#comment-{{ video.id }}-{{ comment.id }}').modal('hide');
 
     // Displays pop-up box to confirm deletion of an item
-    var modalTrigger = document.getElementById('modal-trigger-video-{{ video.id }}');
-    modalTrigger.addEventListener('click', function() {
-        var modalPopup = document.getElementById('{{ video.id }}');
-        $('#video-{{ video.id }}').modal('show');
-    });
+    // var modalTrigger = document.getElementById('modal-trigger-video-{{ video.id }}');
+    // modalTrigger.addEventListener('click', function() {
+    //     var modalPopup = document.getElementById('{{ video.id }}');
+    //     $('#video-{{ video.id }}').modal('show');
+    // });
 
-    var modalCommentTrigger = document.getElementById('modal-trigger-comment-{{ video.id }}-{{ comment.id }}');
-    modalCommentTrigger.addEventListener('click', function() {
-        var modalCommentPopup = document.getElementById('comment-{{ video.id }}-{{ comment.id }}');
-        $('#comment-{{ video.id }}-{{ comment.id }}').modal('show');
-    });
+    // var modalCommentTrigger = document.getElementById('modal-trigger-comment-{{ video.id }}-{{ comment.id }}');
+    // modalCommentTrigger.addEventListener('click', function() {
+    //     var modalCommentPopup = document.getElementById('comment-{{ video.id }}-{{ comment.id }}');
+    //     $('#comment-{{ video.id }}-{{ comment.id }}').modal('show');
+    // });
 </script>
