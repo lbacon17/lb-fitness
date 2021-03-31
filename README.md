@@ -289,6 +289,8 @@ To read about the deployment process, please see the separate [DEPLOYMENT.md](DE
 
 The shop, cart and checkout applications are based heavily on the materials provided in the [Boutique Ado](https://github.com/ckz8780/boutique_ado_v1/) project in the Full Stack Frameworks with Django module, delivered by [Chris Z. (ckz8780)](https://github.com/ckz8780/). Much of the software written for these applications draws on this project's source code and follows a similar structure, while some chunks such as the webhooks and JavaScript logic for handling secure payments are directly lifted. Credit should be given to Chris where this is the case.
 
+The star ratings feature on the videos page followed the instructions of this [YouTube tutorial](https://www.youtube.com/watch?v=iz1GB_q5txM/).
+
 The website uses a number of components from Bootstrap, such as the navbar, card panels and buttons. The site's icons also come from Font Awesome.
 
 The sample training videos are free-to-use videos taken from [Pexels](https://www.pexels.com/search/videos/gym/). The product images come from [Lululemon](https://shop.lululemon.com/) (clothing and apparel), [Muscle Food](https://www.musclefood.com/) (meal prep and supplements) and [Pinterest](https://www.pinterest.com/) (accessories). If the copyright owners of these images wish to have them removed, please e-mail me at louis.bacon17@gmail.com or use the app's [Contact Form](https://lb-fitness.herokuapp.com/contact/) to submit a takedown request.

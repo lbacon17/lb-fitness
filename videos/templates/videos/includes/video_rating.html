@@ -1,19 +1,14 @@
 <form action="" class="rating-form d-inline-flex" method="POST" id="{{ video.id }}">
     {% csrf_token %}
-    <button type="submit" id="first" class="rating-button px-1 {% if video.rating >= 0.50 %}rated fas{% else %}far{% endif %} fa-star">
-    
+    <button type="submit" id="first-{{ video.id }}" class="rating-button px-1 {% if video.rating >= 0.50 %}rated fas{% else %}far{% endif %} fa-star">
     </button>
-    <button type="submit" id="second" class="rating-button px-1 {% if video.rating >= 1.50 %}rated fas{% else %}far{% endif %} fa-star">
-        
+    <button type="submit" id="second-{{ video.id }}" class="rating-button px-1 {% if video.rating >= 1.50 %}rated fas{% else %}far{% endif %} fa-star">   
     </button>
-    <button type="submit" id="third" class="rating-button px-1 {% if video.rating >= 2.50 %}rated fas{% else %}far{% endif %} fa-star">
-        
+    <button type="submit" id="third-{{ video.id }}" class="rating-button px-1 {% if video.rating >= 2.50 %}rated fas{% else %}far{% endif %} fa-star">  
     </button>
-    <button type="submit" id="fourth" class="rating-button px-1 {% if video.rating >= 3.50 %}rated fas{% else %}far{% endif %} fa-star">
-        
+    <button type="submit" id="fourth-{{ video.id }}" class="rating-button px-1 {% if video.rating >= 3.50 %}rated fas{% else %}far{% endif %} fa-star">    
     </button>
-    <button type="submit" id="fifth" class="rating-button px-1 {% if video.rating >= 4.50 %}rated fas{% else %}far{% endif %} fa-star">
-        
+    <button type="submit" id="fifth-{{ video.id }}" class="rating-button px-1 {% if video.rating >= 4.50 %}rated fas{% else %}far{% endif %} fa-star"> 
     </button>    
 </form>
 <span>{{ video.rating }}</span>
