@@ -1,4 +1,4 @@
-<form action="" class="rating-form d-inline-flex" method="POST" id="{{ video.id }}">
+<form action="{% url 'rate_video' %}" class="rating-form d-inline-flex" method="POST" id="{{ video.id }}">
     {% csrf_token %}
     <button type="submit" id="first-{{ video.id }}" class="rating-button px-1 {% if video.rating >= 0.50 %}rated fas{% else %}far{% endif %} fa-star">
     </button>

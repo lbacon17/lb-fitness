@@ -343,6 +343,8 @@ def add_package_to_cart(request, package_id):
 * **Bug**: Payment intents don't succeed when the user checks out with a subscription, but do when they check out from the store. Each checkout requires a separate endpoint, and Stripe sends webhooks to all endpoints by default. Although the payment intent doesn't succeed with Stripe, the subscription still appears in the Django admin with the correct amount, and the user gains access to the subscription material.
     * Several tutor sessions did not manage to resolve this issue. Although this would obviously be an issue if this were a real store, I feel it is better to leave this issue unsolved in the testing phase to demonstrate the app's functionality and the possibility to give a user further access to the site when completing a purchase.
 
+* **Bug**: The autocomplete feature for video searching does not yet work, despite being implemented in the same way as the search feature for the site's store. Unfortunately, I have not had time to fix this.
+
 [Back to TOC](#table-of-contents)
 
 [Back to README](README.md)
