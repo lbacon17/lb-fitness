@@ -2,7 +2,27 @@
 
 ![](libraries/readme_images/site_responsiveness.png)
 
-Welcome to LB Fitness. This application is a place for users to educate themselves about the basics of fitness...
+Welcome to LB Fitness. This application exists to give users actionable fitness advice by providing subscription-based content, and also gives them the opportunity to buy merchandise. It offers subscriptions suitable to both beginners and more experienced, advanced individuals and aims to create a community of users who are passionate about fitness. With this application, members will have a platform to comment on its content, offer an exchange of opinions and monitor each other's progress.
+
+The website serves the following core purposes:
+
+1. Sell subscriptions with which members can access training content that they can use to reach their goals
+1. Invite users with a passion for fitness to form a community and talk to each other as much as possible
+1. Sell fitness-related products to its key target market
+
+Anyone can purchase a product from the store without even registering for an account, but users need an account to subscribe to the app (become a member). Creating an account is free, but this does not give the user a subscription. A user must decide which subscription plan to buy before becoming a member. The breakdown of the type of user is therefore as follows:
+
+* **Guests**: can place an order from the store and submit a contact request - no account needed
+* **Registered users**: can place an order from the store and save their contact details and delivery information for future orders - account needed but no subscription needed
+* **Members**: can access exclusive video content and interact with each other - account and subscription needed
+
+The app would be of interest to:
+
+* Fitness beginners who would benefit from walkthroughs and tutorials to help them feel more confident in their training
+* Fitness enthusiasts with a little experience who can still benefit from a little guidance
+* People who are passionate about fitness and enjoy meeting and communicating with like-minded people
+* People who love talking about fitness and sharing their opinions
+* Regular consumers of fitness merchandise, including clothing, prepped meals, supplements and accessories
 
 This application was inspired by one of the [Code Institute](https://codeinstitute.net/)'s project ideas: **build a fitness subscription application**.
 
@@ -88,6 +108,8 @@ Forms on the website utilise the django-crispy-forms package for maximum respons
 [Back to TOC](#table-of-contents)
 
 #### Wireframes
+
+I used [Balsamiq](https://balsamiq.com/wireframes/) to design wireframes for this application. They can be viewed [here](libraries/wireframes). Note that these wireframes were mostly drawn up prior to creating the project's repository, so the actual content and layout may appear markedly different in places.
 
 ### Features
 
