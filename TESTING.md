@@ -39,7 +39,7 @@ The code was passed through the [Jigsaw](https://jigsaw.w3.org/) validator. No e
 
 #### HTML
 
-The code was passed through the [W3](https://validator.w3.org/) validator. The validator returned several errors and warnings, all of which related to the use of template tags as attribute values. The validator also threw a number of fatal errors when coming across for loops. Removing these from the direct input allowed validation to continue, and no further errors were shown other than those of the nature mentioned.
+The code was passed through the [W3](https://validator.w3.org/) validator. The validator returned several errors and warnings, all of which related to the use of template variables and template tags as attribute values, as the validator is unable to recognise these. The validator also threw a number of fatal errors when coming across for loops. Removing these from the direct input allowed validation to continue, and no further errors were shown other than those of the nature mentioned.
 
 As the causes of the warnings enhance rather than hinder the application's performance, and it would not be possible to connect the back and front end of the application without them, these can be ignored.
 

@@ -1,3 +1,11 @@
+# **[LB Fitness](https://lb-fitness.herokuapp.com/)**
+
+# Deployment
+
+This file documents the process of deploying a Django project to Heroku using Amazon Web Services (AWS) for storage of static and media files.
+
+## [Back to README](README.md)
+
 #### To deploy the app to Heroku using Gitpod.
 
 1. Install the Heroku toolbelt via the terminal with the command ```npm install -g heroku``` and login by typing ```heroku login -i``` and entering the e-mail address and password you use for your Heroku account
@@ -253,3 +261,5 @@
     * You can test that e-mail verification and confirmation works by obtaining a temporary e-mail address from [https://temp-mail.org/](temp-mail.org) and using it to register for your app
 
 1. Deploy to Heroku again, and you should have a fully functional application that sends e-mails.
+
+## [Back to README](README.md)
